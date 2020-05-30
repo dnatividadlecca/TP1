@@ -206,9 +206,13 @@ public class ContactenosActivity extends AppCompatActivity {
         envioMail.putExtra(Intent.EXTRA_SUBJECT, "Contacto");
         envioMail.putExtra(Intent.EXTRA_TEXT, txt_mensaje.getText());
 
+        Log.i("foto", bitmap.toString());
         if (bitmap != null) {
+            Log.i("foto", "1");
             uri = getImageUri(this,bitmap);
+            Log.i("foto", "2");
             Log.i("URI", uri.toString());
+            Log.i("foto", "3");
             envioMail.putExtra(Intent.EXTRA_STREAM, uri);
         }
 

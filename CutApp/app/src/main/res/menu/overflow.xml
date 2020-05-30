@@ -18,7 +18,8 @@
         android:title="@string/opc_tres" />
     <item
         android:id="@+id/item_4"
-        android:title="@string/opc_cuatro" />
+        android:title="@string/opc_cuatro"
+        android:visible="false"/>
     <item
         android:id="@+id/item_5"
         android:title="@string/opc_cinco" />

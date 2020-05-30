@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         itemMenuPedidos.setVisible(true);
 
         itemMenuPedidos = menu.findItem(R.id.item_4);
-        itemMenuPedidos.setVisible(true);
+        //itemMenuPedidos.setVisible(true);
 
         itemMenuPedidos = menu.findItem(R.id.item_5);
         itemMenuPedidos.setVisible(true);
