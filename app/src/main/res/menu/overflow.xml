@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Las Rositas"
+        android:icon="@drawable/logo"
+        app:showAsAction="ifRoom"
+        android:enabled="true" />
+
+    <item
+        android:id="@+id/item_1"
+        android:title="@string/opc_uno" />
+    <item
+        android:id="@+id/item_2"
+        android:title="@string/opc_dos" />
+    <item
+        android:id="@+id/item_3"
+        android:title="@string/opc_tres" />
+    <item
+        android:id="@+id/item_4"
+        android:title="@string/opc_cuatro" />
+    <item
+        android:id="@+id/item_5"
+        android:title="@string/opc_cinco" />
+    <item
+        android:id="@+id/item_6"
+        android:title="@string/opc_seis"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_7"
+        android:title="@string/opc_siete"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_8"
+        android:title="@string/opc_ocho"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_9"
+        android:title="@string/opc_nueve"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_10"
+        android:title="@string/opc_diez"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_11"
+        android:title="@string/opc_once"
+        android:visible="false"/>
+</menu>
