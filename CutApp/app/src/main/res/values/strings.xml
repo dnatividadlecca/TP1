@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Las Rositas</string>
+    <string name="app_name">CutApp</string>
 
     <string name="opc_uno">Login</string>
     <string name="opc_dos">Registrar</string>
@@ -131,14 +131,14 @@
 
 
     <!-- registrar producto -->
-    <string name="reg_prod_lbl_titulo_principal">Registrar Producto</string>
+    <string name="reg_prod_lbl_titulo_principal">Registrar Servicio</string>
     <string name="reg_prod_lbl_cod">Cod. PRO -</string>
     <string name="reg_prod_txt_cod">Código</string>
-    <string name="reg_prod_lbl_titulo">Título :</string>
-    <string name="reg_prod_txt_titulo">Titulo del producto</string>
+    <string name="reg_prod_lbl_titulo">Nombre del servicio :</string>
+    <string name="reg_prod_txt_titulo">Nombre del servicio</string>
     <string name="reg_prod_lbl_descripcion">Descripción :</string>
-    <string name="reg_prod_txt_descripcion">Descripción del producto</string>
-    <string name="reg_prod_btn_registrar">Registrar Producto</string>
+    <string name="reg_prod_txt_descripcion">Descripción del servicio</string>
+    <string name="reg_prod_btn_registrar">Registrar Servicio</string>
     <string name="reg_prod_lbl_precio">Precio S/. </string>
     <string name="reg_prod_txt_precio">0.00</string>
 

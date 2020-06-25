@@ -65,7 +65,7 @@
                 android:paddingBottom="10sp"
                 android:text="@string/reg_prod_lbl_titulo_principal"
                 android:textAlignment="center"
-                android:textColor="#e768a9"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
                                 android:layout_gravity="center"
                                 android:text="@string/reg_prod_imgbutton_camara"
                                 android:textAlignment="center"
-                                android:textColor="#e768a9"
+                                android:textColor="#5E394C"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -156,7 +156,7 @@
                                 android:paddingBottom="10sp"
                                 android:text="@string/reg_prod_imgbutton_examinar"
                                 android:textAlignment="center"
-                                android:textColor="#e768a9"
+                                android:textColor="#5E394C"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -178,7 +178,7 @@
                     android:text="@string/reg_prod_lbl_cod"
                     android:textSize="18sp"
                     android:layout_marginLeft="17dp"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textStyle="bold" />
 
                 <TextView
@@ -199,7 +199,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/reg_prod_lbl_titulo"
-                android:textColor="#e768a9"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -223,6 +223,54 @@
                 app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_titulo" />
 
             <TextView
+                android:id="@+id/horarioInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Hora Inicio"
+                android:textColor="#5E394C"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/sp_horaInicio"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/horarioFin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Hora Fin"
+                android:textColor="#5E394C"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/sp_horaFin"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
                 android:id="@+id/reg_prod_etiq_lbl_descripcion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -230,7 +278,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/reg_prod_lbl_descripcion"
-                android:textColor="#e768a9"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -267,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
                     android:text="@string/reg_prod_lbl_precio"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -300,7 +348,7 @@
                 android:layout_marginTop="42dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="Reg_producto"
                 android:text="@string/reg_prod_btn_registrar"
                 android:textColor="#FFFFFF"
