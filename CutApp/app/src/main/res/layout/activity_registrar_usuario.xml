@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondopantalla7"
+    android:background="#B38524"
     tools:context=".RegistrarUsuarioActivity">
 
     <ScrollView
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/US_lbl_titulo"
-                android:textColor="#e768a9"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="@string/US_lbl_fecha_nacimiento"
-                android:textColor="#e768a9"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="60dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="Reg_usuario"
                 android:text="@string/boton_registrarse"
                 android:textColor="#FFFFFF"

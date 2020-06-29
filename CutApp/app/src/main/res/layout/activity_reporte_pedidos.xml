@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondopantalla3"
+    android:background="#B38524"
     tools:context=".ReportePedidosActivity">
 
     <ListView
@@ -41,7 +41,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/Reporte"
-        android:textColor="#e593bd"
+        android:textColor="#5E394C"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
