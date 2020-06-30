@@ -1,0 +1,3 @@
+{"$$indexCreated":{"fieldName":"id","unique":true,"sparse":false}}
+{"$$indexCreated":{"fieldName":"userName","unique":true,"sparse":false}}
+{"createdAt":1584481278913,"updatedAt":1584481278913,"id":1,"userName":"admin","password":"$2a$10$H0k4vjpP.nQXSo3Mdq0GweQ1gi5yVMlnvSRSEwc.215LeRG7gcIUS","_id":1}

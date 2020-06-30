@@ -1,0 +1,197 @@
+{"$$indexCreated":{"fieldName":"id","unique":true,"sparse":false}}
+{"$$indexCreated":{"fieldName":"country","unique":true,"sparse":false}}
+{"createdAt":1585709029226,"updatedAt":1587803671331,"id":1,"country":"Afganistán","cases":1463,"deaths":47,"recovered":188,"latitude":33.9391098,"longitude":67.7099533,"_id":1}
+{"createdAt":1585709029226,"updatedAt":1585971202811,"id":2,"country":"Albania","cases":304,"deaths":17,"recovered":89,"latitude":41.1533318,"longitude":20.1683311,"_id":2}
+{"createdAt":1585709029226,"updatedAt":1585971259371,"id":3,"country":"Alemania","cases":91159,"deaths":1275,"recovered":24575,"latitude":51.1656914,"longitude":10.4515257,"_id":3}
+{"createdAt":1585709029226,"updatedAt":1585971283002,"id":4,"country":"Andorra","cases":439,"deaths":16,"recovered":16,"latitude":42.5462456,"longitude":1.601554,"_id":4}
+{"createdAt":1585709029226,"updatedAt":1585971300076,"id":5,"country":"Angola","cases":8,"deaths":2,"recovered":1,"latitude":-11.202692,"longitude":17.8738861,"_id":5}
+{"createdAt":1585709029226,"updatedAt":1585971313198,"id":6,"country":"Antigua y Barbuda","cases":15,"deaths":0,"recovered":0,"latitude":17.0608158,"longitude":-61.7964287,"_id":6}
+{"createdAt":1585709029226,"updatedAt":1585971342943,"id":7,"country":"Arabia Saudita","cases":2039,"deaths":25,"recovered":351,"latitude":23.8859425,"longitude":45.0791626,"_id":7}
+{"createdAt":1585709029226,"updatedAt":1585971370898,"id":8,"country":"Argelia","cases":1171,"deaths":105,"recovered":62,"latitude":28.033886,"longitude":1.659626,"_id":8}
+{"createdAt":1585709029226,"updatedAt":1585971403836,"id":9,"country":"Argentina","cases":1353,"deaths":42,"recovered":266,"latitude":-38.4160957,"longitude":-63.6166725,"_id":9}
+{"createdAt":1585709029226,"updatedAt":1585971426510,"id":10,"country":"Armenia","cases":736,"deaths":7,"recovered":43,"latitude":40.0690994,"longitude":45.0381889,"_id":10}
+{"createdAt":1585709029226,"updatedAt":1585971453121,"id":11,"country":"Australia","cases":5454,"deaths":28,"recovered":585,"latitude":-25.2743988,"longitude":133.7751312,"_id":11}
+{"createdAt":1585709029226,"updatedAt":1585971483603,"id":12,"country":"Austria","cases":11524,"deaths":168,"recovered":2022,"latitude":47.5162315,"longitude":14.5500717,"_id":12}
+{"createdAt":1585709029226,"updatedAt":1585971512599,"id":13,"country":"Azerbaiyán","cases":443,"deaths":5,"recovered":32,"latitude":40.1431046,"longitude":47.5769272,"_id":13}
+{"createdAt":1585709029226,"updatedAt":1585971531318,"id":14,"country":"Bahamas","cases":24,"deaths":3,"recovered":0,"latitude":25.0342808,"longitude":-77.3962784,"_id":14}
+{"createdAt":1585709029226,"updatedAt":1585971555086,"id":15,"country":"Bangladés","cases":61,"deaths":6,"recovered":26,"latitude":23.6849937,"longitude":90.3563309,"_id":15}
+{"createdAt":1585709029226,"updatedAt":1585971605109,"id":16,"country":"Barbados","cases":51,"deaths":0,"recovered":0,"latitude":13.1938868,"longitude":-59.5431976,"_id":16}
+{"createdAt":1585709029226,"updatedAt":1585971631682,"id":17,"country":"Baréin","cases":672,"deaths":4,"recovered":382,"latitude":25.9304142,"longitude":50.6377716,"_id":17}
+{"createdAt":1585709029226,"updatedAt":1585972141787,"id":18,"country":"Bélgica","cases":16770,"deaths":1143,"recovered":2872,"latitude":50.5038872,"longitude":4.4699359,"_id":18}
+{"createdAt":1585709029226,"updatedAt":1585971653887,"id":19,"country":"Belice","cases":4,"deaths":0,"recovered":0,"latitude":17.1898766,"longitude":-88.4976501,"_id":19}
+{"createdAt":1585709029226,"updatedAt":1585971680595,"id":20,"country":"Benín","cases":16,"deaths":0,"recovered":2,"latitude":9.3076897,"longitude":2.315834,"_id":20}
+{"createdAt":1585709029226,"updatedAt":1585971737217,"id":21,"country":"Bielorrusia","cases":351,"deaths":4,"recovered":53,"latitude":53.7098083,"longitude":27.9533882,"_id":21}
+{"createdAt":1585709029226,"updatedAt":1585971770301,"id":22,"country":"Birmania","cases":20,"deaths":1,"recovered":0,"latitude":21.9139652,"longitude":95.9562225,"_id":22}
+{"createdAt":1585709029226,"updatedAt":1585971803121,"id":23,"country":"Bolivia","cases":139,"deaths":10,"recovered":1,"latitude":-16.2901535,"longitude":-63.5886536,"_id":23}
+{"createdAt":1585709029226,"updatedAt":1585971824473,"id":24,"country":"Bosnia y Herzegovina","cases":579,"deaths":17,"recovered":27,"latitude":43.9158859,"longitude":17.6790752,"_id":24}
+{"createdAt":1585709029226,"updatedAt":1585971852087,"id":25,"country":"Botsuana","cases":4,"deaths":1,"recovered":0,"latitude":-22.328474,"longitude":24.684866,"_id":25}
+{"createdAt":1585709029226,"updatedAt":1585971902960,"id":26,"country":"Brasil","cases":9216,"deaths":365,"recovered":127,"latitude":-14.2350044,"longitude":-51.9252815,"_id":26}
+{"createdAt":1585709029226,"updatedAt":1585971937481,"id":27,"country":"Brunéi","cases":134,"deaths":1,"recovered":65,"latitude":4.5352769,"longitude":114.7276688,"_id":27}
+{"createdAt":1585709029226,"updatedAt":1585971980551,"id":28,"country":"Bulgaria","cases":485,"deaths":14,"recovered":30,"latitude":42.7338829,"longitude":25.4858303,"_id":28}
+{"createdAt":1585709029226,"updatedAt":1585972001563,"id":29,"country":"Burkina Faso","cases":302,"deaths":16,"recovered":50,"latitude":12.2383327,"longitude":-1.5615931,"_id":29}
+{"createdAt":1585709029226,"updatedAt":1585972017458,"id":30,"country":"Burundi","cases":3,"deaths":0,"recovered":0,"latitude":-3.3730559,"longitude":29.9188862,"_id":30}
+{"createdAt":1585709029226,"updatedAt":1585972076837,"id":31,"country":"Bután","cases":5,"deaths":0,"recovered":0,"latitude":27.5141621,"longitude":90.4336014,"_id":31}
+{"createdAt":1585709029226,"updatedAt":1585972173704,"id":32,"country":"Cabo Verde","cases":6,"deaths":1,"recovered":0,"latitude":16.0020828,"longitude":-24.0131969,"_id":32}
+{"createdAt":1585709029226,"updatedAt":1585972204803,"id":33,"country":"Camboya","cases":114,"deaths":0,"recovered":35,"latitude":12.5656786,"longitude":104.9909668,"_id":33}
+{"createdAt":1585709029226,"updatedAt":1585972233180,"id":34,"country":"Camerún","cases":509,"deaths":8,"recovered":17,"latitude":7.3697219,"longitude":7.3697219,"_id":34}
+{"createdAt":1585709029226,"updatedAt":1585972261444,"id":35,"country":"Canadá","cases":12375,"deaths":208,"recovered":2186,"latitude":56.1303673,"longitude":-106.3467712,"_id":35}
+{"createdAt":1585709029226,"updatedAt":1585972296320,"id":36,"country":"Catar","cases":1075,"deaths":3,"recovered":93,"latitude":25.354826,"longitude":51.1838837,"_id":36}
+{"createdAt":1585709029226,"updatedAt":1585972323285,"id":37,"country":"Chad","cases":8,"deaths":0,"recovered":0,"latitude":15.4541664,"longitude":18.7322063,"_id":37}
+{"createdAt":1585709029226,"updatedAt":1585972363142,"id":38,"country":"Chile","cases":3737,"deaths":22,"recovered":427,"latitude":-35.675148,"longitude":-71.5429688,"_id":38}
+{"createdAt":1585709029226,"updatedAt":1585972414866,"id":39,"country":"China","cases":81639,"deaths":3326,"recovered":76755,"latitude":35.86166,"longitude":104.1953964,"_id":39}
+{"createdAt":1585709029226,"updatedAt":1585972465394,"id":40,"country":"Chipre","cases":396,"deaths":11,"recovered":28,"latitude":35.1264114,"longitude":33.4298592,"_id":40}
+{"createdAt":1585709029226,"updatedAt":1585972489331,"id":41,"country":"Ciudad del Vaticano","cases":7,"deaths":0,"recovered":0,"latitude":41.902916,"longitude":12.4533892,"_id":41}
+{"createdAt":1585709029226,"updatedAt":1585972528797,"id":42,"country":"Colombia","cases":1267,"deaths":25,"recovered":55,"latitude":4.570868,"longitude":-74.2973328,"_id":42}
+{"createdAt":1585709029226,"updatedAt":1585972691490,"id":43,"country":"Comoras","cases":0,"deaths":0,"recovered":0,"latitude":-11.875001,"longitude":43.8722191,"_id":43}
+{"createdAt":1585709029226,"updatedAt":1585972728114,"id":44,"country":"Corea del Norte","cases":0,"deaths":0,"recovered":0,"latitude":40.3398514,"longitude":127.5100937,"_id":44}
+{"createdAt":1585709029226,"updatedAt":1585972761173,"id":45,"country":"Corea del Sur","cases":10156,"deaths":177,"recovered":6325,"latitude":35.9077568,"longitude":127.766922,"_id":45}
+{"createdAt":1585709029226,"updatedAt":1585972939238,"id":46,"country":"Costa de Marfil","cases":218,"deaths":1,"recovered":19,"latitude":7.539989,"longitude":-5.54708,"_id":46}
+{"createdAt":1585709029226,"updatedAt":1585972802125,"id":47,"country":"Costa Rica","cases":416,"deaths":2,"recovered":11,"latitude":9.7489166,"longitude":-83.7534256,"_id":47}
+{"createdAt":1585709029226,"updatedAt":1585972973988,"id":48,"country":"Croacia","cases":1079,"deaths":8,"recovered":92,"latitude":45.0999985,"longitude":15.1999998,"_id":48}
+{"createdAt":1585709029226,"updatedAt":1585973008295,"id":49,"country":"Cuba","cases":269,"deaths":6,"recovered":15,"latitude":21.5217571,"longitude":-77.7811661,"_id":49}
+{"createdAt":1585709029226,"updatedAt":1585973041456,"id":50,"country":"Dinamarca","cases":3757,"deaths":139,"recovered":1193,"latitude":56.2639198,"longitude":9.5017853,"_id":50}
+{"createdAt":1585709029226,"updatedAt":1585973063570,"id":51,"country":"Dominica","cases":14,"deaths":0,"recovered":0,"latitude":15.414999,"longitude":-61.3709755,"_id":51}
+{"createdAt":1585709029226,"updatedAt":1585973094630,"id":52,"country":"Ecuador","cases":3368,"deaths":145,"recovered":65,"latitude":-1.831239,"longitude":-78.183403,"_id":52}
+{"createdAt":1585709029226,"updatedAt":1585973141985,"id":53,"country":"Egipto","cases":985,"deaths":66,"recovered":216,"latitude":26.8205528,"longitude":30.8024979,"_id":53}
+{"createdAt":1585709029226,"updatedAt":1585973169644,"id":54,"country":"El Salvador","cases":46,"deaths":3,"recovered":0,"latitude":13.7941847,"longitude":-88.8965302,"_id":54}
+{"createdAt":1585709029226,"updatedAt":1585973355263,"id":55,"country":"Emiratos Árabes Unidos","cases":1264,"deaths":9,"recovered":108,"latitude":23.4240761,"longitude":53.8478165,"_id":55}
+{"createdAt":1585709029226,"updatedAt":1585973413689,"id":56,"country":"Eritrea","cases":22,"deaths":0,"recovered":0,"latitude":15.1793842,"longitude":39.7823334,"_id":56}
+{"createdAt":1585709029226,"updatedAt":1585973444823,"id":57,"country":"Eslovaquia","cases":450,"deaths":1,"recovered":10,"latitude":48.6690254,"longitude":19.6990242,"_id":57}
+{"createdAt":1585709029226,"updatedAt":1585973479967,"id":58,"country":"Eslovenia","cases":934,"deaths":20,"recovered":70,"latitude":46.1512413,"longitude":14.9954634,"_id":58}
+{"createdAt":1585709029226,"updatedAt":1585973536999,"id":59,"country":"España","cases":119199,"deaths":11198,"recovered":30513,"latitude":40.4636688,"longitude":-3.7492199,"_id":59}
+{"createdAt":1585709029226,"updatedAt":1586061444723,"id":60,"country":"Estados Unidos","cases":311635,"deaths":8454,"recovered":14825,"latitude":37.0902405,"longitude":-95.7128906,"_id":60}
+{"createdAt":1585709029226,"updatedAt":1585973641303,"id":61,"country":"Estonia","cases":961,"deaths":12,"recovered":48,"latitude":58.5952721,"longitude":25.013607,"_id":61}
+{"createdAt":1585709029226,"updatedAt":1585973675811,"id":62,"country":"Etiopía","cases":35,"deaths":0,"recovered":3,"latitude":9.1450005,"longitude":40.4896736,"_id":62}
+{"createdAt":1585709029226,"updatedAt":1585973762928,"id":63,"country":"Filipinas","cases":3018,"deaths":136,"recovered":52,"latitude":12.8797207,"longitude":121.7740173,"_id":63}
+{"createdAt":1585709029226,"updatedAt":1585973789137,"id":64,"country":"Finlandia","cases":1615,"deaths":20,"recovered":300,"latitude":61.9241104,"longitude":25.7481518,"_id":64}
+{"createdAt":1585709029226,"updatedAt":1585973846036,"id":65,"country":"Fiyi","cases":7,"deaths":0,"recovered":0,"latitude":-16.5781937,"longitude":179.4144135,"_id":65}
+{"createdAt":1585709029226,"updatedAt":1585973933041,"id":66,"country":"Francia","cases":64338,"deaths":6507,"recovered":14008,"latitude":46.2276382,"longitude":2.2137489,"_id":66}
+{"createdAt":1585709029226,"updatedAt":1585973960554,"id":67,"country":"Gabón","cases":21,"deaths":1,"recovered":1,"latitude":-0.803689,"longitude":11.6094437,"_id":67}
+{"createdAt":1585709029226,"updatedAt":1585973990335,"id":68,"country":"Gambia","cases":4,"deaths":1,"recovered":2,"latitude":13.443182,"longitude":-15.3101387,"_id":68}
+{"createdAt":1585709029226,"updatedAt":1585974027080,"id":69,"country":"Georgia","cases":155,"deaths":0,"recovered":28,"latitude":42.3154068,"longitude":43.3568916,"_id":69}
+{"createdAt":1585709029226,"updatedAt":1585974164167,"id":70,"country":"Ghana","cases":205,"deaths":5,"recovered":31,"latitude":7.946527,"longitude":-1.023194,"_id":70}
+{"createdAt":1585709029226,"updatedAt":1585974293411,"id":71,"country":"Granada","cases":12,"deaths":0,"recovered":0,"latitude":12.2627764,"longitude":-61.6041718,"_id":71}
+{"createdAt":1585709029226,"updatedAt":1585974338627,"id":72,"country":"Grecia","cases":1613,"deaths":63,"recovered":78,"latitude":39.0742073,"longitude":21.8243122,"_id":72}
+{"createdAt":1585709029226,"updatedAt":1585974373777,"id":73,"country":"Guatemala","cases":50,"deaths":1,"recovered":12,"latitude":15.7834711,"longitude":-90.2307587,"_id":73}
+{"createdAt":1585709029226,"updatedAt":1585974631250,"id":74,"country":"Guyana","cases":23,"deaths":4,"recovered":0,"latitude":4.8604159,"longitude":-58.9301796,"_id":74}
+{"createdAt":1585709029226,"updatedAt":1585974427691,"id":75,"country":"Guinea","cases":73,"deaths":0,"recovered":2,"latitude":9.9455872,"longitude":-9.6966448,"_id":75}
+{"createdAt":1585709029226,"updatedAt":1585974471006,"id":76,"country":"Guinea Ecuatorial","cases":16,"deaths":0,"recovered":1,"latitude":1.6508009,"longitude":10.2678947,"_id":76}
+{"createdAt":1585709029226,"updatedAt":1585974490534,"id":77,"country":"Guinea-Bisáu","cases":15,"deaths":0,"recovered":0,"latitude":11.8037491,"longitude":-15.1804132,"_id":77}
+{"createdAt":1585709029226,"updatedAt":1585974672485,"id":78,"country":"Haití","cases":18,"deaths":0,"recovered":1,"latitude":18.9711876,"longitude":-72.2852173,"_id":78}
+{"createdAt":1585709029226,"updatedAt":1585974714045,"id":79,"country":"Honduras","cases":264,"deaths":15,"recovered":3,"latitude":15.1999989,"longitude":-86.2419052,"_id":79}
+{"createdAt":1585709029226,"updatedAt":1585974754100,"id":80,"country":"Hungría","cases":623,"deaths":26,"recovered":43,"latitude":47.1624947,"longitude":19.5033035,"_id":80}
+{"createdAt":1585709029226,"updatedAt":1585974793650,"id":81,"country":"India","cases":2567,"deaths":72,"recovered":192,"latitude":20.5936832,"longitude":78.962883,"_id":81}
+{"createdAt":1585709029226,"updatedAt":1585974839953,"id":82,"country":"Indonesia","cases":1986,"deaths":181,"recovered":134,"latitude":-0.789275,"longitude":113.9213257,"_id":82}
+{"createdAt":1585709029226,"updatedAt":1585974873416,"id":83,"country":"Irak","cases":820,"deaths":54,"recovered":226,"latitude":33.2231903,"longitude":43.6792908,"_id":83}
+{"createdAt":1585709029226,"updatedAt":1585974980680,"id":84,"country":"Irán","cases":53183,"deaths":3294,"recovered":17935,"latitude":32.4279099,"longitude":53.6880455,"_id":84}
+{"createdAt":1585709029226,"updatedAt":1585974926749,"id":85,"country":"Irlanda","cases":4273,"deaths":120,"recovered":25,"latitude":53.4129105,"longitude":-8.2438898,"_id":85}
+{"createdAt":1585709029226,"updatedAt":1585975069796,"id":86,"country":"Islandia","cases":1364,"deaths":4,"recovered":309,"latitude":64.9630508,"longitude":-19.0208359,"_id":86}
+{"createdAt":1585709029226,"updatedAt":1585975181943,"id":87,"country":"Islas Marshall","cases":0,"deaths":0,"recovered":0,"latitude":7.131474,"longitude":171.1844788,"_id":87}
+{"createdAt":1585709029226,"updatedAt":1585975212545,"id":88,"country":"Islas Salomón","cases":0,"deaths":0,"recovered":0,"latitude":-9.64571,"longitude":160.156189,"_id":88}
+{"createdAt":1585709029226,"updatedAt":1585975235678,"id":89,"country":"Israel","cases":7428,"deaths":40,"recovered":403,"latitude":31.046051,"longitude":34.8516121,"_id":89}
+{"createdAt":1585709029226,"updatedAt":1585975365780,"id":90,"country":"Italia","cases":119827,"deaths":14681,"recovered":19758,"latitude":41.8719406,"longitude":12.56738,"_id":90}
+{"createdAt":1585709029226,"updatedAt":1586043358949,"id":91,"country":"Jamaica","cases":53,"deaths":3,"recovered":7,"latitude":18.109581,"longitude":-77.2975082,"_id":91}
+{"createdAt":1585709029226,"updatedAt":1586043412524,"id":92,"country":"Japón","cases":3139,"deaths":77,"recovered":514,"latitude":36.2048225,"longitude":138.2529297,"_id":92}
+{"createdAt":1585709029226,"updatedAt":1586043458350,"id":93,"country":"Jordania","cases":323,"deaths":5,"recovered":74,"latitude":30.5851631,"longitude":36.2384148,"_id":93}
+{"createdAt":1585709029226,"updatedAt":1586043504083,"id":94,"country":"Kazajistán","cases":531,"deaths":5,"recovered":36,"latitude":48.0195732,"longitude":66.9236832,"_id":94}
+{"createdAt":1585709029226,"updatedAt":1586043547892,"id":95,"country":"Kenia","cases":126,"deaths":4,"recovered":4,"latitude":-0.023559,"longitude":37.9061928,"_id":95}
+{"createdAt":1585709029226,"updatedAt":1586043588657,"id":96,"country":"Kirguistán","cases":144,"deaths":1,"recovered":9,"latitude":41.20438,"longitude":74.766098,"_id":96}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":97,"country":"Kiribati","cases":0,"deaths":0,"recovered":0,"latitude":-3.3704171,"longitude":-168.7340393,"_id":97}
+{"createdAt":1585709029226,"updatedAt":1586043659568,"id":98,"country":"Kuwait","cases":479,"deaths":1,"recovered":93,"latitude":29.3116608,"longitude":47.4817657,"_id":98}
+{"createdAt":1585709029226,"updatedAt":1586043689188,"id":99,"country":"Laos","cases":10,"deaths":0,"recovered":0,"latitude":19.8562698,"longitude":102.4954987,"_id":99}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":100,"country":"Lesoto","cases":0,"deaths":0,"recovered":0,"latitude":-29.6099873,"longitude":28.2336082,"_id":100}
+{"createdAt":1585709029226,"updatedAt":1586044127554,"id":101,"country":"Letonia","cases":509,"deaths":1,"recovered":1,"latitude":56.8796349,"longitude":24.6031895,"_id":101}
+{"createdAt":1585709029226,"updatedAt":1586044589778,"id":102,"country":"Líbano","cases":520,"deaths":17,"recovered":54,"latitude":33.8547211,"longitude":35.8622856,"_id":102}
+{"createdAt":1585709029226,"updatedAt":1586044161215,"id":103,"country":"Liberia","cases":10,"deaths":1,"recovered":3,"latitude":6.4280548,"longitude":-9.4294987,"_id":103}
+{"createdAt":1585709029226,"updatedAt":1586044263137,"id":104,"country":"Libia","cases":18,"deaths":1,"recovered":0,"latitude":26.3351002,"longitude":17.2283306,"_id":104}
+{"createdAt":1585709029226,"updatedAt":1586044369711,"id":105,"country":"Liechtenstein","cases":77,"deaths":1,"recovered":0,"latitude":47.1660004,"longitude":9.5553732,"_id":105}
+{"createdAt":1585709029226,"updatedAt":1586044449155,"id":106,"country":"Lituania","cases":771,"deaths":11,"recovered":7,"latitude":55.1694374,"longitude":23.8812752,"_id":106}
+{"createdAt":1585709029226,"updatedAt":1586044498903,"id":107,"country":"Luxemburgo","cases":2729,"deaths":31,"recovered":500,"latitude":49.8152733,"longitude":6.1295829,"_id":107}
+{"createdAt":1585709029226,"updatedAt":1586044745929,"id":108,"country":"Macedonia del Norte","cases":483,"deaths":17,"recovered":20,"latitude":41.6086349,"longitude":21.7452755,"_id":108}
+{"createdAt":1585709029226,"updatedAt":1586044784548,"id":109,"country":"Madagascar","cases":70,"deaths":0,"recovered":0,"latitude":-18.7669468,"longitude":46.8691063,"_id":109}
+{"createdAt":1585709029226,"updatedAt":1586044838532,"id":110,"country":"Malasia","cases":3483,"deaths":57,"recovered":915,"latitude":4.210484,"longitude":101.975769,"_id":110}
+{"createdAt":1585709029226,"updatedAt":1586044931846,"id":111,"country":"Malaui","cases":4,"deaths":0,"recovered":0,"latitude":-13.2543077,"longitude":34.3015251,"_id":111}
+{"createdAt":1585709029226,"updatedAt":1586055547114,"id":112,"country":"Maldivas","cases":19,"deaths":0,"recovered":13,"latitude":3.2027781,"longitude":73.2206802,"_id":112}
+{"createdAt":1585709029226,"updatedAt":1586055600281,"id":113,"country":"Malí","cases":41,"deaths":3,"recovered":1,"latitude":17.5706921,"longitude":-3.996166,"_id":113}
+{"createdAt":1585709029226,"updatedAt":1586055573038,"id":114,"country":"Malta","cases":213,"deaths":0,"recovered":2,"latitude":35.9374962,"longitude":14.3754158,"_id":114}
+{"createdAt":1585709029226,"updatedAt":1586055678476,"id":115,"country":"Marruecos","cases":919,"deaths":59,"recovered":66,"latitude":31.7917023,"longitude":-7.0926199,"_id":115}
+{"createdAt":1585709029226,"updatedAt":1586055766112,"id":116,"country":"Mauricio","cases":196,"deaths":7,"recovered":7,"latitude":-20.3484039,"longitude":57.5521507,"_id":116}
+{"createdAt":1585709029226,"updatedAt":1586055795669,"id":117,"country":"Mauritania","cases":6,"deaths":1,"recovered":2,"latitude":21.0078907,"longitude":-10.940835,"_id":117}
+{"createdAt":1585709029226,"updatedAt":1586056056166,"id":118,"country":"México","cases":1688,"deaths":60,"recovered":633,"latitude":23.6345005,"longitude":-102.5527878,"_id":118}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":119,"country":"Micronesia","cases":0,"deaths":0,"recovered":0,"latitude":7.4255538,"longitude":150.5508118,"_id":119}
+{"createdAt":1585709029226,"updatedAt":1586055944054,"id":120,"country":"Moldavia","cases":752,"deaths":12,"recovered":29,"latitude":47.4116325,"longitude":28.3698845,"_id":120}
+{"createdAt":1585709029226,"updatedAt":1586056086727,"id":121,"country":"Mónaco","cases":66,"deaths":1,"recovered":3,"latitude":43.7502975,"longitude":7.4128408,"_id":121}
+{"createdAt":1585709029226,"updatedAt":1586055967284,"id":122,"country":"Mongolia","cases":14,"deaths":0,"recovered":2,"latitude":46.8624954,"longitude":103.8466568,"_id":122}
+{"createdAt":1585709029226,"updatedAt":1586055994198,"id":123,"country":"Montenegro","cases":201,"deaths":2,"recovered":1,"latitude":42.7086792,"longitude":19.3743896,"_id":123}
+{"createdAt":1585709029226,"updatedAt":1586056029566,"id":124,"country":"Mozambique","cases":10,"deaths":0,"recovered":1,"latitude":-18.6656952,"longitude":35.5295639,"_id":124}
+{"createdAt":1585709029226,"updatedAt":1586056173550,"id":125,"country":"Namibia","cases":14,"deaths":0,"recovered":3,"latitude":-22.9576397,"longitude":18.4904099,"_id":125}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":126,"country":"Nauru","cases":0,"deaths":0,"recovered":0,"latitude":-0.522778,"longitude":166.9315033,"_id":126}
+{"createdAt":1585709029226,"updatedAt":1586056215577,"id":127,"country":"Nepal","cases":9,"deaths":0,"recovered":1,"latitude":28.3948574,"longitude":84.1240082,"_id":127}
+{"createdAt":1585709029226,"updatedAt":1586056240725,"id":128,"country":"Nicaragua","cases":5,"deaths":1,"recovered":0,"latitude":12.8654156,"longitude":-85.2072296,"_id":128}
+{"createdAt":1585709029226,"updatedAt":1586056384722,"id":129,"country":"Níger","cases":144,"deaths":8,"recovered":0,"latitude":17.6077881,"longitude":8.081666,"_id":129}
+{"createdAt":1585709029226,"updatedAt":1586056280540,"id":130,"country":"Nigeria","cases":214,"deaths":4,"recovered":25,"latitude":9.0819988,"longitude":8.6752768,"_id":130}
+{"createdAt":1585709029226,"updatedAt":1586056343021,"id":131,"country":"Noruega","cases":5550,"deaths":62,"recovered":32,"latitude":60.472023,"longitude":8.4689465,"_id":131}
+{"createdAt":1585709029226,"updatedAt":1586056363284,"id":132,"country":"Nueva Zelanda","cases":950,"deaths":1,"recovered":127,"latitude":-40.9005585,"longitude":174.8859711,"_id":132}
+{"createdAt":1585709029226,"updatedAt":1586056412602,"id":133,"country":"Omán","cases":277,"deaths":2,"recovered":61,"latitude":21.5125828,"longitude":55.9232559,"_id":133}
+{"createdAt":1585709029226,"updatedAt":1586056646699,"id":134,"country":"Países Bajos","cases":16627,"deaths":1651,"recovered":250,"latitude":52.1326332,"longitude":5.291266,"_id":134}
+{"createdAt":1585709029226,"updatedAt":1586056437227,"id":135,"country":"Pakistán","cases":2818,"deaths":41,"recovered":131,"latitude":30.3753204,"longitude":69.3451157,"_id":135}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":136,"country":"Palaos","cases":0,"deaths":0,"recovered":0,"latitude":7.5149798,"longitude":134.5825195,"_id":136}
+{"createdAt":1585709029226,"updatedAt":1586056475252,"id":137,"country":"Panamá","cases":1673,"deaths":41,"recovered":13,"latitude":8.537981,"longitude":-80.7821274,"_id":137}
+{"createdAt":1585709029226,"updatedAt":1586056498504,"id":138,"country":"Papúa Nueva Guinea","cases":1,"deaths":0,"recovered":0,"latitude":-6.3149929,"longitude":143.9555511,"_id":138}
+{"createdAt":1585709029226,"updatedAt":1586056592075,"id":139,"country":"Paraguay","cases":96,"deaths":3,"recovered":12,"latitude":-23.442503,"longitude":-58.4438324,"_id":139}
+{"createdAt":1585709029226,"updatedAt":1586056678636,"id":140,"country":"Perú","cases":1746,"deaths":73,"recovered":914,"latitude":-9.1899672,"longitude":-75.015152,"_id":140}
+{"createdAt":1585709029226,"updatedAt":1586056708614,"id":141,"country":"Polonia","cases":3627,"deaths":79,"recovered":116,"latitude":51.9194374,"longitude":19.1451359,"_id":141}
+{"createdAt":1585709029226,"updatedAt":1586056743905,"id":142,"country":"Portugal","cases":10524,"deaths":266,"recovered":75,"latitude":39.3998718,"longitude":-8.2244539,"_id":142}
+{"createdAt":1585709029226,"updatedAt":1586056809806,"id":143,"country":"Reino Unido","cases":41903,"deaths":4313,"recovered":135,"latitude":55.3780518,"longitude":-3.4359729,"_id":143}
+{"createdAt":1585709029226,"updatedAt":1586059845691,"id":144,"country":"República Centroafricana","cases":8,"deaths":0,"recovered":0,"latitude":6.6111112,"longitude":20.9394436,"_id":144}
+{"createdAt":1585709029226,"updatedAt":1586057823795,"id":145,"country":"República Checa","cases":4472,"deaths":59,"recovered":78,"latitude":49.8174934,"longitude":15.4729624,"_id":145}
+{"createdAt":1585709029226,"updatedAt":1586059326735,"id":146,"country":"República del Congo","cases":22,"deaths":2,"recovered":2,"latitude":-0.228021,"longitude":15.8276587,"_id":146}
+{"createdAt":1585709029226,"updatedAt":1586057848245,"id":147,"country":"República Democrática del Congo","cases":22,"deaths":2,"recovered":2,"latitude":-4.0383329,"longitude":21.7586632,"_id":147}
+{"createdAt":1585709029226,"updatedAt":1586059262789,"id":148,"country":"República Dominicana","cases":1578,"deaths":77,"recovered":17,"latitude":18.735693,"longitude":-70.1626511,"_id":148}
+{"createdAt":1585709029226,"updatedAt":1586059300846,"id":149,"country":"República Sudafricana","cases":1585,"deaths":9,"recovered":95,"latitude":-30.5594826,"longitude":22.9375057,"_id":149}
+{"createdAt":1585709029226,"updatedAt":1586057887293,"id":150,"country":"Ruanda","cases":102,"deaths":0,"recovered":0,"latitude":-1.9402781,"longitude":29.873888,"_id":150}
+{"createdAt":1585709029226,"updatedAt":1586057936098,"id":151,"country":"Rumanía","cases":3613,"deaths":146,"recovered":329,"latitude":45.943161,"longitude":24.9667606,"_id":151}
+{"createdAt":1585709029226,"updatedAt":1586059378942,"id":152,"country":"Rusia","cases":4731,"deaths":43,"recovered":333,"latitude":61.5240097,"longitude":105.3187561,"_id":152}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":153,"country":"Samoa","cases":0,"deaths":0,"recovered":0,"latitude":-13.7590294,"longitude":-172.1046295,"_id":153}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":154,"country":"San Cristóbal y Nieves","cases":0,"deaths":0,"recovered":0,"latitude":17.3578224,"longitude":-62.7829971,"_id":154}
+{"createdAt":1585709029226,"updatedAt":1586059434421,"id":155,"country":"San Marino","cases":259,"deaths":32,"recovered":27,"latitude":43.9423599,"longitude":12.457777,"_id":155}
+{"createdAt":1585709029226,"updatedAt":1586059489335,"id":156,"country":"San Vicente y las Granadinas","cases":7,"deaths":0,"recovered":1,"latitude":12.9843054,"longitude":-61.2872276,"_id":156}
+{"createdAt":1585709029226,"updatedAt":1586059520647,"id":157,"country":"Santa Lucía","cases":14,"deaths":0,"recovered":1,"latitude":13.9094439,"longitude":-60.9788933,"_id":157}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":158,"country":"Santo Tomé y Príncipe","cases":0,"deaths":0,"recovered":0,"latitude":0.18636,"longitude":6.613081,"_id":158}
+{"createdAt":1585709029226,"updatedAt":1586059564712,"id":159,"country":"Senegal","cases":219,"deaths":2,"recovered":72,"latitude":14.4974012,"longitude":-14.4523621,"_id":159}
+{"createdAt":1585709029226,"updatedAt":1586059748268,"id":160,"country":"Serbia","cases":1624,"deaths":44,"recovered":54,"latitude":44.0165215,"longitude":21.0058594,"_id":160}
+{"createdAt":1585709029226,"updatedAt":1586059777569,"id":161,"country":"Seychelles","cases":10,"deaths":0,"recovered":0,"latitude":-4.679574,"longitude":55.4919777,"_id":161}
+{"createdAt":1585709029226,"updatedAt":1586059810793,"id":162,"country":"Sierra Leona","cases":4,"deaths":0,"recovered":0,"latitude":8.4605551,"longitude":-11.7798891,"_id":162}
+{"createdAt":1585709029226,"updatedAt":1586059869756,"id":163,"country":"Singapur","cases":1189,"deaths":6,"recovered":297,"latitude":1.352083,"longitude":103.8198395,"_id":163}
+{"createdAt":1585709029226,"updatedAt":1586059953544,"id":164,"country":"Siria","cases":16,"deaths":2,"recovered":2,"latitude":34.8020744,"longitude":38.9968147,"_id":164}
+{"createdAt":1585709029226,"updatedAt":1586060043005,"id":165,"country":"Somalia","cases":7,"deaths":0,"recovered":1,"latitude":5.1521492,"longitude":46.1996155,"_id":165}
+{"createdAt":1585709029226,"updatedAt":1586060081446,"id":166,"country":"Sri Lanka","cases":166,"deaths":5,"recovered":27,"latitude":7.873054,"longitude":80.7717972,"_id":166}
+{"createdAt":1585709029226,"updatedAt":1586060210318,"id":167,"country":"Suazilandia","cases":9,"deaths":0,"recovered":0,"latitude":-26.5225029,"longitude":31.4658661,"_id":167}
+{"createdAt":1585709029226,"updatedAt":1586060237996,"id":168,"country":"Sudán","cases":10,"deaths":2,"recovered":2,"latitude":12.8628073,"longitude":30.2176361,"_id":168}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":169,"country":"Sudán del Sur","cases":0,"deaths":0,"recovered":0,"latitude":6.8769908,"longitude":31.3069782,"_id":169}
+{"createdAt":1585709029226,"updatedAt":1586060334777,"id":170,"country":"Suecia","cases":6443,"deaths":373,"recovered":205,"latitude":60.1281624,"longitude":18.6435013,"_id":170}
+{"createdAt":1585709029226,"updatedAt":1586060376229,"id":171,"country":"Suiza","cases":20505,"deaths":666,"recovered":6415,"latitude":46.8181877,"longitude":8.2275124,"_id":171}
+{"createdAt":1585709029226,"updatedAt":1586060402199,"id":172,"country":"Surinam","cases":10,"deaths":1,"recovered":0,"latitude":3.9193051,"longitude":-56.0277824,"_id":172}
+{"createdAt":1585709029226,"updatedAt":1586060443079,"id":173,"country":"Tailandia","cases":2067,"deaths":20,"recovered":674,"latitude":15.8700323,"longitude":100.9925385,"_id":173}
+{"createdAt":1585709029226,"updatedAt":1586060469283,"id":174,"country":"Tanzania","cases":20,"deaths":1,"recovered":3,"latitude":-6.3690281,"longitude":34.8888206,"_id":174}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":175,"country":"Tayikistán","cases":0,"deaths":0,"recovered":0,"latitude":38.8610344,"longitude":71.2760925,"_id":175}
+{"createdAt":1585709029226,"updatedAt":1586060603045,"id":176,"country":"Timor Oriental","cases":1,"deaths":0,"recovered":0,"latitude":-8.874217,"longitude":125.7275391,"_id":176}
+{"createdAt":1585709029226,"updatedAt":1586060628894,"id":177,"country":"Togo","cases":41,"deaths":3,"recovered":17,"latitude":8.6195431,"longitude":0.824782,"_id":177}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":178,"country":"Tonga","cases":0,"deaths":0,"recovered":0,"latitude":-21.1789856,"longitude":-175.1982422,"_id":178}
+{"createdAt":1585709029226,"updatedAt":1586060676009,"id":179,"country":"Trinidad y Tobago","cases":103,"deaths":6,"recovered":1,"latitude":10.691803,"longitude":-61.2225037,"_id":179}
+{"createdAt":1585709029226,"updatedAt":1586061006716,"id":180,"country":"Túnez","cases":553,"deaths":18,"recovered":5,"latitude":33.8869171,"longitude":9.5374994,"_id":180}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":181,"country":"Turkmenistán","cases":0,"deaths":0,"recovered":0,"latitude":38.9697189,"longitude":59.5562782,"_id":181}
+{"createdAt":1585709029226,"updatedAt":1586060924511,"id":182,"country":"Turquía","cases":23934,"deaths":501,"recovered":786,"latitude":38.9637451,"longitude":35.2433205,"_id":182}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":183,"country":"Tuvalu","cases":0,"deaths":0,"recovered":0,"latitude":-7.1095352,"longitude":177.6493225,"_id":183}
+{"createdAt":1585709029226,"updatedAt":1586061055602,"id":184,"country":"Ucrania","cases":1225,"deaths":32,"recovered":25,"latitude":48.3794327,"longitude":31.1655807,"_id":184}
+{"createdAt":1585709029226,"updatedAt":1586061094580,"id":185,"country":"Uganda","cases":48,"deaths":0,"recovered":0,"latitude":1.373333,"longitude":32.2902756,"_id":185}
+{"createdAt":1585709029226,"updatedAt":1586061117998,"id":186,"country":"Uruguay","cases":400,"deaths":5,"recovered":93,"latitude":-32.5227776,"longitude":-55.7658348,"_id":186}
+{"createdAt":1585709029226,"updatedAt":1586061138550,"id":187,"country":"Uzbekistán","cases":266,"deaths":2,"recovered":25,"latitude":41.377491,"longitude":64.5852585,"_id":187}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":188,"country":"Vanuatu","cases":0,"deaths":0,"recovered":0,"latitude":-15.3767061,"longitude":166.9591522,"_id":188}
+{"createdAt":1585709029226,"updatedAt":1586061195418,"id":189,"country":"Venezuela","cases":155,"deaths":7,"recovered":52,"latitude":6.4237499,"longitude":-66.5897293,"_id":189}
+{"createdAt":1585709029226,"updatedAt":1586061240262,"id":190,"country":"Vietnam","cases":240,"deaths":0,"recovered":90,"latitude":14.0583239,"longitude":108.2771988,"_id":190}
+{"createdAt":1585709029226,"updatedAt":1585709029226,"id":191,"country":"Yemen","cases":0,"deaths":0,"recovered":0,"latitude":15.5527267,"longitude":48.5163879,"_id":191}
+{"createdAt":1585709029226,"updatedAt":1586061321172,"id":192,"country":"Yibuti","cases":50,"deaths":0,"recovered":8,"latitude":11.8251381,"longitude":42.5902748,"_id":192}
+{"createdAt":1585709029226,"updatedAt":1586061344993,"id":193,"country":"Zambia","cases":39,"deaths":1,"recovered":2,"latitude":-13.1338968,"longitude":27.8493328,"_id":193}
+{"createdAt":1585709029226,"updatedAt":1586061365875,"id":194,"country":"Zimbabue","cases":9,"deaths":1,"recovered":0,"latitude":-19.0154381,"longitude":29.1548576,"_id":194}
+{"createdAt":1585709029226,"updatedAt":1588038556049,"id":60,"country":"Estados Unidos","cases":10000,"deaths":1000,"recovered":100,"latitude":37.0902405,"longitude":-95.7128906,"_id":60}

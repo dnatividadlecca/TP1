@@ -1,0 +1,32 @@
+﻿PARA EJECUTAR EL SERVIDOR
+
+Abrir la consola como administrador:
+set-executionpolicy remotesigned
+Para poder ejecutar scripts
+El servidor esta hecho en Sails.js
+Abrir la consola dentro de la carpeta CoronaVirusServer
+Ejecutar los siguientes comandos:
+
+npm install sails -g
+npm install
+sails lift
+
+Les mostrará en consola la información:
+	debug: IP          : 192.168.1.2:1337
+	debug: USUARIO     : admin
+	debug: CONTRASEÑA  : 1234
+
+PARA SABER TU IP PRIVADA
+
+Abrir la consola y poner el comando: ipconfig
+En el apartado Dirección IPV4 debe estar tu IP
+Debes usar esa IP al correr las aplicaciones.
+Ejemplo:
+En mi caso era: Dirección IPv4...: 192.168.1.2
+
+TAMBIÉN ACEPTA IP PÚBLICA
+
+PARA LOGUEARSE COMO ADMINISTRADOR
+
+Usuario:    admin
+Contraseña: 1234

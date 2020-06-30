@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "554517049116",
+    "firebase_url": "https://splendid-timer-272807.firebaseio.com",
+    "project_id": "splendid-timer-272807",
+    "storage_bucket": "splendid-timer-272807.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554517049116:android:01df16be745d58eacf14d9",
+        "android_client_info": {
+          "package_name": "com.proyectofinal.coronavirus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554517049116-ojefogplhfop475ufhco6h9ne6677nmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCSAhfZ9cUrgVX0y9ol8oz4KRfKZbdA2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554517049116-ojefogplhfop475ufhco6h9ne6677nmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
