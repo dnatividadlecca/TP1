@@ -2,120 +2,156 @@ package com.dnatividad.cutapp;
 
 import android.content.Intent;
 //import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import java.io.IOException;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
-    DatePicker simpleDatePicker;
-
+    EditText reg_nombreUsuario, reg_apellidoMaterno, reg_apellidoPaterno, reg_telefono, reg_correoUsuario, reg_password;
+    String urlOrigin;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setReferences();
+        setUrlOrigin();
+        //setValues();
         setContentView(R.layout.activity_registrar_usuario);
     }
 
-    //************************************************************************************
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
+    void setReferences(){
+        reg_nombreUsuario = findViewById(R.id.txt_nombreUsuario);
+        reg_apellidoMaterno = findViewById(R.id.txt_apellidoMaterno);
+        reg_apellidoPaterno = findViewById(R.id.txt_apellidoPaterno);
+        reg_telefono = findViewById(R.id.txt_telefonoUsuario);
+        reg_correoUsuario = findViewById(R.id.txt_correoUsuario);
+        reg_password = findViewById(R.id.txt_passwordUsuario);
+    }
+
+    private void setValues() {
+        reg_nombreUsuario.setText(Integer.toString(getIntent().getIntExtra("nombreUsuario",0)));
+        reg_apellidoMaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoMaterno",0)));
+        reg_apellidoPaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoPaterno",0)));
+        reg_telefono.setText(Integer.toString(getIntent().getIntExtra("telefono",0)));
+        reg_correoUsuario.setText(Integer.toString(getIntent().getIntExtra("correoUsuario",0)));
+        reg_password.setText(Integer.toString(getIntent().getIntExtra("password",0)));
+    }
+
     public void Reg_usuario(View v){
-        EditText reg_user = (EditText) findViewById(R.id.txt_us_usuario);
-        EditText reg_passw = (EditText) findViewById(R.id.txt_clave);
-        EditText reg_nombre = (EditText) findViewById(R.id.txt_nombre);
-        EditText reg_apellido = (EditText) findViewById(R.id.txt_apellido);
-        EditText reg_direccion = (EditText) findViewById(R.id.txt_direccion);
-        EditText reg_celular = (EditText) findViewById(R.id.txt_celular);
+         updateData();
+    }
 
-
-        //extraer el valor del datepicker para seleccionar la fecha de nacimiento
-        DatePicker dtp_fecha;
-        TextView lbl_nacimiento;
-        int dia,mes,ano;
-        dtp_fecha=(DatePicker)findViewById(R.id.datePicker1);
-        //insertamos el valor del calendario en un label
-        lbl_nacimiento=(TextView)findViewById(R.id.lbl_nacimiento);
-        dia=dtp_fecha.getDayOfMonth();
-        mes=dtp_fecha.getMonth()+1;
-        ano=dtp_fecha.getYear();
-        lbl_nacimiento.setText(ano+"/"+mes+"/"+dia);
-
-
-        //lo insertamos en un formulario
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("cod_usuario", reg_user.getText().toString())
-                .addFormDataPart("password", reg_passw.getText().toString())
-                .addFormDataPart("nombre", reg_nombre.getText().toString())
-                .addFormDataPart("apellido", reg_apellido.getText().toString())
-                .addFormDataPart("direccion", reg_direccion.getText().toString())
-                .addFormDataPart("telefono", reg_celular.getText().toString())
-                .addFormDataPart("fecha_nacimiento",lbl_nacimiento.getText().toString() )
-                .addFormDataPart("permiso","false")
-                .build();
-
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/reg_usuarios")
-                .url("http://cutapp.atwebpages.com/index.php/reg_usuarios")
-                .post(requestBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+    void updateData(){
+        setReferences();
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/usuarios/registrar");
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    Log.i("====>", cadenaJson);
+                    JSONObject jsonObject = new JSONObject();
+                    //jsonObject.put("id", getIntent().getStringExtra("id"));
 
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast toast= Toast.makeText(getApplicationContext(), "Registro Exitoso", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
-                            toast.show();
-                        }
-                    });
+                    jsonObject.put("nombreUsuario", reg_nombreUsuario.getText().toString());
+                    //Log.i("nombreUsuario", reg_nombreUsuario.getText().toString());
+                    jsonObject.put("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                    //Log.i("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                    jsonObject.put("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                    //Log.i("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                    jsonObject.put("telefono", reg_telefono.getText().toString());
+                    //Log.i("telefono", reg_telefono.getText().toString());
+                    jsonObject.put("rolUsuario", "1");
+                    jsonObject.put("correoUsuario", reg_correoUsuario.getText().toString());
+                    //Log.i("correoUsuario", reg_correoUsuario.getText().toString());
+                    jsonObject.put("password", reg_password.getText().toString());
+                    //Log.i("password", reg_password.getText().toString());
 
+                    /*
+                    jsonObject.put("nombreUsuario", "prueba1");
+                    jsonObject.put("apellidoMaterno", "prueba1");
+                    jsonObject.put("apellidoPaterno", "prueba1");
+                    jsonObject.put("telefono", "4875742");
+                    jsonObject.put("rolUsuario", "1");
+                    jsonObject.put("correoUsuario", "demo1@demo.com");
+                    jsonObject.put("password", "123456");
+                    */
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+
+                    String response = "";
+                    String line = "";
+
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
-
-        //nombreProducto.setText("");
-        //precioProducto.setText("");
-
-
-
-
     }
 
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
+
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), LoginActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
+        }
+    }
 
     //metodo para mostrar y ocultar en menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow,menu);
         return true;
     }
+
     //metodo para asignar las funciones de las opciones
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
@@ -145,30 +181,37 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
             Pedido();
         }    return super.onOptionsItemSelected(item);
     }
-    //Navegacion de los botones del menu
-    public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
-    }
-    public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
-        startActivity(registrarusuario);
-    }
-    public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
-        startActivity(nosotros);
-    }
-    public void Contactenos(){
-        Intent contactenos = new Intent(this, ContactenosActivity.class);
-        startActivity(contactenos);
-    }
-    public void Ubicanos(){
-        Intent ubicanos = new Intent(this, UbicanosActivity.class);
-        startActivity(ubicanos);
-    }
-    public void Pedido(){
-        Intent Pedido = new Intent(this, PedidosActivity.class);
-        startActivity(Pedido);
-    }
 
+    //region Navegacion
+        //Navegacion de los botones del menu
+        public void Login(){
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivity(login);
+        }
+
+        public void RegistrarUsuario(){
+            Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+            startActivity(registrarusuario);
+        }
+
+        public void Nosotros(){
+            Intent nosotros = new Intent(this, NosotrosActivity.class);
+            startActivity(nosotros);
+        }
+
+        public void Contactenos(){
+            Intent contactenos = new Intent(this, ContactenosActivity.class);
+            startActivity(contactenos);
+        }
+
+        public void Ubicanos(){
+            Intent ubicanos = new Intent(this, UbicanosActivity.class);
+            startActivity(ubicanos);
+        }
+
+        public void Pedido(){
+            Intent Pedido = new Intent(this, PedidosActivity.class);
+            startActivity(Pedido);
+        }
+    //endregion
 }
