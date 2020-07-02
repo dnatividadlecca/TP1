@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,11 +18,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
+import com.dnatividad.cutapp.Entidades.Servicios;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -35,12 +46,19 @@ import okhttp3.Response;
 public class MisServiciosActivity extends AppCompatActivity {
     private ListView listItems;
     private Adaptador adaptador;
+    private AdaptadorServicios adaptadorServicios;
+
+    String urlOrigin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_servicios);
-        //cargar();
-        CargarCatalogo();
+        setUrlOrigin();
+        cargarServicios();
+    }
+
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -81,124 +99,92 @@ public class MisServiciosActivity extends AppCompatActivity {
         return true;
     }
 
-    //cargar modelo antiguo no esta en uso por ahora
-    public void cargar(){
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/productos")
-                .url("http://cutapp.atwebpages.com/index.php/productos")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+    public void cargarServicios(){
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public void run() {
+                HttpURLConnection httpURLConnection = null;
+                try {
+                    URL url = new URL(urlOrigin+"/servicios/listar");
+                    httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    Log.i("====>", cadenaJson);
-                    Gson gson = new Gson();
-                    Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
-                    final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
-                    final String[] matriz = new String[retorno.size()];
-                    int i = 0;
-                    for (Map<String, Object> x : retorno) {
-                        matriz[i++] = (String) ( "\nCod. Producto : " +x.get("cod_producto") + "\n\n" +"Titulo : " + x.get("titulo") +"\n" +"ingredientes : " +x.get("ingredientes") + "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"  +  "Precio S/. " +x.get("precio")+ "\n");
+                    int responseCode = httpURLConnection.getResponseCode();
+                    String responseMessage = httpURLConnection.getResponseMessage();
+
+                    if(responseCode == HttpURLConnection.HTTP_OK){
+                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String response="";
+                        String line = "";
+                        while ((line=br.readLine()) != null) {
+                            response += line;
+                        }
+                        updateLista(response);
+
+                    }else{
+                        Log.v("CatalogClient", "Response code:"+ responseCode);
+                        Log.v("CatalogClient", "Response message:"+ responseMessage);
                     }
-                    final ListView lstMisProductos = (ListView)findViewById(R.id.listaMisProductos);
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                                    MisServiciosActivity.this,
-                                    android.R.layout.simple_list_item_1,
-                                    matriz);
-                            lstMisProductos.setAdapter(adaptador);
-                        }
-                    });
-                    lstMisProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> arg0, View arg1,
-                                                int position, long arg3) {
-                            Map<String, Object> x = retorno.get(position);
-                            Intent i = new Intent(getApplicationContext(), ActualizarProductoActivity.class);
-                            i.putExtra("cod_producto",x.get("cod_producto").toString());
-                            i.putExtra("titulo",x.get("titulo").toString());
-                            i.putExtra("ingredientes",x.get("ingredientes").toString());
-                            i.putExtra("precio",x.get("precio").toString());
-                            startActivity(i);
-                        }
-                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    if(httpURLConnection != null)
+                        httpURLConnection.disconnect();
                 }
             }
         });
     }
 
-    //carga los productos con imagenes
-    public void CargarCatalogo(){
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/productos")
-                .url("http://cutapp.atwebpages.com/index.php/productos")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
+    void updateLista(String reportList) {
+        final ArrayList<Servicios>ListItems = new ArrayList<>();
+        listItems = (ListView) findViewById(R.id.listaMisServicios);
+        try {
+            Log.i("reporte", reportList);
+            JSONArray jsonArray = new JSONArray(reportList);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject objJson = jsonArray.getJSONObject(i);
+                Log.i("item",objJson.toString());
+
+
+                ListItems.add(new Servicios(
+                        Integer.parseInt(objJson.getString("idServicio")),
+                        objJson.getString("nombreServicio")+"\n",
+                        Double.parseDouble(objJson.getString("costoServicio")),
+                        objJson.getString("descripcionServicio")+"\n",
+                        objJson.getString("fotoServicio")+"\n"
+                ));
             }
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    // Log.i("registroBD====>", cadenaJson);
-                    Gson gson = new Gson();
-                    Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
-                    final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
-                    listItems=(ListView) findViewById(R.id.listaMisProductos);
-                    final ArrayList<Entidad>ListItems=new ArrayList<>();
-                    int i = 0;
-
-                    for (Map<String, Object> x : retorno) {
-                        ListItems.add(new Entidad(x.get("foto")+"".trim(),"Cod. PRO - "+x.get("cod_producto").toString()+"\n",x.get("titulo").toString()+"",x.get("ingredientes")+"\n","S/. "+Double.parseDouble(x.get("precio").toString())+"\n"));
-                    }
-                    runOnUiThread(new Runnable() {
-                        //Muestro el contenido del arraylist
-                        public void run() {
-                            adaptador = new Adaptador(MisServiciosActivity.this, ListItems);
-                            listItems.setAdapter(adaptador);
-                        }
-                    });
-
-                    //Capto los valores del listener y los envio al activity pedido
-                    listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> arg0, View arg1,
-                                                int position, long arg3) {
-                            Map<String, Object> x = retorno.get(position);
-                            Intent i = new Intent(getApplicationContext(), ActualizarProductoActivity.class);
-
-                            i.putExtra("foto",x.get("foto").toString());
-                            i.putExtra("cod_producto",x.get("cod_producto").toString());
-                            i.putExtra("titulo",x.get("titulo").toString());
-                            i.putExtra("ingredientes",x.get("ingredientes").toString());
-                            i.putExtra("precio",x.get("precio").toString());
-                            startActivity(i);
-                        }
-                    });
+            runOnUiThread(new Runnable() {
+                //Muestro el contenido del arraylist
+                public void run() {
+                    adaptadorServicios = new AdaptadorServicios(MisServiciosActivity.this, ListItems);
+                    listItems.setAdapter(adaptadorServicios);
                 }
-            }
-        });
-    }
+            });
 
+            listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+                    Servicios serv = ListItems.get(position);
+                    Intent i = new Intent(getApplicationContext(), ActualizarProductoActivity.class);
+                    i.putExtra("cod_producto", String.valueOf(serv.getIdServicio()));
+                    i.putExtra("titulo", serv.getNombreServicio());
+                    i.putExtra("ingredientes", serv.getDescripcionServicio());
+                    i.putExtra("precio", String.valueOf(serv.getCostoServicio()));
+                    startActivity(i);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //metodo para asignar las funciones de las opciones
     public boolean onOptionsItemSelected(MenuItem item){
@@ -248,68 +234,68 @@ public class MisServiciosActivity extends AppCompatActivity {
 
     }
 
+    //region Navegacion
+        public void Login(){
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivity(login);
+        }
+        public void RegistrarUsuario(){
+            Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+            startActivity(registrarusuario);
+        }
+        public void Nosotros(){
+            Intent nosotros = new Intent(this, NosotrosActivity.class);
+            startActivity(nosotros);
+        }
+        public void Contactenos(){
+            Intent contactenos = new Intent(this, ContactenosActivity.class);
+            startActivity(contactenos);
+        }
+        public void Ubicanos(){
+            Intent ubicanos = new Intent(this, UbicanosActivity.class);
+            startActivity(ubicanos);
+        }
+        public void Catalogo(){
+            Intent Catalogo = new Intent(this, CatalogoActivity.class);
+            startActivity(Catalogo);
+        }
+        public void MisPedidos(){
+            Intent mispedidos = new Intent(this, MisPedidosActivity.class);
+            startActivity(mispedidos);
+        }
+        public void reg_producto(){
+            Intent producto = new Intent(this, RegistrarServicioActivity.class);
+            startActivity(producto);
+        }
+        public void MisProductos(){
+            Intent misproducto = new Intent(this, MisServiciosActivity.class);
+            startActivity(misproducto);
+        }
+        private void cerrarSesion(){
+            DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Limpia Preferencias
+                            SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
+                            preferences.edit().clear().commit();
 
-    //Navegacion de los botones del menu
-    public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
-    }
-    public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
-        startActivity(registrarusuario);
-    }
-    public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
-        startActivity(nosotros);
-    }
-    public void Contactenos(){
-        Intent contactenos = new Intent(this, ContactenosActivity.class);
-        startActivity(contactenos);
-    }
-    public void Ubicanos(){
-        Intent ubicanos = new Intent(this, UbicanosActivity.class);
-        startActivity(ubicanos);
-    }
-    public void Catalogo(){
-        Intent Catalogo = new Intent(this, CatalogoActivity.class);
-        startActivity(Catalogo);
-    }
-    public void MisPedidos(){
-        Intent mispedidos = new Intent(this, MisPedidosActivity.class);
-        startActivity(mispedidos);
-    }
-    public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarServicioActivity.class);
-        startActivity(producto);
-    }
-    public void MisProductos(){
-        Intent misproducto = new Intent(this, MisServiciosActivity.class);
-        startActivity(misproducto);
-    }
-    private void cerrarSesion(){
-        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //Limpia Preferencias
-                        SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
-                        preferences.edit().clear().commit();
+                            //Regresa Pantalla Login
+                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                            startActivity(intent);
 
-                        //Regresa Pantalla Login
-                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                        startActivity(intent);
-
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
                 }
-            }
-        };
+            };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
-                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
-    }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                    .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
+        }
+    //endregion
 }
 

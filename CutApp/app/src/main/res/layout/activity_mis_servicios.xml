@@ -8,7 +8,7 @@
     tools:context=".MisServiciosActivity">
 
     <ListView
-        android:id="@+id/listaMisProductos"
+        android:id="@+id/listaMisServicios"
 
 
         android:layout_width="fill_parent"
