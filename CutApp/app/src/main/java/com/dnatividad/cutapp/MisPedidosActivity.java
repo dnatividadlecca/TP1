@@ -351,7 +351,7 @@ public class MisPedidosActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){

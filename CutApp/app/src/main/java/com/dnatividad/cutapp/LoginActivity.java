@@ -245,7 +245,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         public void reg_producto(){
-            Intent producto = new Intent(this, RegistrarProductoActivity.class);
+            Intent producto = new Intent(this, RegistrarServicioActivity.class);
             startActivity(producto);
         }
 

@@ -43,7 +43,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class RegistrarProductoActivity extends AppCompatActivity {
+public class RegistrarServicioActivity extends AppCompatActivity {
 
     //Request codes para la camara
     private static final int REQUEST_IMAGE = 100;
@@ -391,7 +391,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
