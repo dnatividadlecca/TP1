@@ -14,34 +14,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
 import com.dnatividad.cutapp.Entidades.Servicios;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MisServiciosActivity extends AppCompatActivity {
     private ListView listItems;
@@ -142,11 +130,11 @@ public class MisServiciosActivity extends AppCompatActivity {
         final ArrayList<Servicios>ListItems = new ArrayList<>();
         listItems = (ListView) findViewById(R.id.listaMisServicios);
         try {
-            Log.i("reporte", reportList);
+            //Log.i("reporte", reportList);
             JSONArray jsonArray = new JSONArray(reportList);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject objJson = jsonArray.getJSONObject(i);
-                Log.i("item",objJson.toString());
+                //Log.i("item",objJson.toString());
 
 
                 ListItems.add(new Servicios(
@@ -172,11 +160,11 @@ public class MisServiciosActivity extends AppCompatActivity {
                                         int position, long arg3) {
 
                     Servicios serv = ListItems.get(position);
-                    Intent i = new Intent(getApplicationContext(), ActualizarProductoActivity.class);
-                    i.putExtra("cod_producto", String.valueOf(serv.getIdServicio()));
-                    i.putExtra("titulo", serv.getNombreServicio());
-                    i.putExtra("ingredientes", serv.getDescripcionServicio());
-                    i.putExtra("precio", String.valueOf(serv.getCostoServicio()));
+                    Intent i = new Intent(getApplicationContext(), ActualizarServicioActivity.class);
+                    i.putExtra("idServicio", String.valueOf(serv.getIdServicio()));
+                    i.putExtra("nombreServicio", serv.getNombreServicio());
+                    i.putExtra("descripcionServicio", serv.getDescripcionServicio());
+                    i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
                     startActivity(i);
                 }
             });

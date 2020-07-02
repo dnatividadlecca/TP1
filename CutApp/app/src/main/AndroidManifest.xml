@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".splashActivity">
+        <activity android:name=".RegistrarServicioActivity">
             <!-- Splash animacion introductoria-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MisServiciosActivity" />
-        <activity android:name=".ActualizarProductoActivity" />
-        <activity android:name=".RegistrarServicioActivity" />
+        <activity android:name=".ActualizarServicioActivity" />
+        <activity android:name=".splashActivity" />
         <activity android:name=".ActualizarPedidosActivity" /> <!-- Notificaciones -->
         <activity android:name=".UbicanosActivity" /> <!-- Google Maps -->
         <activity android:name=".CatalogoActivity" /> <!-- llave de google maps -->
