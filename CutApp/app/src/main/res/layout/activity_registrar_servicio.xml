@@ -206,14 +206,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_txt_cod" />
 
             <EditText
-                android:id="@+id/reg_prod_etiq_txt_titulo"
+                android:id="@+id/reg_nombreServicio"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/reg_prod_txt_titulo"
                 android:inputType="textPersonName"
                 android:maxLength="35"
@@ -221,54 +221,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_titulo" />
-
-            <TextView
-                android:id="@+id/horarioInicio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Hora Inicio"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/sp_horaInicio"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/horarioFin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Hora Fin"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/sp_horaFin"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/reg_prod_etiq_lbl_descripcion"
@@ -282,21 +234,21 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_txt_titulo" />
+                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
 
             <EditText
-                android:id="@+id/reg_prod_etiq_txt_descripcion"
+                android:id="@+id/reg_descripcionServicio"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:gravity="top"
-                android:maxLength="250"
                 android:hint="@string/reg_prod_txt_descripcion"
                 android:inputType="textMultiLine|textPersonName"
+                android:maxLength="250"
                 android:textAllCaps="false"
                 android:textColor="#070113"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -319,10 +271,10 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_txt_descripcion" />
+                    app:layout_constraintTop_toBottomOf="@+id/reg_descripcionServicio" />
 
                 <EditText
-                    android:id="@+id/reg_prod_etiq_txt_precio"
+                    android:id="@+id/reg_costoServicio"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -357,7 +309,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_txt_precio" />
+                app:layout_constraintTop_toBottomOf="@+id/reg_costoServicio" />
 
 
         </LinearLayout>

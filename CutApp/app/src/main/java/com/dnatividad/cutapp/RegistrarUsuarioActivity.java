@@ -36,6 +36,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
     }
 
     private void setUrlOrigin() {
+        //urlOrigin = getString(R.string.urlOrigin);
         urlOrigin = getString(R.string.urlOrigin);
     }
 

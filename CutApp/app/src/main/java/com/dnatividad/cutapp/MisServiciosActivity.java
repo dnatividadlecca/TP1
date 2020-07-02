@@ -38,7 +38,7 @@ public class MisServiciosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_productos);
+        setContentView(R.layout.activity_mis_servicios);
         //cargar();
         CargarCatalogo();
     }
@@ -80,9 +80,9 @@ public class MisServiciosActivity extends AppCompatActivity {
 
         return true;
     }
+
     //cargar modelo antiguo no esta en uso por ahora
     public void cargar(){
-
 
         OkHttpClient client = new OkHttpClient();
 
