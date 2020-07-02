@@ -162,7 +162,7 @@ public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCal
         startActivity(ubicanos);
     }
     public void Pedido(){
-        Intent Pedido = new Intent(this, PedidosActivity.class);
+        Intent Pedido = new Intent(this, CitasClienteActivity.class);
         startActivity(Pedido);
     }
     private void cerrarSesion(){

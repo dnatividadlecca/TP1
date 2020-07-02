@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void buscar(View v){
 
+        /*
         EditText user_log = (EditText) findViewById(R.id.txt_usuario);
         EditText pass_log = (EditText) findViewById(R.id.txt_passwordUsuario);
 
@@ -86,9 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                                 if (ok== true){
 
                                     guardarPreferencia(valor3);// como esto le doy permiso al usuario
-                                    Catalogo();//una vez que ingreso me voy al activity Catalogo
-                                    LoginActivity.this.finish();
+                                    if(valor3 == "0") //admin
+                                        Catalogo();
+                                    else
+                                        MisCitas();
 
+                                    LoginActivity.this.finish();
                                 }
 
                             }
@@ -99,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+         */
+        MisCitas();
     }
 
     public void guardarPreferencia(String valor) {
@@ -257,6 +261,11 @@ public class LoginActivity extends AppCompatActivity {
         public void Reportes(){
             Intent reporte = new Intent(this, RegistrarCitaActivity.class);
             startActivity(reporte);
+        }
+
+        public void MisCitas(){
+            Intent miscitas = new Intent(this, MisCitas.class);
+            startActivity(miscitas);
         }
     //endregion
 }

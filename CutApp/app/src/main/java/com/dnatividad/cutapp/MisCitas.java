@@ -1,12 +1,17 @@
 package com.dnatividad.cutapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,19 +24,22 @@ import android.widget.Toast;
 
 import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
 import com.dnatividad.cutapp.Entidades.Servicios;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MisServiciosActivity extends AppCompatActivity {
+public class MisCitas extends AppCompatActivity {
     private ListView listItems;
     private AdaptadorServicios adaptadorServicios;
 
@@ -39,7 +47,7 @@ public class MisServiciosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_servicios);
+        setContentView(R.layout.activity_mis_citas);
         setUrlOrigin();
         cargarServicios();
     }
@@ -127,7 +135,7 @@ public class MisServiciosActivity extends AppCompatActivity {
 
     void updateLista(String reportList) {
         final ArrayList<Servicios>ListItems = new ArrayList<>();
-        listItems = (ListView) findViewById(R.id.listaMisServicios);
+        listItems = (ListView) findViewById(R.id.listaMisCitas);
         try {
             //Log.i("reporte", reportList);
             JSONArray jsonArray = new JSONArray(reportList);
@@ -148,7 +156,7 @@ public class MisServiciosActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 //Muestro el contenido del arraylist
                 public void run() {
-                    adaptadorServicios = new AdaptadorServicios(MisServiciosActivity.this, ListItems);
+                    adaptadorServicios = new AdaptadorServicios(MisCitas.this, ListItems);
                     listItems.setAdapter(adaptadorServicios);
                 }
             });
@@ -222,67 +230,66 @@ public class MisServiciosActivity extends AppCompatActivity {
     }
 
     //region Navegacion
-        public void Login(){
-            Intent login = new Intent(this, LoginActivity.class);
-            startActivity(login);
-        }
-        public void RegistrarUsuario(){
-            Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
-            startActivity(registrarusuario);
-        }
-        public void Nosotros(){
-            Intent nosotros = new Intent(this, NosotrosActivity.class);
-            startActivity(nosotros);
-        }
-        public void Contactenos(){
-            Intent contactenos = new Intent(this, ContactenosActivity.class);
-            startActivity(contactenos);
-        }
-        public void Ubicanos(){
-            Intent ubicanos = new Intent(this, UbicanosActivity.class);
-            startActivity(ubicanos);
-        }
-        public void Catalogo(){
-            Intent Catalogo = new Intent(this, CatalogoActivity.class);
-            startActivity(Catalogo);
-        }
-        public void MisPedidos(){
-            Intent mispedidos = new Intent(this, MisPedidosActivity.class);
-            startActivity(mispedidos);
-        }
-        public void reg_producto(){
-            Intent producto = new Intent(this, RegistrarServicioActivity.class);
-            startActivity(producto);
-        }
-        public void MisProductos(){
-            Intent misproducto = new Intent(this, MisServiciosActivity.class);
-            startActivity(misproducto);
-        }
-        private void cerrarSesion(){
-            DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    switch (i){
-                        case DialogInterface.BUTTON_POSITIVE:
-                            //Limpia Preferencias
-                            SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
-                            preferences.edit().clear().commit();
+    public void Login(){
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
+    }
+    public void RegistrarUsuario(){
+        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        startActivity(registrarusuario);
+    }
+    public void Nosotros(){
+        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        startActivity(nosotros);
+    }
+    public void Contactenos(){
+        Intent contactenos = new Intent(this, ContactenosActivity.class);
+        startActivity(contactenos);
+    }
+    public void Ubicanos(){
+        Intent ubicanos = new Intent(this, UbicanosActivity.class);
+        startActivity(ubicanos);
+    }
+    public void Catalogo(){
+        Intent Catalogo = new Intent(this, CatalogoActivity.class);
+        startActivity(Catalogo);
+    }
+    public void MisPedidos(){
+        Intent mispedidos = new Intent(this, MisPedidosActivity.class);
+        startActivity(mispedidos);
+    }
+    public void reg_producto(){
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
+        startActivity(producto);
+    }
+    public void MisProductos(){
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
+        startActivity(misproducto);
+    }
+    private void cerrarSesion(){
+        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Limpia Preferencias
+                        SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
+                        preferences.edit().clear().commit();
 
-                            //Regresa Pantalla Login
-                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                            startActivity(intent);
+                        //Regresa Pantalla Login
+                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(intent);
 
-                            break;
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            break;
-                    }
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
                 }
-            };
+            }
+        };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
-                    .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
+    }
     //endregion
 }
-

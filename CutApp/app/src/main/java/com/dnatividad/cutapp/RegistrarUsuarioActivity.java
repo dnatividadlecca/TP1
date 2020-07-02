@@ -211,7 +211,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         }
 
         public void Pedido(){
-            Intent Pedido = new Intent(this, PedidosActivity.class);
+            Intent Pedido = new Intent(this, CitasClienteActivity.class);
             startActivity(Pedido);
         }
     //endregion

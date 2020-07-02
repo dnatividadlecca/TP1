@@ -41,7 +41,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PedidosActivity extends AppCompatActivity {
+public class CitasClienteActivity extends AppCompatActivity {
     private ImageView img;
     private TextView cod;
     private TextView prod;
@@ -60,7 +60,7 @@ public class PedidosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedidos);
+        setContentView(R.layout.activity_citas_clientes);
 
         //coge el texto de los campos del catalogo
         img=(ImageView) findViewById(R.id.imgFotoPerfil);
@@ -238,7 +238,7 @@ public class PedidosActivity extends AppCompatActivity {
                             toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
                             Catalogo();
-                            PedidosActivity.this.finish();
+                            CitasClienteActivity.this.finish();
                         }
                     });
 

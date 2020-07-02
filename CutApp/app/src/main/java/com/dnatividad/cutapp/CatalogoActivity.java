@@ -94,7 +94,7 @@ public class CatalogoActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> arg0, View arg1,
                                                 int position, long arg3) {
                             Map<String, Object> x = retorno.get(position);
-                            Intent i = new Intent(getApplicationContext(), PedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), CitasClienteActivity.class);
                             i.putExtra("foto",x.get("foto").toString());
                             i.putExtra("codigo",x.get("cod_producto").toString());
                             i.putExtra("titulo",x.get("titulo").toString());
