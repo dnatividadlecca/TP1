@@ -355,7 +355,7 @@ public class MisPedidosActivity extends AppCompatActivity {
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){

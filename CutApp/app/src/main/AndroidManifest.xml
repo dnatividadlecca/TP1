@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MisProductosActivity" />
+        <activity android:name=".MisServiciosActivity" />
         <activity android:name=".ActualizarProductoActivity" />
         <activity android:name=".RegistrarProductoActivity" />
         <activity android:name=".ActualizarPedidosActivity" /> <!-- Notificaciones -->

@@ -5,23 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -260,7 +252,7 @@ public class CatalogoActivity extends AppCompatActivity {
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     public void Reportes(){

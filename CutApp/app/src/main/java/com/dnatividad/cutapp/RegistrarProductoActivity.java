@@ -1,17 +1,14 @@
 package com.dnatividad.cutapp;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Environment;
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v4.content.ContextCompat;
 //import android.support.v7.app.AlertDialog;
@@ -398,7 +395,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){

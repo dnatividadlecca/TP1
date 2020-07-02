@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         public void MisProductos(){
-            Intent misproducto = new Intent(this, MisProductosActivity.class);
+            Intent misproducto = new Intent(this, MisServiciosActivity.class);
             startActivity(misproducto);
         }
 

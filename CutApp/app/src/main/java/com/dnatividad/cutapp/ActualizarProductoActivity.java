@@ -18,11 +18,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -313,7 +310,7 @@ public class ActualizarProductoActivity extends AppCompatActivity {
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){

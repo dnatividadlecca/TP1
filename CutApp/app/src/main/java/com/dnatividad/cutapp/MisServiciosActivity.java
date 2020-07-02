@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,7 +32,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MisProductosActivity extends AppCompatActivity {
+public class MisServiciosActivity extends AppCompatActivity {
     private ListView listItems;
     private Adaptador adaptador;
     @Override
@@ -120,7 +116,7 @@ public class MisProductosActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
-                                    MisProductosActivity.this,
+                                    MisServiciosActivity.this,
                                     android.R.layout.simple_list_item_1,
                                     matriz);
                             lstMisProductos.setAdapter(adaptador);
@@ -177,7 +173,7 @@ public class MisProductosActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         //Muestro el contenido del arraylist
                         public void run() {
-                            adaptador = new Adaptador(MisProductosActivity.this, ListItems);
+                            adaptador = new Adaptador(MisServiciosActivity.this, ListItems);
                             listItems.setAdapter(adaptador);
                         }
                     });
@@ -287,7 +283,7 @@ public class MisProductosActivity extends AppCompatActivity {
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){
