@@ -34,7 +34,7 @@
         <activity android:name=".ActualizarPedidosActivity" /> <!-- Notificaciones -->
         <activity android:name=".UbicanosActivity" /> <!-- Google Maps -->
         <activity android:name=".CatalogoActivity" /> <!-- llave de google maps -->
-        <activity android:name=".ReportePedidosActivity" />
+        <activity android:name=".RegistrarCitaActivity" />
         <activity android:name=".PedidosActivity" />
         <activity android:name=".MisPedidosActivity" />
         <activity android:name=".ContactenosActivity" />

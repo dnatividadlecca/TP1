@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         public void Reportes(){
-            Intent reporte = new Intent(this, ReportePedidosActivity.class);
+            Intent reporte = new Intent(this, RegistrarCitaActivity.class);
             startActivity(reporte);
         }
     //endregion

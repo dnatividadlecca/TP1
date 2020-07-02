@@ -256,7 +256,7 @@ public class CatalogoActivity extends AppCompatActivity {
         startActivity(misproducto);
     }
     public void Reportes(){
-        Intent reporte = new Intent(this, ReportePedidosActivity.class);
+        Intent reporte = new Intent(this, RegistrarCitaActivity.class);
         startActivity(reporte);
     }
     private void cerrarSesion(){

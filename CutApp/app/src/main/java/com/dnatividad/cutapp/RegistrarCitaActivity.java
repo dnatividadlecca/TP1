@@ -7,132 +7,152 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ReportePedidosActivity extends AppCompatActivity {
+public class RegistrarCitaActivity extends AppCompatActivity {
 
-
-    //*******************************ListView Imagen***********************************************
-    private ListView listItems;
-    private AdaptadorPedido adaptador;
-
-    //**********************************************************************************************
-
+    EditText nombre_peluqueria, telefono_peluqueria, direccion_peluqueria, hora_inicio, hora_fin, descripcion_peluqueria;
+    String urlOrigin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUrlOrigin();
         setContentView(R.layout.activity_reporte_pedidos);
-        CargarMisPedidos();
+       }
 
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.overflow,menu);
-
-        //--------------obtengo el correo almacenado a la hora que se logueo------------------------
-        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
-        String permiso = prefs.getString("PERMISO", "");
-        Log.i("permiso logueado ====>", permiso.trim());
-        //------------------------------------------------------------------------------------------
-
-        //otorgo permiso de acceso a las opciones del menu
-        if(permiso.equals("true")){
-            //esta linea permite hacer visible un item del menu
-
-        }else {
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
-            itemMenuPedidos.setVisible(false);
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
-            itemMenuCatalogo.setVisible(true);
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
-            itemMenuLogin.setVisible(false);
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
-            itemMenuRegistrar.setVisible(false);
-        }
-        //------------------------------------------------------------------------------------------
-        MenuItem itemMenuRegistrar = menu.findItem(R.id.item_11);
-        itemMenuRegistrar.setVisible(true);
-        //------------------------------------------------------------------------------------------
-
-        return true;
+    public void Reg_peluqueria(View v){
+        registrarCita();
     }
 
-    public void CargarMisPedidos(){
-        //obtengo el usuario de la sesion iniciada
-        SharedPreferences prefs= getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
-        String usuario = prefs.getString("CADENA","");
+    private void setReferences() {
+        nombre_peluqueria = (EditText) findViewById(R.id.nombre_peluqueria);
+        telefono_peluqueria = (EditText) findViewById(R.id.telefono_peluqueria);
+        direccion_peluqueria = (EditText) findViewById(R.id.direccion_peluqueria);
+        hora_inicio = (EditText) findViewById(R.id.hora_inicio);
+        hora_fin = (EditText) findViewById(R.id.hora_fin);
+        descripcion_peluqueria = (EditText) findViewById(R.id.descripcion_peluqueria);
+    }
 
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/reportes/"+usuario)
-                .url("http://cutapp.atwebpages.com/index.php/reportes/"+usuario)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+    private void registrarCita() {
+        setReferences();
+        insertData();
+    }
+    void insertData(){
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/peluquerias/registrar");
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    Log.i("====>", cadenaJson);
-                    Gson gson = new Gson();
-                    Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
-                    final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
-                    listItems=(ListView) findViewById(R.id.listaMisPedidos);
-                    final ArrayList<EntidadPedido>ListItems=new ArrayList<>();
-                    int i = 0;
-                    for (Map<String, Object> x : retorno) {
-                        ListItems.add(new EntidadPedido(x.get("foto")+"".trim(),"Pedido N°: "+x.get("cod_pedido")+"".trim(),"Fec. Pedido: "+x.get("fecha_pedido").toString()+
-                                "","Cod. PRO - "+x.get("cod_producto").toString()+"",x.get("titulo")+"", x.get("ingredientes")+
-                                "","S/.  "+x.get("precio")+"",x.get("cod_usuario")+"",x.get("nombre")+
-                                "",x.get("apellido")+"",x.get("direccion")+"",x.get("telefono")+
-                                "",x.get("fecha_nacimiento")+"",x.get("porciones")+"",x.get("sabor")+
-                                "",x.get("mensaje_torta")+"",x.get("info_adicional")+
-                                "","Fecha de Entrega : "+x.get("fecha_entrega")+"",x.get("estado")+""));
+                    JSONObject jsonObject = new JSONObject();
+                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+
+                    jsonObject.put("nombre", nombre_peluqueria.getText().toString());
+                    //Log.i("nombreServicio", reg_nombreServicio.getText().toString());
+                    jsonObject.put("telefono", telefono_peluqueria.getText().toString());
+                    //Log.i("descripcionServicio", reg_descripcionServicio.getText().toString());
+                    jsonObject.put("direccion", direccion_peluqueria.getText().toString());
+                    jsonObject.put("horaInicio", hora_inicio.getText().toString());
+                    jsonObject.put("horaFin", hora_fin.getText().toString());
+                    jsonObject.put("descripcion", descripcion_peluqueria.getText().toString());
+                    //Log.i("costoServicio", reg_costoServicio.getText().toString());
+                    //jsonObject.put("fotoServicio", fotoEnBase64);
+                    //Log.i("fotoServicio", fotoEnBase64);
+
+                    JSONObject jsonObjectPeluqueria = new JSONObject();
+                    jsonObjectPeluqueria.put("idPeluqueria", "1");
+
+                    jsonObject.put("peluqueria", jsonObjectPeluqueria);
+                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+
+                    String response = "";
+                    String line = "";
+
+                    while ((line = br.readLine()) != null) {
+                        response += line;
                     }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            adaptador = new AdaptadorPedido(ReportePedidosActivity.this, ListItems);
-                            listItems.setAdapter(adaptador);
 
-                        }
-                    });
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
         });
     }
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
 
-
-
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), MisServiciosActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), MisServiciosActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
+        }
+    }
     //metodo para asignar las funciones de las opciones
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
@@ -178,47 +198,55 @@ public class ReportePedidosActivity extends AppCompatActivity {
             cerrarSesion();
         }
         return super.onOptionsItemSelected(item);
-
     }
 
 
-    //Navegacion de los botones del menu
+    //region Navegacion
     public void Login(){
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
     }
+
     public void RegistrarUsuario(){
         Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
         startActivity(registrarusuario);
     }
+
     public void Nosotros(){
         Intent nosotros = new Intent(this, NosotrosActivity.class);
         startActivity(nosotros);
     }
+
     public void Contactenos(){
         Intent contactenos = new Intent(this, ContactenosActivity.class);
         startActivity(contactenos);
     }
+
     public void Ubicanos(){
         Intent ubicanos = new Intent(this, UbicanosActivity.class);
         startActivity(ubicanos);
     }
+
     public void Catalogo(){
         Intent Catalogo = new Intent(this, CatalogoActivity.class);
         startActivity(Catalogo);
     }
+
     public void MisPedidos(){
         Intent mispedidos = new Intent(this, MisPedidosActivity.class);
         startActivity(mispedidos);
     }
+
     public void reg_producto(){
         Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
+
     public void MisProductos(){
         Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
+
     private void cerrarSesion(){
         DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
             @Override
@@ -244,4 +272,6 @@ public class ReportePedidosActivity extends AppCompatActivity {
         builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
                 .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
     }
+
+    //endregion
 }
