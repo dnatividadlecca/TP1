@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MisServiciosActivity">
+        <activity android:name=".splashActivity">
             <!-- Splash animacion introductoria-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".splashActivity" />
+        <activity android:name=".MisServiciosActivity" />
         <activity android:name=".ActualizarProductoActivity" />
         <activity android:name=".RegistrarServicioActivity" />
         <activity android:name=".ActualizarPedidosActivity" /> <!-- Notificaciones -->
