@@ -1,11 +1,6 @@
 package com.dnatividad.cutapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -22,26 +17,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.Adaptadores.AdaptadorCitas;
 import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
+import com.dnatividad.cutapp.Entidades.Citas;
+import com.dnatividad.cutapp.Entidades.Peluqueria;
 import com.dnatividad.cutapp.Entidades.Servicios;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.dnatividad.cutapp.Entidades.Usuarios;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MisCitas extends AppCompatActivity {
     private ListView listItems;
-    private AdaptadorServicios adaptadorServicios;
+    private AdaptadorCitas adaptadorCitas;
 
     String urlOrigin;
     @Override
@@ -49,7 +43,7 @@ public class MisCitas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_citas);
         setUrlOrigin();
-        cargarServicios();
+        cargarCitas();
     }
 
     private void setUrlOrigin() {
@@ -94,7 +88,7 @@ public class MisCitas extends AppCompatActivity {
         return true;
     }
 
-    public void cargarServicios(){
+    public void cargarCitas(){/*
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -130,10 +124,13 @@ public class MisCitas extends AppCompatActivity {
                         httpURLConnection.disconnect();
                 }
             }
-        });
+        });*/
+        updateLista("");
     }
 
     void updateLista(String reportList) {
+
+        /*
         final ArrayList<Servicios>ListItems = new ArrayList<>();
         listItems = (ListView) findViewById(R.id.listaMisCitas);
         try {
@@ -178,7 +175,53 @@ public class MisCitas extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+        listItems = (ListView) findViewById(R.id.listaMisCitas);
+        final ArrayList<Citas>ListItems = new ArrayList<Citas>();
+        ListItems.add(new Citas(
+                1,
+                "20/02/2020",
+                "10:00 am",
+                false,
+                "",
+                new Usuarios(1,"Juan","Perez","Valdivia","",0,"juan@gmail.com",""),
+                new Servicios(1,"Corte de cabello",20.0,"Corte para caballeros simple","",
+                        new Peluqueria(1,"","","","","",""))
+                )
+        );
+        ListItems.add(new Citas(
+                        2,
+                        "23/10/2020",
+                        "12:00 am",
+                        false,
+                        "",
+                        new Usuarios(1,"Juan","Perez","Valdivia","",0,"juan@gmail.com",""),
+                        new Servicios(1,"Corte de cabello",20.0,"Corte para caballeros simple","",
+                                new Peluqueria(1,"","","","","",""))
+                )
+        );
+
+        runOnUiThread(new Runnable() {
+            //Muestro el contenido del arraylist
+            public void run() {
+                adaptadorCitas = new AdaptadorCitas(MisCitas.this, ListItems);
+                listItems.setAdapter(adaptadorCitas);
+            }
+        });
+        listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    int position, long arg3) {
+
+                Citas citas = ListItems.get(position);
+                Intent i = new Intent(getApplicationContext(), ActualizarServicioActivity.class);
+                i.putExtra("idServicio", String.valueOf(citas.getIdServicio()));
+                i.putExtra("nombreServicio", serv.getNombreServicio());
+                i.putExtra("descripcionServicio", serv.getDescripcionServicio());
+                i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                startActivity(i);
+            }
+        });
     }
 
     //metodo para asignar las funciones de las opciones
