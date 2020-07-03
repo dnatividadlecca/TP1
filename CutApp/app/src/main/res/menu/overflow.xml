@@ -2,10 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Las Rositas"
-        android:icon="@drawable/logo"
-        app:showAsAction="ifRoom"
-        android:enabled="true" />
+    <item
+        android:enabled="true"
+        android:icon="@drawable/logo_pelo"
+        android:title="Las Rositas"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/item_login"

@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
          */
         Boolean rolAdmin = true;
         Boolean sesionIniciada = true;
-        guardarPreferencia(rolAdmin, sesionIniciada, 7);
+        guardarPreferencia(rolAdmin, sesionIniciada, 15);
 
         if(rolAdmin)
             CitasCliente();
