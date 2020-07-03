@@ -8,43 +8,47 @@
         android:enabled="true" />
 
     <item
-        android:id="@+id/item_1"
-        android:title="@string/opc_uno" />
+        android:id="@+id/item_login"
+        android:title="@string/opc_uno"
+        android:visible="false"/>
     <item
-        android:id="@+id/item_2"
-        android:title="@string/opc_dos" />
+        android:id="@+id/item_registroUsuarios"
+        android:title="@string/opc_dos"
+        android:visible="false"/>
     <item
-        android:id="@+id/item_3"
-        android:title="@string/opc_tres" />
+        android:id="@+id/item_nosotros"
+        android:title="@string/opc_tres"
+        android:visible="false"/>
     <item
-        android:id="@+id/item_4"
+        android:id="@+id/item_contactenos"
         android:title="@string/opc_cuatro"
         android:visible="false"/>
     <item
-        android:id="@+id/item_5"
-        android:title="@string/opc_cinco" />
+        android:id="@+id/item_ubicanos"
+        android:title="@string/opc_cinco"
+        android:visible="false"/>
     <item
-        android:id="@+id/item_6"
+        android:id="@+id/item_registroCitas"
         android:title="@string/opc_seis"
         android:visible="false"/>
     <item
-        android:id="@+id/item_7"
+        android:id="@+id/item_misCitas"
         android:title="@string/opc_siete"
         android:visible="false"/>
     <item
-        android:id="@+id/item_8"
+        android:id="@+id/item_registroServicios"
         android:title="@string/opc_ocho"
         android:visible="false"/>
     <item
-        android:id="@+id/item_9"
+        android:id="@+id/item_misServicios"
         android:title="@string/opc_nueve"
         android:visible="false"/>
     <item
-        android:id="@+id/item_10"
+        android:id="@+id/item_reporteCitas"
         android:title="@string/opc_diez"
         android:visible="false"/>
     <item
-        android:id="@+id/item_11"
+        android:id="@+id/item_cerrarSesion"
         android:title="@string/opc_once"
         android:visible="false"/>
 </menu>

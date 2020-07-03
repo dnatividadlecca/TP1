@@ -91,17 +91,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
          */
-        Boolean rolAdmin = false;
-        guardarPreferencia(rolAdmin, 7);
+        Boolean rolAdmin = true;
+        Boolean sesionIniciada = true;
+        guardarPreferencia(rolAdmin, sesionIniciada, 7);
 
         if(rolAdmin)
             CitasCliente();
         else
-            //MisCitas();
             listadoServiciosEscoger();
     }
 
-    public void guardarPreferencia(Boolean rolAdmin, Integer idUsuario) {
+    public void guardarPreferencia(Boolean rolAdmin, Boolean sesionIniciada, Integer idUsuario) {
 
         /*
         if (valor.equals("true")){
@@ -131,8 +131,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("PREFERENCIAS",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("SESIONINICIADA", "true");
-        //editor.putString("CADENA", editText1.getText().toString());
+        editor.putString("SESIONINICIADA", String.valueOf(sesionIniciada));
         editor.putString("PERMISOADMIN", String.valueOf(rolAdmin));
         editor.putString("IDUSUSARIO", String.valueOf(idUsuario));
         editor.commit();
@@ -141,22 +140,6 @@ public class LoginActivity extends AppCompatActivity {
     //metodo para mostrar y ocultar el menu
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow,menu);
-
-        MenuItem itemMenuPedidos;
-        itemMenuPedidos = menu.findItem(R.id.item_1);
-        itemMenuPedidos.setVisible(false);
-
-        itemMenuPedidos = menu.findItem(R.id.item_2);
-        itemMenuPedidos.setVisible(false);
-
-        itemMenuPedidos = menu.findItem(R.id.item_3);
-        itemMenuPedidos.setVisible(true);
-
-        itemMenuPedidos = menu.findItem(R.id.item_4);
-        //itemMenuPedidos.setVisible(true);
-
-        itemMenuPedidos = menu.findItem(R.id.item_5);
-        itemMenuPedidos.setVisible(true);
         return true;
     }
 
@@ -169,43 +152,43 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
+        else if (id ==R.id.item_registroUsuarios){
             Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
+        else if (id ==R.id.item_contactenos){
             Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
+        else if (id ==R.id.item_registroCitas){
             Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
             Catalogo();
         }
-        else if (id ==R.id.item_7){
+        else if (id ==R.id.item_misCitas){
             Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
             MisPedidos();
         }
-        else if (id ==R.id.item_8){
+        else if (id ==R.id.item_registroServicios){
             Toast.makeText(this,"Reg. Producto", Toast.LENGTH_SHORT).show();
             reg_producto();
         }
-        else if (id ==R.id.item_9){
+        else if (id ==R.id.item_misServicios){
             Toast.makeText(this,"Mis Productos", Toast.LENGTH_SHORT).show();
             MisProductos();
         }
-        else if (id ==R.id.item_10){
+        else if (id ==R.id.item_reporteCitas){
             Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
             Reportes();
         }

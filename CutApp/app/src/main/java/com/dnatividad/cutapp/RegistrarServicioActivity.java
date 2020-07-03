@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.ManejoMenu.controlMenuOpciones;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -140,7 +142,6 @@ public class RegistrarServicioActivity extends AppCompatActivity {
         });
     }
 
-
     void analyseResponse(String response){
         Log.i("Respuesta", response);
 
@@ -202,164 +203,151 @@ public class RegistrarServicioActivity extends AppCompatActivity {
         }
     //endregion
 
-
-    //metodo para mostrar y ocultar en menu
+    //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow,menu);
 
         //--------------obtengo el correo almacenado a la hora que se logueo------------------------
         SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
-        String permiso = prefs.getString("PERMISO", "");
-        Log.i("permiso logueado ====>", permiso.trim());
+        String permisoAdmin = prefs.getString("PERMISOADMIN", "");
+        String sesionIniciada = prefs.getString("SESIONINICIADA", "");
+        Log.i("permiso Admin ====>", permisoAdmin.trim());
+        Log.i("sesion Iniciada ====>", sesionIniciada.trim());
         //------------------------------------------------------------------------------------------
 
-        //otorgo permiso de acceso a las opciones del menu
-        if(permiso.equals("true")){
-            //esta linea permite hacer visible un item del menu
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
-            itemMenuCatalogo.setVisible(true);
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
-            itemMenuPedidos.setVisible(true);
-            MenuItem itemMenuMisProd = menu.findItem(R.id.item_9);
-            itemMenuMisProd.setVisible(true);
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
-            itemMenuLogin.setVisible(false);
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
-            itemMenuRegistrar.setVisible(false);
-        }else {
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
-            itemMenuPedidos.setVisible(false);
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
-            itemMenuLogin.setVisible(false);
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
-            itemMenuRegistrar.setVisible(false);
-        }
-        //------------------------------------------------------------------------------------------
-        MenuItem itemMenuRegistrar = menu.findItem(R.id.item_11);
-        itemMenuRegistrar.setVisible(true);
-        //------------------------------------------------------------------------------------------
+        controlMenuOpciones opcionesMenu = new controlMenuOpciones();
+        opcionesMenu.asignarOpcionesAcceso(menu, permisoAdmin, sesionIniciada);
+
         return true;
     }
 
-    //metodo para asignar las funciones de las opciones
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
-            Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_registroUsuarios){
+            Toast.makeText(this,"Registrar Usuario", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
-            Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_contactenos){
+            Toast.makeText(this,"Contáctenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
-            Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
-            Catalogo();
+        else if (id ==R.id.item_registroCitas){
+            Toast.makeText(this,"Registro Citas", Toast.LENGTH_SHORT).show();
+            RegistrarCita();
         }
-        else if (id ==R.id.item_7){
-            Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
-            MisPedidos();
+        else if (id ==R.id.item_misCitas){
+            Toast.makeText(this,"Mis Citas", Toast.LENGTH_SHORT).show();
+            MisCitas();
         }
-        else if (id ==R.id.item_8){
-            Toast.makeText(this,"Reg. Producto", Toast.LENGTH_SHORT).show();
-            reg_producto();
+        else if (id ==R.id.item_reporteCitas){
+            Toast.makeText(this,"Reporte Citas", Toast.LENGTH_SHORT).show();
+            CitasCliente();
         }
-        else if (id ==R.id.item_9){
-            Toast.makeText(this,"Mis Productos", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_registroServicios){
+            Toast.makeText(this,"Reg. Servicios", Toast.LENGTH_SHORT).show();
+            RegistrarServicios();
+        }
+        else if (id ==R.id.item_misServicios){
+            Toast.makeText(this,"Mis Servicios", Toast.LENGTH_SHORT).show();
             MisProductos();
         }
-        else if (id ==R.id.item_11){
-            //Toast.makeText(this,"Cerrar Sesión", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_cerrarSesion){
             cerrarSesion();
         }
         return super.onOptionsItemSelected(item);
-    }
 
+    }
+    //endregion
 
     //region Navegacion
-        public void Login(){
-            Intent login = new Intent(this, LoginActivity.class);
-            startActivity(login);
-        }
+    public void Login(){
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
+    }
 
-        public void RegistrarUsuario(){
-            Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
-            startActivity(registrarusuario);
-        }
+    public void RegistrarUsuario(){
+        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        startActivity(registrarusuario);
+    }
 
-        public void Nosotros(){
-            Intent nosotros = new Intent(this, NosotrosActivity.class);
-            startActivity(nosotros);
-        }
+    public void Nosotros(){
+        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        startActivity(nosotros);
+    }
 
-        public void Contactenos(){
-            Intent contactenos = new Intent(this, ContactenosActivity.class);
-            startActivity(contactenos);
-        }
+    public void Contactenos(){
+        Intent contactenos = new Intent(this, ContactenosActivity.class);
+        startActivity(contactenos);
+    }
 
-        public void Ubicanos(){
-            Intent ubicanos = new Intent(this, UbicanosActivity.class);
-            startActivity(ubicanos);
-        }
+    public void Ubicanos(){
+        Intent ubicanos = new Intent(this, UbicanosActivity.class);
+        startActivity(ubicanos);
+    }
 
-        public void Catalogo(){
-            Intent Catalogo = new Intent(this, CatalogoActivity.class);
-            startActivity(Catalogo);
-        }
+    public void RegistrarCita(){
+        Intent Catalogo = new Intent(this, MisServiciosClienteActivity.class);
+        startActivity(Catalogo);
+    }
 
-        public void MisPedidos(){
-            Intent mispedidos = new Intent(this, MisPedidosActivity.class);
-            startActivity(mispedidos);
-        }
+    public void MisCitas(){
+        Intent misCitas = new Intent(this, MisCitas.class);
+        startActivity(misCitas);
+    }
 
-        public void reg_producto(){
-            Intent producto = new Intent(this, RegistrarServicioActivity.class);
-            startActivity(producto);
-        }
+    public void CitasCliente(){
+        Intent miscitas = new Intent(this, CitasTotalClientesActivity.class);
+        startActivity(miscitas);
+    }
 
-        public void MisProductos(){
-            Intent misproducto = new Intent(this, MisServiciosActivity.class);
-            startActivity(misproducto);
-        }
+    public void RegistrarServicios(){
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
+        startActivity(producto);
+    }
 
-        private void cerrarSesion(){
-            DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    switch (i){
-                        case DialogInterface.BUTTON_POSITIVE:
-                            //Limpia Preferencias
-                            SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
-                            preferences.edit().clear().commit();
+    public void MisProductos(){
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
+        startActivity(misproducto);
+    }
 
-                            //Regresa Pantalla Login
-                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                            startActivity(intent);
+    private void cerrarSesion(){
+        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Limpia Preferencias
+                        SharedPreferences preferences = getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
+                        preferences.edit().clear().commit();
 
-                            break;
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            break;
-                    }
+                        //Regresa Pantalla Login
+                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(intent);
+
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
                 }
-            };
+            }
+        };
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
-                    .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
+    }
 
     //endregion
 }

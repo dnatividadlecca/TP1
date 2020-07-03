@@ -6,11 +6,11 @@
     <string name="opc_tres">Nosotros</string>
     <string name="opc_cuatro">Contáctenos</string>
     <string name="opc_cinco">Ubícanos</string>
-    <string name="opc_prueba">Pedido</string>
-    <string name="opc_seis">Catálogo</string>
+    <string name="opc_prueba">Citas</string>
+    <string name="opc_seis">Registrar Cita</string>
     <string name="opc_siete">Mis Citas</string>
-    <string name="opc_ocho">Reg. Producto</string>
-    <string name="opc_nueve">Mis Productos</string>
+    <string name="opc_ocho">Reg. Servicios</string>
+    <string name="opc_nueve">Mis Servicios</string>
     <string name="opc_diez">Reporte de Mis Citas</string>
     <string name="opc_once">Cerrar Sesión</string>
 

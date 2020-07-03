@@ -263,29 +263,29 @@ public class CitasClienteActivity extends AppCompatActivity {
         //otorgo permiso de acceso a las opciones del menu
         if(permiso.equals("true")){
             //esta linea permite hacer visible un item del menu
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
+            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_registroCitas);
             itemMenuCatalogo.setVisible(true);
 
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
+            MenuItem itemMenuPedidos = menu.findItem(R.id.item_misCitas);
             itemMenuPedidos.setVisible(true);
 
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
+            MenuItem itemMenuLogin = menu.findItem(R.id.item_login);
             itemMenuLogin.setVisible(false);
 
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
+            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_registroUsuarios);
             itemMenuRegistrar.setVisible(false);
 
         }else {
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
+            MenuItem itemMenuPedidos = menu.findItem(R.id.item_misCitas);
             itemMenuPedidos.setVisible(false);
 
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
+            MenuItem itemMenuLogin = menu.findItem(R.id.item_login);
             itemMenuLogin.setVisible(false);
 
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
+            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_registroUsuarios);
             itemMenuRegistrar.setVisible(false);
 
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
+            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_registroCitas);
             itemMenuCatalogo.setVisible(true);
         }
         //------------------------------------------------------------------------------------------
@@ -297,39 +297,39 @@ public class CitasClienteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
+        else if (id ==R.id.item_registroUsuarios){
             Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
+        else if (id ==R.id.item_contactenos){
             Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
+        else if (id ==R.id.item_registroCitas){
             Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
             Catalogo();
         }
-        else if (id ==R.id.item_7){
+        else if (id ==R.id.item_misCitas){
             Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
             MisPedidos();
         }
-        else if (id ==R.id.item_8){
+        else if (id ==R.id.item_registroServicios){
             Toast.makeText(this,"Reg. Producto", Toast.LENGTH_SHORT).show();
             reg_producto();
         }
-        else if (id ==R.id.item_9){
+        else if (id ==R.id.item_misServicios){
             Toast.makeText(this,"Mis Productos", Toast.LENGTH_SHORT).show();
             MisProductos();
         }
