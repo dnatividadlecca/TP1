@@ -127,6 +127,7 @@ public class MisServiciosActivity extends AppCompatActivity {
                     i.putExtra("nombreServicio", serv.getNombreServicio());
                     i.putExtra("descripcionServicio", serv.getDescripcionServicio());
                     i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                    i.putExtra("fotoServicio", String.valueOf(serv.getFotoServicio()));
                     startActivity(i);
                 }
             });
