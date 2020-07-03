@@ -21,13 +21,13 @@
     <string name="boton_registrarse">Registrarse</string>
 
     <!-- Pedidos Activity -->
-    <string name="Titulo">REALIZAR PEDIDO </string>
+    <string name="Titulo">Registro de Citas</string>
     <string name="titulo_pedido">Pedido N°</string>
     <string name="codigo">Cód PRO - </string>
     <string name="Producto">Producto</string>
     <string name="Ingredientes">Ingredientes</string>
 
-    <string name="fecha_entrega">Fecha de entrega</string>
+    <string name="fechaCita">Fecha de Cita</string>
     <string name="Dia">Día</string>
     <string name="mes">Mes</string>
     <string name="Año">Año</string>
@@ -37,7 +37,7 @@
     <string name="Mensaje">Información adicional</string>
     <string name="txt_Dedicatoria">Dedicatoria...</string>
     <string name="txt_Mensaje">Datos adicional...</string>
-    <string name="boton_pedido">Realizar Pedido</string>
+    <string name="boton_registrarCita">Registrar Cita</string>
     <!-- itempedido Layout -->
     <string name="separador1">****DATOS DEL CLIENTE****</string>
     <string name="separador2">****DETALLE PEDIDO****</string>
@@ -92,6 +92,7 @@
     <string name="Citas">Citas</string>
     <!--Misproductos -->
     <string name="Servicios">Mis Servicios</string>
+    <string name="ServiciosCliente">Seleccione un Servicio</string>
     <!--Misproductos -->
     <string name="Reporte">Reporte de Mis Citas</string>
     <!--Nosotros-->

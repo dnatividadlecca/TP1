@@ -56,7 +56,7 @@
 
 
             <TextView
-                android:id="@+id/lblPedido"
+                android:id="@+id/lblCita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Titulo"
@@ -152,7 +152,7 @@
                                 android:inputType="textPersonName" />
 
                             <TextView
-                                android:id="@+id/txt_cod_producto"
+                                android:id="@+id/txt_idServicio"
                                 android:layout_width="115dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
@@ -163,7 +163,7 @@
                                 android:inputType="textPersonName" />
 
                             <TextView
-                                android:id="@+id/txt_Producto"
+                                android:id="@+id/txt_nombreServicio"
                                 android:layout_width="115dp"
                                 android:layout_height="80dp"
                                 android:layout_marginTop="17dp"
@@ -210,7 +210,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/fecha_entrega"
+                android:text="@string/fechaCita"
                 android:textColor="#5E394C"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -291,7 +291,7 @@
                 android:inputType="textMultiLine|textPersonName" />
 
             <TextView
-                android:id="@+id/mydate"
+                android:id="@+id/fechaCita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -309,7 +309,7 @@
                 android:layout_marginBottom="50dp"
                 android:background="#e593bd"
                 android:onClick="RegistrarPedido"
-                android:text="@string/boton_pedido"
+                android:text="@string/boton_registrarCita"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />

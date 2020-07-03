@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".MisServiciosActivity">
+    tools:context=".MisServiciosClienteActivity">
 
     <ListView
         android:id="@+id/listaMisServiciosCliente"
@@ -44,7 +44,7 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/Servicios"
+        android:text="@string/ServiciosCliente"
         android:textColor="#e593bd"
         android:textSize="20sp"
         android:textStyle="bold"

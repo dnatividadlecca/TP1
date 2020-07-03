@@ -91,13 +91,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
          */
-        Boolean rolAdmin = true;
+        Boolean rolAdmin = false;
         guardarPreferencia(rolAdmin, 7);
 
         if(rolAdmin)
             CitasCliente();
         else
-            MisCitas();
+            //MisCitas();
+            listadoServiciosEscoger();
     }
 
     public void guardarPreferencia(Boolean rolAdmin, Integer idUsuario) {
@@ -271,6 +272,16 @@ public class LoginActivity extends AppCompatActivity {
         public void CitasCliente(){
             Intent miscitas = new Intent(this, CitasTotalClientesActivity.class);
             startActivity(miscitas);
+        }
+
+        public void reg_citas(){
+            Intent registroCitas = new Intent(this, RegistrarCitaActivity.class);
+            startActivity(registroCitas);
+        }
+
+        public void listadoServiciosEscoger(){
+            Intent registroCitas = new Intent(this, MisServiciosClienteActivity.class);
+            startActivity(registroCitas);
         }
     //endregion
 }

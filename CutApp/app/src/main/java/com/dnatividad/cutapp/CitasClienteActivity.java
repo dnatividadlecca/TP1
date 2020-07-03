@@ -64,8 +64,8 @@ public class CitasClienteActivity extends AppCompatActivity {
 
         //coge el texto de los campos del catalogo
         img=(ImageView) findViewById(R.id.imgfotoServicio);
-        cod = (TextView)findViewById(R.id.txt_cod_producto);
-        prod = (TextView)findViewById(R.id.txt_Producto);
+        cod = (TextView)findViewById(R.id.txt_idServicio);
+        prod = (TextView)findViewById(R.id.txt_nombreServicio);
         ing = (TextView)findViewById(R.id.txt_ingredientes);
 
         String datos0 = getIntent().getStringExtra("foto");
@@ -93,7 +93,7 @@ public class CitasClienteActivity extends AppCompatActivity {
 
         //extraer la fecha del calendario
         calendarView = (CalendarView)findViewById(R.id.simpleCalendarView);
-        mydate=(TextView)findViewById(R.id.mydate);
+        mydate=(TextView)findViewById(R.id.fechaCita);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -174,7 +174,7 @@ public class CitasClienteActivity extends AppCompatActivity {
     public void RegistrarPedido(View v){
 
         TextView reg_cod_pedido = (TextView) findViewById(R.id.txt_cod_pedido);
-        TextView reg_cod_producto = (TextView) findViewById(R.id.txt_cod_producto);
+        TextView reg_cod_producto = (TextView) findViewById(R.id.txt_idServicio);
 
         //extraer la fecha del sistema
         SimpleDateFormat simpleDatePickerFechaPedido = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
