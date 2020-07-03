@@ -1,6 +1,7 @@
 package com.taller1.proyecto.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "servicios")
@@ -26,6 +27,9 @@ public class Servicio {
     @ManyToOne
     @JoinColumn(name = "id_peluqueria", nullable = false)
     private Peluqueria peluqueria;
+
+    @ManyToMany(mappedBy = "servicios")
+    private List<Cita> citas;
 
     public int getIdServicio() {
         return idServicio;
