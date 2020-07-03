@@ -19,6 +19,8 @@ public class Servicio {
     @Column(name = "descServicio", nullable = false, length = 200)
     private String descripcionServicio;
 
+    @Lob
+    @Column(name = "fotoServicio", nullable = false, length = 500)
     private String fotoServicio;
 
     @ManyToOne
