@@ -146,7 +146,7 @@
                                 android:layout_width="115dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:textColor="#e593bd"
+                                android:textColor="#B38524"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
                                 android:inputType="textPersonName" />
@@ -156,7 +156,7 @@
                                 android:layout_width="115dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:textColor="#e593bd"
+                                android:textColor="#B38524"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
                                 android:hint="@string/codigo"
@@ -169,7 +169,7 @@
                                 android:layout_marginTop="17dp"
                                 android:hint=" @string/Producto"
                                 android:inputType="textMultiLine|textPersonName"
-                                android:textColor="#9989f5"
+                                android:textColor="#B38524"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
