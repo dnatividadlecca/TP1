@@ -109,7 +109,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="8dp"
                                 android:text="@string/titulo_pedido"
-                                android:textColor="#e593bd"
+                                android:textColor="#5E394C"
                                 android:textSize="15dp"
                                 android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="16dp"
                                 android:text="@string/codigo"
-                                android:textColor="#e593bd"
+                                android:textColor="#5E394C"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="17dp"
                                 android:text="@string/Producto"
-                                android:textColor="#e593bd"
+                                android:textColor="#5E394C"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -188,7 +188,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/Ingredientes"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -229,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/sabor"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -244,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/Porciones"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/Dedicatoria"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -278,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/Mensaje"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -296,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Fechaseleccionada"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
@@ -307,7 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="RegistrarPedido"
                 android:text="@string/boton_registrarCita"
                 android:textColor="#ffffff"

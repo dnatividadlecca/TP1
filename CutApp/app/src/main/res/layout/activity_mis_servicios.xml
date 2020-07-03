@@ -45,7 +45,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/Servicios"
-        android:textColor="#e593bd"
+        android:textColor="#5E394C"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

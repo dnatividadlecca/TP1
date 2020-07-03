@@ -65,7 +65,7 @@
                     android:layout_marginTop="10dp"
                     android:inputType="textPersonName"
                     android:text="@string/Act_idCita"
-                    android:textColor="#9989f5"
+                    android:textColor="#5E394C"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
                     android:layout_marginTop="10dp"
                     android:hint="@string/Act_lbl_idCita"
                     android:inputType="textPersonName"
-                    android:textColor="#9989f5"
+                    android:textColor="#B38524"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
@@ -96,7 +96,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="@string/Act_FechaCita"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textStyle="bold" />
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:layout_gravity="center"
                     android:hint="@string/Act_lbl_titulo"
                     android:inputType="textMultiLine|textPersonName"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -177,7 +177,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:text="@string/Act_idServicio"
-                            android:textColor="#e768a9"
+                            android:textColor="#5E394C"
                             android:textStyle="bold" />
 
                         <TextView
@@ -187,7 +187,7 @@
                             android:layout_marginTop="10dp"
                             android:hint="@string/Act_lbl_idServicio"
                             android:inputType="textPersonName"
-                            android:textColor="#e768a9"
+                            android:textColor="#5E394C"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -199,7 +199,7 @@
                         android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
                         android:text="@string/Act_codUsuario"
-                        android:textColor="#e768a9"
+                        android:textColor="#5E394C"
                         android:textStyle="bold" />
 
                     <TextView
@@ -219,7 +219,7 @@
                         android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
                         android:text="@string/Act_Nombre"
-                        android:textColor="#e768a9"
+                        android:textColor="#5E394C"
                         android:textStyle="bold" />
 
                     <TextView
@@ -239,7 +239,7 @@
                         android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
                         android:text="@string/Act_nombreServicio"
-                        android:textColor="#e768a9"
+                        android:textColor="#5E394C"
                         android:textStyle="bold" />
 
                     <TextView
@@ -289,7 +289,7 @@
                     android:layout_marginTop="10dp"
                     android:inputType="textPersonName"
                     android:text="@string/Act_estado"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textStyle="bold" />
 
                 <TextView
@@ -315,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/Act_lbl_titulo_estado"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -331,7 +331,7 @@
                 android:layout_width="340dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="ActualizarPedido"
                 android:text="@string/Act_btn_actualizar"
                 android:textColor="#ffffff"
@@ -344,7 +344,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="60dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="AnularPedido"
                 android:text="@string/Act_btn_anular"
                 android:textColor="#ffffff"

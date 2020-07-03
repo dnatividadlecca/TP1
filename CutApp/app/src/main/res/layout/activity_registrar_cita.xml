@@ -110,7 +110,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="16dp"
                                 android:text="@string/Act_lbl_idServicio"
-                                android:textColor="#e593bd"
+                                android:textColor="#5E394C"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -121,7 +121,7 @@
                                 android:layout_marginLeft="4dp"
                                 android:layout_marginTop="17dp"
                                 android:text="@string/Act_lbl_nombreServicio"
-                                android:textColor="#e593bd"
+                                android:textColor="#5E394C"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -136,7 +136,7 @@
                                 android:layout_width="115dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:textColor="#e593bd"
+                                android:textColor="#B38524"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
                                 android:hint="@string/codigo"
@@ -149,7 +149,7 @@
                                 android:layout_marginTop="17dp"
                                 android:hint="@string/act_servicio_txt_nombreServicio"
                                 android:inputType="textMultiLine|textPersonName"
-                                android:textColor="#9989f5"
+                                android:textColor="#B38524"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -191,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Fechaseleccionada"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Fechaseleccionada"
-                android:textColor="#e593bd"
+                android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="20dp"
-                android:background="#e593bd"
+                android:background="#5E394C"
                 android:onClick="Reg_Citas"
                 android:text="@string/boton_registrarCita"
                 android:textColor="#ffffff"
