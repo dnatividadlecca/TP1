@@ -22,7 +22,7 @@ public class Citas {
         return comentarioCita;
     }
 
-    public Citas(int idCita, String fechaCita, String horaCita, Boolean calificaCita, String comentarioCita, Usuarios usuarios_registro, Servicios servicios_registro) {
+    public Citas(int idCita, String fechaCita, String horaCita, Boolean calificaCita, String comentarioCita, Usuarios usuarios_registro, Servicios servicios_registro, String Estado) {
         this.idCita = idCita;
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
@@ -30,15 +30,17 @@ public class Citas {
         this.comentarioCita = comentarioCita;
         this.usuarios_registro = usuarios_registro;
         this.servicios_registro = servicios_registro;
+        this.Estado = Estado;
     }
 
-    public Citas(String fechaCita, String horaCita, Boolean calificaCita, String comentarioCita, Usuarios usuarios_registro, Servicios servicios_registro) {
+    public Citas(String fechaCita, String horaCita, Boolean calificaCita, String comentarioCita, Usuarios usuarios_registro, Servicios servicios_registro, String Estado) {
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
         CalificaCita = calificaCita;
         this.comentarioCita = comentarioCita;
         this.usuarios_registro = usuarios_registro;
         this.servicios_registro = servicios_registro;
+        this.Estado = Estado;
     }
 
     private int idCita;
@@ -46,6 +48,13 @@ public class Citas {
     private String horaCita;
     private Boolean CalificaCita;
     private String comentarioCita;
+    private String Estado;
+
+    public String getEstado() {
+        return Estado;
+    }
+
+
 
     public Usuarios getUsuarios_registro() {
         return usuarios_registro;

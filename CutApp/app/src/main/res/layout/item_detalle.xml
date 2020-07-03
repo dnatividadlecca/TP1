@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <ImageView
         android:id="@+id/imgFoto"
         android:layout_width="150dp"
@@ -59,6 +57,17 @@
             android:gravity="right"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tvCitaDetalleEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#0b7a47"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"/>
+
 
     </LinearLayout>
 </LinearLayout>

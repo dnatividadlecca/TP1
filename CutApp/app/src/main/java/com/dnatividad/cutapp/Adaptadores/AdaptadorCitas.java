@@ -43,12 +43,13 @@ public class AdaptadorCitas extends BaseAdapter {
         //aca se crea cada items y se le asignan los valores de cada elemento de cada items
         Citas item = (Citas) getItem(position);
 
-        convertView = LayoutInflater.from(context).inflate(R.layout.items,null);
+        convertView = LayoutInflater.from(context).inflate(R.layout.item_detalle,null);
         ImageView imgFoto =(ImageView) convertView.findViewById(R.id.imgFoto);
         TextView tvCodigo =(TextView) convertView.findViewById(R.id.tvCodigo);
         TextView tvTitulo =(TextView) convertView.findViewById(R.id.tvTitulo);
         TextView  tvContenido =(TextView) convertView.findViewById(R.id.tvIngrediente);
         TextView  tvPrecio =(TextView) convertView.findViewById(R.id.tvPrecio);
+        TextView tvEstado = (TextView) convertView.findViewById(R.id.tvCitaDetalleEstado);
 
 
         imgFoto.setImageBitmap(item.getServicios_registro().getImgFoto());
@@ -56,6 +57,7 @@ public class AdaptadorCitas extends BaseAdapter {
         tvTitulo.setText(item.getServicios_registro().getNombreServicio());
         tvContenido.setText(item.getServicios_registro().getDescripcionServicio());
         tvPrecio.setText("S/." + item.getServicios_registro().getCostoServicio());
+        tvEstado.setText("Estado: " +  item.getEstado());
 
         return convertView;
     }

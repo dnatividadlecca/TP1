@@ -186,8 +186,9 @@ public class MisCitas extends AppCompatActivity {
                 "",
                 new Usuarios(1,"Juan","Perez","Valdivia","",0,"juan@gmail.com",""),
                 new Servicios(1,"Corte de cabello",20.0,"Corte para caballeros simple","",
-                        new Peluqueria(1,"","","","","",""))
+                        new Peluqueria(1,"","","","","","")),"Generada"
                 )
+
         );
         ListItems.add(new Citas(
                         2,
@@ -197,7 +198,7 @@ public class MisCitas extends AppCompatActivity {
                         "",
                         new Usuarios(1,"Juan","Perez","Valdivia","",0,"juan@gmail.com",""),
                         new Servicios(1,"Corte de cabello",20.0,"Corte para caballeros simple","",
-                                new Peluqueria(1,"","","","","",""))
+                                new Peluqueria(1,"","","","","","")),"Generada"
                 )
         );
 
@@ -214,11 +215,12 @@ public class MisCitas extends AppCompatActivity {
                                     int position, long arg3) {
 
                 Citas citas = ListItems.get(position);
-                Intent i = new Intent(getApplicationContext(), ActualizarServicioActivity.class);
-                i.putExtra("idServicio", String.valueOf(citas.getIdServicio()));
-                i.putExtra("nombreServicio", serv.getNombreServicio());
-                i.putExtra("descripcionServicio", serv.getDescripcionServicio());
-                i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                Intent i = new Intent(getApplicationContext(), DetalleCita.class);
+                i.putExtra("idServicio", String.valueOf(citas.getIdCita()));
+                i.putExtra("nombreServicio", citas.getServicios_registro().getNombreServicio());
+                i.putExtra("descripcionServicio", citas.getServicios_registro().getDescripcionServicio());
+                i.putExtra("costoServicio", String.valueOf(citas.getServicios_registro().getCostoServicio()));
+                i.putExtra("estadoServicio", String.valueOf(citas.getEstado()));
                 startActivity(i);
             }
         });
