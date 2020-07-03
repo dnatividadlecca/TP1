@@ -207,8 +207,8 @@ public class ActualizarServicioActivity extends AppCompatActivity {
                     //Log.i("descripcionServicio", txt_descripcionServicio.getText().toString());
                     jsonObject.put("costoServicio", txt_costoServicio.getText().toString());
                     //Log.i("costoServicio", txt_costoServicio.getText().toString());
-                    //jsonObject.put("fotoServicio", fotoEnBase64);
-                    //Log.i("fotoServicio", fotoEnBase64);
+                    jsonObject.put("fotoServicio", fotoEnBase64);
+                    Log.i("fotoServicio", fotoEnBase64);
 
                     JSONObject jsonObjectPeluqueria = new JSONObject();
                     jsonObjectPeluqueria.put("idPeluqueria", "1");
