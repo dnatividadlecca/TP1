@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,22 +28,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class ActualizarServicioActivity extends AppCompatActivity {
     private  ImageView img_fotoServicio;
@@ -69,7 +58,7 @@ public class ActualizarServicioActivity extends AppCompatActivity {
     }
 
     private void setReferences() {
-        img_fotoServicio = (ImageView) findViewById(R.id.imgFotoPerfil);
+        img_fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
         txt_idServicio = (TextView)findViewById(R.id.act_servicio_idServicio);
         txt_nombreServicio = (EditText)findViewById(R.id.act_servicio_nombreServicio);
         txt_descripcionServicio = (EditText)findViewById(R.id.act_servicio_descripcionServicio);
@@ -186,7 +175,7 @@ public class ActualizarServicioActivity extends AppCompatActivity {
         }
         //endregion
 
-        img_fotoServicio = (ImageView) findViewById(R.id.imgFotoPerfil);
+        img_fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
         txt_idServicio = (TextView)findViewById(R.id.act_servicio_idServicio);
         txt_nombreServicio = (EditText)findViewById(R.id.act_servicio_nombreServicio);
         txt_descripcionServicio = (EditText)findViewById(R.id.act_servicio_descripcionServicio);
@@ -518,7 +507,7 @@ public class ActualizarServicioActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgFotoPerfil);
+            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgfotoServicio);
             Bitmap img = (Bitmap)data.getExtras().get("data");
             imgFotoPerfil.setImageBitmap(img);
 

@@ -51,7 +51,7 @@ public class CitaController {
         return new ResponseEntity<Cita>(cita, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/actualizar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        @PutMapping(value = "/actualizar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> actualizar(@RequestBody Cita cita){
         int resultado = 0;
         try {

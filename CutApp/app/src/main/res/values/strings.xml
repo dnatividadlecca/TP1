@@ -8,10 +8,10 @@
     <string name="opc_cinco">Ubícanos</string>
     <string name="opc_prueba">Pedido</string>
     <string name="opc_seis">Catálogo</string>
-    <string name="opc_siete">Mis Pedidos</string>
+    <string name="opc_siete">Mis Citas</string>
     <string name="opc_ocho">Reg. Producto</string>
     <string name="opc_nueve">Mis Productos</string>
-    <string name="opc_diez">Reporte de Mis Pedidos</string>
+    <string name="opc_diez">Reporte de Mis Citas</string>
     <string name="opc_once">Cerrar Sesión</string>
 
     <!-- Login Activity -->
@@ -89,7 +89,7 @@
     <!--Catalogo -->
     <string name="Catalogo">Catálogo de Productos</string>
     <!--Mispedidos -->
-    <string name="Pedidos">Mis Pedidos</string>
+    <string name="Citas">Citas</string>
     <!--Misproductos -->
     <string name="Servicios">Mis Servicios</string>
     <!--Misproductos -->
@@ -98,15 +98,16 @@
     <string name="descripcionEmpresa">La idea de "Las Rositas", nació como agradecimiento para de todas esas personas que siempre estuvieron con nosotros en las buenas y malas. Es así como la idea de ofrecer nuestros obsequios fue creciendo para llegar a mas personas. </string>
 
     <!--actualizar pedidos -->
-    <string name="Act_lbl_cod_ped">Cód. Pedido</string>
-    <string name="Act_lbl_cod_prod">Cód. Producto</string>
-    <string name="Act_lbl_titulo">Produto</string>
+    <string name="Act_lbl_idCita">Cód. Cita</string>
+    <string name="Act_lbl_idServicio">Cód. Servicio</string>
+    <string name="Act_lbl_titulo">Servicio</string>
     <string name="Act_lbl_ingr">Ingredientes</string>
-    <string name="Act_lbl_fec_ped">Fecha de Pedido</string>
-    <string name="Act_lbl_fec_ent">Fecha de Entrega</string>
+    <string name="Act_lbl_fec_cita">Fecha de Cita</string>
+    <string name="Act_lbl_horaCita">Hora de Cita</string>
+    <string name="Act_lbl_fechaCita">Fecha de Cita</string>
     <string name="Act_lbl_cod_usu">Usuario</string>
-    <string name="Act_lbl_nom">Nombre</string>
-    <string name="Act_lbl_ape">Apellido</string>
+    <string name="Act_lbl_nom">Nombres</string>
+    <string name="Act_lbl_nombreServicio">Servicio</string>
     <string name="Act_lbl_dir">Direccion</string>
     <string name="Act_lbl_Telf">Teléfono</string>
     <string name="Act_lbl_fec_nac">Nacimiento</string>
@@ -117,17 +118,17 @@
     <string name="Act_lbl_estado">Estado</string>
     <string name="Act_lbl_titulo_estado">Cambiar Estado</string>
     <string name="Act_btn_actualizar">Actualizar Estado</string>
-    <string name="Act_btn_anular">Anular Pedido</string>
+    <string name="Act_btn_anular">Anular Cita</string>
 
 
     <string name="Act_FechaEntrega">Fecha Nacimiento :</string>
-    <string name="Act_FechaPedido">Pedido :</string>
-    <string name="Act_codPedido">Pedido N° </string>
-    <string name="Act_codProducto">Cód. PRO - </string>
+    <string name="Act_FechaCita">Fecha :</string>
+    <string name="Act_idCita">Cita N° </string>
+    <string name="Act_idServicio">Cód. SERV - </string>
     <string name="Act_codUsuario">Cód. Usuario :</string>
 
     <string name="Act_Nombre">Nombre :</string>
-    <string name="Act_Apellido">Apellido :</string>
+    <string name="Act_nombreServicio">Servicio :</string>
     <string name="Act_Direccion">Direccion :</string>
     <string name="Act_Telf">Teléfono :</string>
     <string name="Act_estado">Estado Actual :</string>
@@ -161,6 +162,7 @@
     <string name="act_servicio_btn_anular">Eliminar Servicio </string>
 
     <string name="lbl_confirmacion_cerrar_sesion">¿Está seguro de cerrar la sesión?</string>
+    <string name="lbl_confirmacion_anular_cita">¿Está seguro de anular la cita?</string>
     <string name="lbl_confirmacion_si">Sí</string>
     <string name="lbl_confirmacion_no">No</string>
 

@@ -63,7 +63,7 @@ public class CitasClienteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_citas_clientes);
 
         //coge el texto de los campos del catalogo
-        img=(ImageView) findViewById(R.id.imgFotoPerfil);
+        img=(ImageView) findViewById(R.id.imgfotoServicio);
         cod = (TextView)findViewById(R.id.txt_cod_producto);
         prod = (TextView)findViewById(R.id.txt_Producto);
         ing = (TextView)findViewById(R.id.txt_ingredientes);

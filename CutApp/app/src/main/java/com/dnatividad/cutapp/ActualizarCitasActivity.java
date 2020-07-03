@@ -9,135 +9,111 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.dnatividad.cutapp.Entidades.Servicios;
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
-public class ActualizarPedidosActivity extends AppCompatActivity {
-    private ImageView img;
-    private TextView codped;
-    private TextView fechpedido;
-    private TextView codprod;
+public class ActualizarCitasActivity extends AppCompatActivity {
+    private ImageView fotoServicio;
+    private TextView idCita;
+    private TextView fechaCita, horaCita;
+    private TextView idServicio;
     private TextView codtitu;
-    private TextView usua;
-    private TextView nom;
-    private TextView ape;
-    private TextView dir;
-    private TextView telf;
-    private TextView esta;
-    private TextView fechentrega;
-
-    private TextView fechenaci;
-    private TextView porcione;
-    private TextView sabores;
-    private TextView mensa;
-    private TextView info;
+    private TextView correoUsuario;
+    private TextView nombreUsuario;
+    private TextView nombreServicio;
+    private TextView estadoCita;
+    private Spinner spi_estado;
 
     //Para mostrar la imagen de codigo a bitmap
     private static final int REQUEST_IMAGE = 100;
     private static final int REQUEST_IMAGE_CAMERA = 101;
-    //declaro mi variable fotoEnBase64 que almacenara el codigo
-    String fotoEnBase64 ="";
+    String urlOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actualizar_pedidos);
+        setContentView(R.layout.activity_actualizar_citas);
+        setUrlOrigin();
+        setReferences();
+    }
 
-        Spinner spi_estado = (Spinner) findViewById(R.id.spinner_estado);
-        String[] estados = {"RECIBIDO","CONFIRMADO","EN PROCESO","EN REPARTO","ENTREGADO"};
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
+    private void setReferences() {
+        spi_estado = (Spinner) findViewById(R.id.spinner_estado);
+        String[] estados = {"CONFIRMADO","ATENDIDO"};
         spi_estado.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, estados));
 
         //coge el texto de los campos del catalogo
-        img=(ImageView) findViewById(R.id.imgFotoPerfil);
-        codped = (TextView)findViewById(R.id.act_cod_pedido);
-        fechpedido = (TextView)findViewById(R.id.act_fechapedido);
-        codprod = (TextView)findViewById(R.id.act_cod_producto);
+        fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
+        idCita = (TextView)findViewById(R.id.act_cod_pedido);
+        fechaCita = (TextView)findViewById(R.id.act_fechaCita);
+        horaCita = (TextView)findViewById(R.id.act_horaCita);
+        idServicio = (TextView)findViewById(R.id.act_idServicio);
         codtitu = (TextView)findViewById(R.id.act_Producto);
-        usua = (TextView)findViewById(R.id.act_usuario);
-        nom = (TextView)findViewById(R.id.act_nombre);
-        ape = (TextView)findViewById(R.id.act_apellido);
-        dir = (TextView)findViewById(R.id.act_direcion);
-        telf = (TextView)findViewById(R.id.act_telefono);
-        esta = (TextView)findViewById(R.id.act_estado);
-        fechentrega = (TextView)findViewById(R.id.act_fechaentrega);
+        correoUsuario = (TextView)findViewById(R.id.act_correoUsuario);
+        nombreUsuario = (TextView)findViewById(R.id.act_nombreUsuario);
+        nombreServicio = (TextView)findViewById(R.id.act_nombreServicio);
+        estadoCita = (TextView)findViewById(R.id.act_estado);
 
-        fechenaci = (TextView)findViewById(R.id.act_nacimiento);
-        porcione= (TextView)findViewById(R.id.act_porcion);
-        sabores= (TextView)findViewById(R.id.act_sabores);
-        mensa= (TextView)findViewById(R.id.act_dedicatorias);
-        info= (TextView)findViewById(R.id.act_infoadicional);
 
-        String datos0 = getIntent().getStringExtra("foto");
-        String datos1 = getIntent().getStringExtra("cod_pedido");
-        String datos2 = getIntent().getStringExtra("cod_producto");
-        String datos4 = getIntent().getStringExtra("titulo");
-        String datos6 = getIntent().getStringExtra("fecha_pedido");
-        String datos7 = getIntent().getStringExtra("fecha_entrega");
-        String datos8 = getIntent().getStringExtra("cod_usuario");
-        String datos9 = getIntent().getStringExtra("nombre");
-        String datos10 = getIntent().getStringExtra("apellido");
-        String datos12 = getIntent().getStringExtra("telefono");
-        String datos11 = getIntent().getStringExtra("direccion");
-        String datos18 = getIntent().getStringExtra("estado");
-
-        String datos13 = getIntent().getStringExtra("fecha_nacimiento");
-        String datos14 = getIntent().getStringExtra("porciones");
-        String datos15 = getIntent().getStringExtra("sabor");
-        String datos16 = getIntent().getStringExtra("mensaje_torta");
-        String datos17 = getIntent().getStringExtra("info_adicional");
+        String datos_fotoServicio = getIntent().getStringExtra("fotoServicio");
+        String datos_idCita = getIntent().getStringExtra("idCita");
+        String datos_idServicio = getIntent().getStringExtra("idServicio");
+        //String datos_idUsuario = getIntent().getStringExtra("idUsuario");
+        String datos_titulo = getIntent().getStringExtra("titulo");
+        String datos_fechaCita = getIntent().getStringExtra("fechaCita");
+        String datos_horaCita = getIntent().getStringExtra("horaCita");
+        String datos_correoUsuario = getIntent().getStringExtra("correoUsuario");
+        String datos_nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
+        String datos_estadoServicio = getIntent().getStringExtra("estadoServicio");
 
         //obtengo la imagen codificada como string y se la envio al metodo base64ToBitmap la cual me devuelve la imagen
-        byte [] encodeByte = Base64.decode(String.valueOf(datos0),Base64.DEFAULT);
+        byte [] encodeByte = Base64.decode(String.valueOf(datos_fotoServicio),Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         //*************************************************************************************************
-        img.setImageBitmap(bitmap);
-        codped.setText(datos1);
-        fechpedido.setText(datos6);
-        codprod.setText(datos2);
-        codtitu.setText(datos4);
-        usua.setText(datos8);
-        nom.setText(datos9);
-        ape.setText(datos10);
-        telf.setText(datos12);
-        dir.setText(datos11);
-        esta.setText(datos18);
-        fechentrega.setText(datos7);
 
-        fechenaci.setText(datos13);
-        porcione.setText(datos14);
-        sabores.setText(datos15);
-        mensa.setText(datos16);
-        info.setText(datos17);
-
-
-
+        fotoServicio.setImageBitmap(bitmap);
+        idCita.setText(datos_idCita);
+        fechaCita.setText(datos_fechaCita);
+        horaCita.setText(datos_horaCita);
+        idServicio.setText(datos_idServicio);
+        codtitu.setText(datos_titulo);
+        correoUsuario.setText(datos_correoUsuario);
+        nombreUsuario.setText(datos_nombreUsuario);
+        nombreServicio.setText(datos_nombreServicio);
+        estadoCita.setText(datos_estadoServicio);
     }
+
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow,menu);
         //--------------obtengo el correo almacenado a la hora que se logueo------------------------
@@ -165,7 +141,7 @@ public class ActualizarPedidosActivity extends AppCompatActivity {
     }
 
     public void ActualizarPedido(View v){
-
+/*
         TextView act_cod_pedido = (TextView) findViewById(R.id.act_cod_pedido);
 
         Spinner spinner_estado = (Spinner) findViewById(R.id.spinner_estado);
@@ -211,11 +187,74 @@ public class ActualizarPedidosActivity extends AppCompatActivity {
         });
 
         MisPedidos();
-        ActualizarPedidosActivity.this.finish();
+        ActualizarCitasActivity.this.finish();
+        */
+        updateData();
+    }
+
+    private void updateData() {
+        final String datos_idUsuario = getIntent().getStringExtra("idUsuario");
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/citas/actualizar");
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("idCita", Integer.parseInt(idCita.getText().toString()));
+                    //Log.i("idCita", txt_idServicio.getText().toString());
+                    jsonObject.put("fechaCita", fechaCita.getText().toString());
+                    //Log.i("fechaCita", txt_nombreServicio.getText().toString());
+                    jsonObject.put("horaCita", horaCita.getText().toString());
+                    //Log.i("horaCita", txt_descripcionServicio.getText().toString());
+                    jsonObject.put("comentarioCita", "");
+                    //Log.i("comentarioCita", txt_costoServicio.getText().toString());
+                    jsonObject.put("estadoCita", spi_estado.getSelectedItem().toString());
+                    //Log.i("estadoCita", spi_estado.getSelectedItem().toString());
+
+                    JSONObject jsonObjectUsuario = new JSONObject();
+                    jsonObjectUsuario.put("idUsuario", Integer.parseInt(datos_idUsuario));
+
+                    jsonObject.put("usuario", jsonObjectUsuario);
+                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+
+                    JSONObject jsonObjectServicio = new JSONObject();
+                    jsonObjectServicio.put("idServicio", Integer.parseInt(idServicio.getText().toString()));
+                    JSONArray objJsonservicios = new JSONArray();
+                    objJsonservicios.put(jsonObjectServicio);
+                    jsonObject.put("servicios", objJsonservicios);
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.setRequestMethod("PUT");
+
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+
+                    String response = "";
+                    String line = "";
+
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void AnularPedido(View v){
-
+/*
         TextView act_cod_pedido = (TextView) findViewById(R.id.act_cod_pedido);
 
         OkHttpClient client = new OkHttpClient();
@@ -256,7 +295,81 @@ public class ActualizarPedidosActivity extends AppCompatActivity {
         });
 
         MisPedidos();
-        ActualizarPedidosActivity.this.finish();
+        ActualizarCitasActivity.this.finish();
+ */
+        deleteData();
+    }
+
+    private void deleteData() {
+        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    URL url = new URL(urlOrigin + "/citas/eliminar/" + idCita.getText().toString());
+
+                                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                                    httpURLConnection.setRequestMethod("DELETE");
+                                    httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                                    httpURLConnection.setRequestProperty("charset","utf-8");
+                                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                                    httpURLConnection.setDoOutput(true);
+                                    httpURLConnection.setDoInput(true);
+                                    httpURLConnection.connect();
+
+                                    BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                                    String temp = null;
+                                    StringBuilder sb = new StringBuilder();
+                                    while((temp = in.readLine()) != null){
+                                        sb.append(temp).append(" ");
+                                    }
+                                    String result = sb.toString();
+                                    Log.i("resultado", result);
+                                    in.close();
+
+                                    analyseResponse(result);
+                                    httpURLConnection.disconnect();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lbl_confirmacion_anular_cita).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
+    }
+
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
+
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), MisServiciosActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), CitasTotalClientesActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
+        }
     }
 
     //metodo para asignar las funciones de las opciones

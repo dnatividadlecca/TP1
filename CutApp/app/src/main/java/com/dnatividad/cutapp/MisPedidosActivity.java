@@ -152,7 +152,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarPedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
                             i.putExtra("foto",x.get("foto").toString());
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
@@ -244,7 +244,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarPedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
                             i.putExtra("titulo",x.get("titulo").toString());

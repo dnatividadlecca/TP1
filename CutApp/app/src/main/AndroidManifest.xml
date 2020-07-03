@@ -3,15 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dnatividad.cutapp">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetalleCita"></activity>
+        <activity android:name=".CitasTotalClientesActivity"></activity>
+        <activity android:name=".DetalleCita" />
         <activity android:name=".MisCitas" />
         <activity android:name=".splashActivity">
 
@@ -34,7 +26,7 @@
         <activity android:name=".MisServiciosActivity" />
         <activity android:name=".ActualizarServicioActivity" />
         <activity android:name=".RegistrarServicioActivity" />
-        <activity android:name=".ActualizarPedidosActivity" /> <!-- Notificaciones -->
+        <activity android:name=".ActualizarCitasActivity" /> <!-- Notificaciones -->
         <activity android:name=".UbicanosActivity" /> <!-- Google Maps -->
         <activity android:name=".CatalogoActivity" /> <!-- llave de google maps -->
         <activity android:name=".RegistrarCitaActivity" />
@@ -61,5 +53,14 @@
             </intent-filter>
         </service>
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

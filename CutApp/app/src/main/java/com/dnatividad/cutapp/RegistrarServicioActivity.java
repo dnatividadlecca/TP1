@@ -17,36 +17,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class RegistrarServicioActivity extends AppCompatActivity {
@@ -80,7 +68,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
         reg_nombreServicio = (EditText) findViewById(R.id.reg_nombreServicio);
         reg_descripcionServicio = (EditText) findViewById(R.id.reg_descripcionServicio);
         reg_costoServicio = (EditText) findViewById(R.id.reg_costoServicio);
-        fotografia = (ImageView) findViewById(R.id.imgFotoPerfil);
+        fotografia = (ImageView) findViewById(R.id.imgfotoServicio);
     }
 
     private void registrarServicio() {
@@ -191,7 +179,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgFotoPerfil);
+            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgfotoServicio);
             Bitmap img = (Bitmap)data.getExtras().get("data");
             imgFotoPerfil.setImageBitmap(img);
 

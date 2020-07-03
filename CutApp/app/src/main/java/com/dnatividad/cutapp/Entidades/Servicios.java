@@ -63,4 +63,7 @@ public class Servicios {
         return descripcionServicio;
     }
 
+    public String getFotoServicio() {
+        return fotoServicio;
+    }
 }

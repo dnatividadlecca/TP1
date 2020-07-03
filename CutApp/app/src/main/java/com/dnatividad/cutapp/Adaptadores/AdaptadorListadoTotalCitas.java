@@ -9,16 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dnatividad.cutapp.Entidades.Citas;
-import com.dnatividad.cutapp.Entidades.Servicios;
 import com.dnatividad.cutapp.R;
 
 import java.util.ArrayList;
 
-public class AdaptadorCitas extends BaseAdapter {
+public class AdaptadorListadoTotalCitas extends BaseAdapter {
     private Context context;
     private ArrayList<Citas> listItems;
 
-    public AdaptadorCitas(Context context, ArrayList<Citas> listItems) {
+    public AdaptadorListadoTotalCitas(Context context, ArrayList<Citas> listItems) {
         this.context = context;
         this.listItems = listItems;
     }
@@ -43,10 +42,14 @@ public class AdaptadorCitas extends BaseAdapter {
         //aca se crea cada items y se le asignan los valores de cada elemento de cada items
         Citas item = (Citas) getItem(position);
 
-        convertView = LayoutInflater.from(context).inflate(R.layout.item_detalle,null);
+        convertView = LayoutInflater.from(context).inflate(R.layout.item_listado_total_citas,null);
         ImageView imgFoto =(ImageView) convertView.findViewById(R.id.imgFoto);
         TextView tvCodigo =(TextView) convertView.findViewById(R.id.tvCodigo);
         TextView tvCodigoServicio =(TextView) convertView.findViewById(R.id.tvCodigoServicio);
+        TextView tvCodigoUsuario =(TextView) convertView.findViewById(R.id.tvCodigoUsuario);
+        TextView tvcorreoUsuario =(TextView) convertView.findViewById(R.id.tvcorreoUsuario);
+        TextView tvnombreUsuario =(TextView) convertView.findViewById(R.id.tvnombreUsuario);
+        TextView tvfechaCita =(TextView) convertView.findViewById(R.id.tvfechaCita);
         TextView tvTitulo =(TextView) convertView.findViewById(R.id.tvTitulo);
         TextView  tvContenido =(TextView) convertView.findViewById(R.id.tvIngrediente);
         TextView  tvPrecio =(TextView) convertView.findViewById(R.id.tvPrecio);
@@ -56,6 +59,13 @@ public class AdaptadorCitas extends BaseAdapter {
         imgFoto.setImageBitmap(item.getLista_servicios().get(0).getIdServicio().getImgFoto());
         tvCodigo.setText("Cita #: " + String.valueOf(item.getIdCita()));
         tvCodigoServicio.setText(String.valueOf(item.getLista_servicios().get(0).getIdServicio().getIdServicio()));
+        tvCodigoUsuario.setText(String.valueOf(item.getUsuarios_registro().getIdUser()));
+        tvcorreoUsuario.setText(item.getUsuarios_registro().getCorreoUser());
+        tvnombreUsuario.setText(
+                item.getUsuarios_registro().getNomUser() + ' ' +
+                item.getUsuarios_registro().getApePatUser() + ' ' +
+                item.getUsuarios_registro().getApeMatUser());
+        tvfechaCita.setText(item.getFechaCita() + ' ' + item.getHoraCita());
         tvTitulo.setText(item.getLista_servicios().get(0).getIdServicio().getNombreServicio());
         tvContenido.setText(item.getLista_servicios().get(0).getIdServicio().getDescripcionServicio());
         tvPrecio.setText("S/." + item.getLista_servicios().get(0).getIdServicio().getCostoServicio());

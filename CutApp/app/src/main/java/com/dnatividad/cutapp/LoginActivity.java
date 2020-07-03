@@ -6,25 +6,12 @@ import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -104,11 +91,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
          */
-        guardarPreferencia(1, 7);
-        MisCitas();
+        Boolean rolAdmin = true;
+        guardarPreferencia(rolAdmin, 7);
+
+        if(rolAdmin)
+            CitasCliente();
+        else
+            MisCitas();
     }
 
-    public void guardarPreferencia(Integer rol, Integer idUsuario) {
+    public void guardarPreferencia(Boolean rolAdmin, Integer idUsuario) {
 
         /*
         if (valor.equals("true")){
@@ -138,9 +130,9 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("PREFERENCIAS",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("sesionIniciada", true);
+        editor.putString("SESIONINICIADA", "true");
         //editor.putString("CADENA", editText1.getText().toString());
-        editor.putString("PERMISO", String.valueOf(Boolean.parseBoolean(rol.toString())));
+        editor.putString("PERMISOADMIN", String.valueOf(rolAdmin));
         editor.putString("IDUSUSARIO", String.valueOf(idUsuario));
         editor.commit();
     }
@@ -273,6 +265,11 @@ public class LoginActivity extends AppCompatActivity {
 
         public void MisCitas(){
             Intent miscitas = new Intent(this, MisCitas.class);
+            startActivity(miscitas);
+        }
+
+        public void CitasCliente(){
+            Intent miscitas = new Intent(this, CitasTotalClientesActivity.class);
             startActivity(miscitas);
         }
     //endregion

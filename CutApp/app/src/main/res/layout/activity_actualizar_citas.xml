@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".ActualizarPedidosActivity">
+    tools:context=".ActualizarCitasActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:inputType="textPersonName"
-                    android:text="@string/Act_codPedido"
+                    android:text="@string/Act_idCita"
                     android:textColor="#9989f5"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -74,7 +74,7 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="@string/Act_lbl_cod_ped"
+                    android:hint="@string/Act_lbl_idCita"
                     android:inputType="textPersonName"
                     android:textColor="#9989f5"
                     android:textSize="18dp"
@@ -95,19 +95,27 @@
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="@string/Act_FechaPedido"
+                    android:text="@string/Act_FechaCita"
                     android:textColor="#e768a9"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/act_fechapedido"
+                    android:id="@+id/act_fechaCita"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="@string/Act_lbl_fec_ped"
+                    android:hint="@string/Act_lbl_fec_cita"
                     android:inputType="textPersonName" />
 
+                <TextView
+                    android:id="@+id/act_horaCita"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="@string/Act_lbl_horaCita"
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,7 +146,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imgFotoPerfil"
+                    android:id="@+id/imgfotoServicio"
                     android:layout_width="150dp"
                     android:layout_height="194dp"
                     android:layout_gravity="top"
@@ -152,7 +160,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="281dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -168,16 +176,16 @@
                             android:layout_marginTop="10dp"
                             android:ems="10"
                             android:inputType="textPersonName"
-                            android:text="@string/Act_codProducto"
+                            android:text="@string/Act_idServicio"
                             android:textColor="#e768a9"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/act_cod_producto"
+                            android:id="@+id/act_idServicio"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:hint="@string/Act_lbl_cod_prod"
+                            android:hint="@string/Act_lbl_idServicio"
                             android:inputType="textPersonName"
                             android:textColor="#e768a9"
                             android:textStyle="bold" />
@@ -187,19 +195,19 @@
                         android:id="@+id/act_Usua"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
                         android:text="@string/Act_codUsuario"
                         android:textColor="#e768a9"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/act_usuario"
+                        android:id="@+id/act_correoUsuario"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="0dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="0dp"
                         android:hint="@string/Act_lbl_cod_usu"
                         android:inputType="textMultiLine|textPersonName" />
 
@@ -207,102 +215,41 @@
                         android:id="@+id/act_Nomb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
                         android:text="@string/Act_Nombre"
                         android:textColor="#e768a9"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/act_nombre"
+                        android:id="@+id/act_nombreUsuario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="0dp"
                         android:hint="@string/Act_lbl_nom"
                         android:inputType="textPersonName" />
 
                     <TextView
-                        android:id="@+id/act_Apell"
+                        android:id="@+id/act_Servicio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         android:inputType="textPersonName"
-                        android:text="@string/Act_Apellido"
+                        android:text="@string/Act_nombreServicio"
                         android:textColor="#e768a9"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/act_apellido"
+                        android:id="@+id/act_nombreServicio"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="0dp"
                         android:layout_marginLeft="10dp"
-                        android:hint="@string/Act_lbl_ape"
+                        android:layout_marginTop="0dp"
+                        android:hint="@string/Act_lbl_nombreServicio"
                         android:inputType="textMultiLine|textPersonName" />
-
-                    <TextView
-                        android:id="@+id/act_Direc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:inputType="textPersonName"
-                        android:text="@string/Act_Direccion"
-                        android:textColor="#e768a9"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/act_direcion"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginLeft="10dp"
-                        android:hint="@string/Act_lbl_dir"
-                        android:inputType="textMultiLine|textPersonName" />
-
-                    <TextView
-                        android:id="@+id/act_telef"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="@string/Act_Telf"
-                        android:textColor="#e768a9"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/act_telefono"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-                        android:ems="10"
-                        android:hint="@string/Act_lbl_Telf"
-                        android:inputType="textPersonName" />
-
-                    <TextView
-                        android:id="@+id/act_nac"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="@string/Act_lbl_fec_nac"
-                        android:textColor="#e768a9"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/act_nacimiento"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:ems="10"
-                        android:hint="@string/Act_lbl_fec_nac"
-                        android:inputType="textPersonName"
-                        android:textStyle="normal" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -316,126 +263,18 @@
                 <LinearLayout
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/act_sab"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textSize="17dp"
-                        android:inputType="textPersonName"
-                        android:text="@string/Act_lbl_sab"
-                        android:textColor="#e768a9"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/act_porc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:inputType="textPersonName"
-                        android:text="@string/Act_lbl_porc"
-                        android:textSize="17dp"
-                        android:textColor="#e768a9"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:orientation="vertical"/>
 
                 <LinearLayout
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/act_sabores"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#9989f5"
-                        android:hint="@string/Act_lbl_sab"
-                        android:textSize="17dp"
-                        android:inputType="textPersonName"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/act_porcion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#9989f5"
-                        android:textSize="17dp"
-                        android:hint="@string/Act_lbl_porc"
-                        android:inputType="textPersonName"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:orientation="vertical"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/act_dedica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="17dp"
-                android:inputType="textPersonName"
-                android:text="@string/Act_lbl_mens"
-                android:textColor="#e768a9"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/act_dedicatorias"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="10dp"
-                android:inputType="textMultiLine|textPersonName"
-                android:hint="@string/Act_lbl_mens"
-                android:textStyle="normal" />
-
-            <TextView
-                android:id="@+id/act_infoadic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="17dp"
-                android:inputType="textPersonName"
-                android:text="@string/Act_lbl_inf"
-                android:textColor="#e768a9"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/act_infoadicional"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="10dp"
-                android:inputType="textMultiLine|textPersonName"
-                android:hint="@string/Act_lbl_inf"
-                android:textStyle="normal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/act_fechent"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="17dp"
-                    android:inputType="textPersonName"
-                    android:text="@string/Act_entrega"
-                    android:textColor="#e768a9"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/act_fechaentrega"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:hint="@string/Act_lbl_fec_ent"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
 
             <LinearLayout
