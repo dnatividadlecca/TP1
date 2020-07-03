@@ -60,7 +60,5 @@ public class Adaptador extends BaseAdapter {
         tvPrecio.setText(item.getPrecio());
         return convertView;
     }
-
-
 }
 
