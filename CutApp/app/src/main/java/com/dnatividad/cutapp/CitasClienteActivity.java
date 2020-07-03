@@ -14,31 +14,22 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +41,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PedidosActivity extends AppCompatActivity {
+public class CitasClienteActivity extends AppCompatActivity {
     private ImageView img;
     private TextView cod;
     private TextView prod;
@@ -69,7 +60,7 @@ public class PedidosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedidos);
+        setContentView(R.layout.activity_citas_clientes);
 
         //coge el texto de los campos del catalogo
         img=(ImageView) findViewById(R.id.imgFotoPerfil);
@@ -247,7 +238,7 @@ public class PedidosActivity extends AppCompatActivity {
                             toast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
                             Catalogo();
-                            PedidosActivity.this.finish();
+                            CitasClienteActivity.this.finish();
                         }
                     });
 
@@ -377,11 +368,11 @@ public class PedidosActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
 }

@@ -1,30 +1,5 @@
 package com.dnatividad.cutapp;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Map;
-
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,21 +7,53 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ReportePedidosActivity extends AppCompatActivity {
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
+import com.dnatividad.cutapp.Entidades.Servicios;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-    //*******************************ListView Imagen***********************************************
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+
+public class MisCitas extends AppCompatActivity {
     private ListView listItems;
-    private AdaptadorPedido adaptador;
+    private AdaptadorServicios adaptadorServicios;
 
-    //**********************************************************************************************
-
+    String urlOrigin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reporte_pedidos);
-        CargarMisPedidos();
+        setContentView(R.layout.activity_mis_citas);
+        setUrlOrigin();
+        cargarServicios();
+    }
 
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -61,12 +68,19 @@ public class ReportePedidosActivity extends AppCompatActivity {
         //otorgo permiso de acceso a las opciones del menu
         if(permiso.equals("true")){
             //esta linea permite hacer visible un item del menu
-
+            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
+            itemMenuCatalogo.setVisible(true);
+            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
+            itemMenuPedidos.setVisible(true);
+            MenuItem itemMenuRegProd = menu.findItem(R.id.item_8);
+            itemMenuRegProd.setVisible(true);
+            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
+            itemMenuLogin.setVisible(false);
+            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
+            itemMenuRegistrar.setVisible(false);
         }else {
             MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
             itemMenuPedidos.setVisible(false);
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
-            itemMenuCatalogo.setVisible(true);
             MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
             itemMenuLogin.setVisible(false);
             MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
@@ -80,61 +94,92 @@ public class ReportePedidosActivity extends AppCompatActivity {
         return true;
     }
 
-    public void CargarMisPedidos(){
-        //obtengo el usuario de la sesion iniciada
-        SharedPreferences prefs= getSharedPreferences("PREFERENCIAS",MODE_PRIVATE);
-        String usuario = prefs.getString("CADENA","");
-
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/reportes/"+usuario)
-                .url("http://cutapp.atwebpages.com/index.php/reportes/"+usuario)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+    public void cargarServicios(){
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public void run() {
+                HttpURLConnection httpURLConnection = null;
+                try {
+                    URL url = new URL(urlOrigin+"/servicios/listar");
+                    httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    Log.i("====>", cadenaJson);
-                    Gson gson = new Gson();
-                    Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
-                    final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
-                    listItems=(ListView) findViewById(R.id.listaMisPedidos);
-                    final ArrayList<EntidadPedido>ListItems=new ArrayList<>();
-                    int i = 0;
-                    for (Map<String, Object> x : retorno) {
-                        ListItems.add(new EntidadPedido(x.get("foto")+"".trim(),"Pedido N°: "+x.get("cod_pedido")+"".trim(),"Fec. Pedido: "+x.get("fecha_pedido").toString()+
-                                "","Cod. PRO - "+x.get("cod_producto").toString()+"",x.get("titulo")+"", x.get("ingredientes")+
-                                "","S/.  "+x.get("precio")+"",x.get("cod_usuario")+"",x.get("nombre")+
-                                "",x.get("apellido")+"",x.get("direccion")+"",x.get("telefono")+
-                                "",x.get("fecha_nacimiento")+"",x.get("porciones")+"",x.get("sabor")+
-                                "",x.get("mensaje_torta")+"",x.get("info_adicional")+
-                                "","Fecha de Entrega : "+x.get("fecha_entrega")+"",x.get("estado")+""));
-                    }
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            adaptador = new AdaptadorPedido(ReportePedidosActivity.this, ListItems);
-                            listItems.setAdapter(adaptador);
+                    int responseCode = httpURLConnection.getResponseCode();
+                    String responseMessage = httpURLConnection.getResponseMessage();
 
+                    if(responseCode == HttpURLConnection.HTTP_OK){
+                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String response="";
+                        String line = "";
+                        while ((line=br.readLine()) != null) {
+                            response += line;
                         }
-                    });
-                }
+                        updateLista(response);
 
+                    }else{
+                        Log.v("CatalogClient", "Response code:"+ responseCode);
+                        Log.v("CatalogClient", "Response message:"+ responseMessage);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    if(httpURLConnection != null)
+                        httpURLConnection.disconnect();
+                }
             }
         });
     }
 
+    void updateLista(String reportList) {
+        final ArrayList<Servicios>ListItems = new ArrayList<>();
+        listItems = (ListView) findViewById(R.id.listaMisCitas);
+        try {
+            //Log.i("reporte", reportList);
+            JSONArray jsonArray = new JSONArray(reportList);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject objJson = jsonArray.getJSONObject(i);
+                //Log.i("item",objJson.toString());
 
+
+                ListItems.add(new Servicios(
+                        Integer.parseInt(objJson.getString("idServicio")),
+                        objJson.getString("nombreServicio")+"\n",
+                        Double.parseDouble(objJson.getString("costoServicio")),
+                        objJson.getString("descripcionServicio")+"\n",
+                        objJson.getString("fotoServicio")+"\n"
+                ));
+            }
+
+            runOnUiThread(new Runnable() {
+                //Muestro el contenido del arraylist
+                public void run() {
+                    adaptadorServicios = new AdaptadorServicios(MisCitas.this, ListItems);
+                    listItems.setAdapter(adaptadorServicios);
+                }
+            });
+
+            listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+                    Servicios serv = ListItems.get(position);
+                    Intent i = new Intent(getApplicationContext(), ActualizarServicioActivity.class);
+                    i.putExtra("idServicio", String.valueOf(serv.getIdServicio()));
+                    i.putExtra("nombreServicio", serv.getNombreServicio());
+                    i.putExtra("descripcionServicio", serv.getDescripcionServicio());
+                    i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                    startActivity(i);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //metodo para asignar las funciones de las opciones
     public boolean onOptionsItemSelected(MenuItem item){
@@ -184,8 +229,7 @@ public class ReportePedidosActivity extends AppCompatActivity {
 
     }
 
-
-    //Navegacion de los botones del menu
+    //region Navegacion
     public void Login(){
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
@@ -215,11 +259,11 @@ public class ReportePedidosActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){
@@ -247,4 +291,5 @@ public class ReportePedidosActivity extends AppCompatActivity {
         builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
                 .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
     }
+    //endregion
 }

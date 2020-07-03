@@ -5,23 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -102,7 +94,7 @@ public class CatalogoActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> arg0, View arg1,
                                                 int position, long arg3) {
                             Map<String, Object> x = retorno.get(position);
-                            Intent i = new Intent(getApplicationContext(), PedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), CitasClienteActivity.class);
                             i.putExtra("foto",x.get("foto").toString());
                             i.putExtra("codigo",x.get("cod_producto").toString());
                             i.putExtra("titulo",x.get("titulo").toString());
@@ -256,15 +248,15 @@ public class CatalogoActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     public void Reportes(){
-        Intent reporte = new Intent(this, ReportePedidosActivity.class);
+        Intent reporte = new Intent(this, RegistrarCitaActivity.class);
         startActivity(reporte);
     }
     private void cerrarSesion(){

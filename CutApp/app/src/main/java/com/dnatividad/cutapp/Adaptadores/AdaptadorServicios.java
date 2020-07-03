@@ -1,10 +1,6 @@
-package com.dnatividad.cutapp;
-
+package com.dnatividad.cutapp.Adaptadores;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,23 +9,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dnatividad.cutapp.Entidades.Servicios;
+import com.dnatividad.cutapp.R;
+
 import java.util.ArrayList;
 
-public class Adaptador extends BaseAdapter {
+public class AdaptadorServicios extends BaseAdapter {
     private Context context;
-    private ArrayList<Entidad> listItems;
+    private ArrayList<Servicios> listItems;
 
-    public Adaptador(Context context, ArrayList<Entidad> listItems) {
+    public AdaptadorServicios(Context context, ArrayList<Servicios> listItems) {
         this.context = context;
         this.listItems = listItems;
     }
 
     @Override
-    //cuantos datos son los que se van a cargar
     public int getCount() {
         return listItems.size();
     }
-    //devuelve la posicion
+
     @Override
     public Object getItem(int position) {
         return listItems.get(position);
@@ -43,7 +41,7 @@ public class Adaptador extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //aca se crea cada items y se le asignan los valores de cada elemento de cada items
-        Entidad item = (Entidad) getItem(position);
+        Servicios item = (Servicios) getItem(position);
 
         convertView = LayoutInflater.from(context).inflate(R.layout.items,null);
         ImageView imgFoto =(ImageView) convertView.findViewById(R.id.imgFoto);
@@ -54,11 +52,11 @@ public class Adaptador extends BaseAdapter {
 
 
         imgFoto.setImageBitmap(item.getImgFoto());
-        tvCodigo.setText(item.getCodigo());
-        tvTitulo.setText(item.getTitulo());
-        tvContenido.setText(item.getContenido());
-        tvPrecio.setText(item.getPrecio());
+        tvCodigo.setText("Servicio #: " + String.valueOf(item.getIdServicio()));
+        tvTitulo.setText(item.getNombreServicio());
+        tvContenido.setText(item.getDescripcionServicio());
+        tvPrecio.setText("S/." + item.getCostoServicio().toString());
+
         return convertView;
     }
 }
-

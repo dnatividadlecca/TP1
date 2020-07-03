@@ -116,7 +116,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     Type stringStringMap = new TypeToken<ArrayList<Map<String, Object>>>() { }.getType();
                     final ArrayList<Map<String, Object>> retorno = gson.fromJson(cadenaJson, stringStringMap);
-                    listItems=(ListView) findViewById(R.id.listaMisPedidos);
+                    listItems=(ListView) findViewById(R.id.listaMisCitas);
                     final ArrayList<EntidadPedido>ListItems=new ArrayList<>();
                     int i = 0;
 
@@ -222,7 +222,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                         matriz[i++] = (String) ( "\nCod. Pedido : " +x.get("cod_pedido") + "\n" +"Fecha del Pedido : " + x.get("fecha_pedido") +"\n\n" +"Cod. : " +x.get("cod_producto") + "\n"  +  "Producto : " +x.get("titulo")+ "\n" + "Ingredientes : "+  x.get("ingredientes") + "\n" + "Precio S/. "+  x.get("precio") +"\n" + "Cod. Usuario : " + x.get("cod_usuario") + "\n" + "nombre : " + x.get("nombre") + "\n" + "Apellido : " + x.get("apellido") + "\n" + "Dirección : " + x.get("direccion") + "\n" + "Teléfono : " + x.get("telefono") + "\n" + "Fecha de Nacimiento : " + x.get("fecha_nacimiento") + "\n" +"Porciones : " + x.get("porciones") + "\n"  + "Sabor : " + x.get("sabor") + "\n" + "Mensaje de la Torta : " + x.get("mensaje_torta") + "\n" + "Info. Adicional : " + x.get("info_adicional") + "\n\n" + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + "Entrega : " + x.get("fecha_entrega") +"\n" +"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+ "Estado : " + x.get("estado") + "\n");
                     }
 
-                    final ListView lstMisPedidos = (ListView)findViewById(R.id.listaMisPedidos);
+                    final ListView lstMisPedidos = (ListView)findViewById(R.id.listaMisCitas);
 
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -351,11 +351,11 @@ public class MisPedidosActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
+        Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
+        Intent misproducto = new Intent(this, MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){

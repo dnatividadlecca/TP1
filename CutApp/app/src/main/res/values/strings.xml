@@ -60,10 +60,14 @@
     <string name="US_lbl_password">Password</string>
     <string name="US_txt_clave">Password</string>
 
-    <string name="US_lbl_nombre">Nombre</string>
+    <string name="US_lbl_nombre">Nombres</string>
     <string name="US_txt_nombre">Ingresa tu nombre</string>
     <string name="US_lbl_apellido">Apellido</string>
     <string name="US_txt_apellido">Ingresa tu apellido</string>
+    <string name="US_lbl_apellidoPaterno">Apellido Paterno</string>
+    <string name="US_txt_apellidoPaterno">Ingresa tu apellido paterno</string>
+    <string name="US_lbl_apellidoMaterno">Apellido Materno</string>
+    <string name="US_txt_apellidoMaterno">Ingresa tu apellido materno</string>
     <string name="US_lbl_direccion">Dirección</string>
     <string name="US_txt_direccion">Dirección</string>
     <string name="US_lbl_celular">Celular</string>
@@ -87,9 +91,9 @@
     <!--Mispedidos -->
     <string name="Pedidos">Mis Pedidos</string>
     <!--Misproductos -->
-    <string name="Productos">Mis Productos</string>
+    <string name="Servicios">Mis Servicios</string>
     <!--Misproductos -->
-    <string name="Reporte">Reporte de Mis Pedidos</string>
+    <string name="Reporte">Reporte de Mis Citas</string>
     <!--Nosotros-->
     <string name="descripcionEmpresa">La idea de "Las Rositas", nació como agradecimiento para de todas esas personas que siempre estuvieron con nosotros en las buenas y malas. Es así como la idea de ofrecer nuestros obsequios fue creciendo para llegar a mas personas. </string>
 
@@ -131,32 +135,30 @@
 
 
     <!-- registrar producto -->
-    <string name="reg_prod_lbl_titulo_principal">Registrar Servicio</string>
-    <string name="reg_prod_lbl_cod">Cod. PRO -</string>
-    <string name="reg_prod_txt_cod">Código</string>
-    <string name="reg_prod_lbl_titulo">Nombre del servicio :</string>
-    <string name="reg_prod_txt_titulo">Nombre del servicio</string>
-    <string name="reg_prod_lbl_descripcion">Descripción :</string>
-    <string name="reg_prod_txt_descripcion">Descripción del servicio</string>
-    <string name="reg_prod_btn_registrar">Registrar Servicio</string>
-    <string name="reg_prod_lbl_precio">Precio S/. </string>
-    <string name="reg_prod_txt_precio">0.00</string>
-
-    <!--botones de la camara y examinar-->
-    <string name="reg_prod_imgbutton_camara">Camara</string>
-    <string name="reg_prod_imgbutton_examinar">Examinar</string>
+    <string name="reg_servicio_lbl_titulo_principal">Registrar Servicio</string>
+    <string name="reg_servicio_lbl_idServicio">Cod. Serv -</string>
+    <string name="reg_servicio_txt_idServicio">Código</string>
+    <string name="reg_servicio_lbl_nombreServicio">Nombre del servicio :</string>
+    <string name="reg_servicio_txt_nombreServicio">Nombre del servicio</string>
+    <string name="reg_servicio_lbl_descripcionServicio">Descripción :</string>
+    <string name="reg_servicio_txt_descripcionServicio">Descripción del Servicio</string>
+    <string name="reg_servicio_btn_registrar">Registrar Servicio</string>
+    <string name="reg_servicio_lbl_costoServicio">Precio S/. </string>
+    <string name="reg_servicio_txt_costoServicio">0.00</string>
+    <string name="crud_servicio_imgbutton_camara">Camara</string>
+    <string name="crud_servicio_imgbutton_examinar">Examinar</string>
 
     <!-- actualizar y anular producto -->
-    <string name="actualizar_prod_lbl_titulo_principal">Actualizar Productos</string>
-    <string name="actualizar_prod_lbl_codproducto">Cód. Producto</string>
-    <string name="actualizar_prod_lbl_titulo">Titulo : </string>
-    <string name="actualizar_prod_txt_titulo">Nombre del Producto </string>
-    <string name="actualizar_prod_lbl_ingredientes">Descripción : </string>
-    <string name="actualizar_prod_txt_ingredientes">Descripción del producto </string>
-    <string name="actualizar_prod_lbl_precio">Precio S/ : </string>
-    <string name="actualizar_prod_txt_precio">0.00 </string>
-    <string name="actualizar_prod_btn_actualizar">Actualizar Producto </string>
-    <string name="actualizar_prod_btn_anular">Anular Producto </string>
+    <string name="act_servicio_lbl_titulo_principal">Actualizar Servicios</string>
+    <string name="act_servicio_lbl_idServicio">Cód. Serv</string>
+    <string name="act_servicio_lbl_nombreServicio">Nombre del Servicio : </string>
+    <string name="act_servicio_txt_nombreServicio">Nombre del Servicio </string>
+    <string name="act_servicio_lbl_descripcionServicio">Descripción : </string>
+    <string name="act_servicio_txt_descripcionServicio">Descripción del Servicio</string>
+    <string name="act_servicio_lbl_costoServicio">Precio S/ : </string>
+    <string name="act_servicio_txt_costoServicio">0.00 </string>
+    <string name="act_servicio_btn_actualizar">Actualizar Servicio </string>
+    <string name="act_servicio_btn_anular">Eliminar Servicio </string>
 
     <string name="lbl_confirmacion_cerrar_sesion">¿Está seguro de cerrar la sesión?</string>
     <string name="lbl_confirmacion_si">Sí</string>
@@ -165,4 +167,6 @@
     <string name="string_server">http://cutapp.atwebpages.com/index.php/</string>
     <!-- titulo fato -->
     <string name="lbl_Fotografia">Envíanos una fotografía del módelo de la torta que desearías para tu ser querido.. Nosotros con gusto te la diseñamos.</string>
+
+    <string name="urlOrigin">http://10.0.2.2:8080</string>
 </resources>

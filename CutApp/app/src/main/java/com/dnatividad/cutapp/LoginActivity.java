@@ -3,38 +3,21 @@ package com.dnatividad.cutapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.Call;
@@ -58,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void buscar(View v){
 
+        /*
         EditText user_log = (EditText) findViewById(R.id.txt_usuario);
-        EditText pass_log = (EditText) findViewById(R.id.txt_password);
+        EditText pass_log = (EditText) findViewById(R.id.txt_passwordUsuario);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -103,9 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                                 if (ok== true){
 
                                     guardarPreferencia(valor3);// como esto le doy permiso al usuario
-                                    Catalogo();//una vez que ingreso me voy al activity Catalogo
-                                    LoginActivity.this.finish();
+                                    if(valor3 == "0") //admin
+                                        Catalogo();
+                                    else
+                                        MisCitas();
 
+                                    LoginActivity.this.finish();
                                 }
 
                             }
@@ -116,10 +103,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+         */
+        MisCitas();
     }
-
 
     public void guardarPreferencia(String valor) {
 
@@ -225,46 +211,61 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //region Navegacion
+        //Navegacion de los botones del menu
+        public void Login(){
+            Intent login = new Intent(this, LoginActivity.class);
+            startActivity(login);
+        }
 
-    //Navegacion de los botones del menu
-    public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
-    }
-    public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
-        startActivity(registrarusuario);
-    }
-    public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
-        startActivity(nosotros);
-    }
-    public void Contactenos(){
-        Intent contactenos = new Intent(this, ContactenosActivity.class);
-        startActivity(contactenos);
-    }
-    public void Ubicanos(){
-        Intent ubicanos = new Intent(this, UbicanosActivity.class);
-        startActivity(ubicanos);
-    }
-    public void Catalogo(){
-        Intent Catalogo = new Intent(this, CatalogoActivity.class);
-        startActivity(Catalogo);
-    }
-    public void MisPedidos(){
-        Intent mispedidos = new Intent(this, MisPedidosActivity.class);
-        startActivity(mispedidos);
-    }
-    public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarProductoActivity.class);
-        startActivity(producto);
-    }
-    public void MisProductos(){
-        Intent misproducto = new Intent(this, MisProductosActivity.class);
-        startActivity(misproducto);
-    }
-    public void Reportes(){
-        Intent reporte = new Intent(this, ReportePedidosActivity.class);
-        startActivity(reporte);
-    }
+        public void RegistrarUsuario(){
+            Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+            startActivity(registrarusuario);
+        }
+
+        public void Nosotros(){
+            Intent nosotros = new Intent(this, NosotrosActivity.class);
+            startActivity(nosotros);
+        }
+
+        public void Contactenos(){
+            Intent contactenos = new Intent(this, ContactenosActivity.class);
+            startActivity(contactenos);
+        }
+
+        public void Ubicanos(){
+            Intent ubicanos = new Intent(this, UbicanosActivity.class);
+            startActivity(ubicanos);
+        }
+
+        public void Catalogo(){
+            Intent Catalogo = new Intent(this, CatalogoActivity.class);
+            startActivity(Catalogo);
+        }
+
+        public void MisPedidos(){
+            Intent mispedidos = new Intent(this, MisPedidosActivity.class);
+            startActivity(mispedidos);
+        }
+
+        public void reg_producto(){
+            Intent producto = new Intent(this, RegistrarServicioActivity.class);
+            startActivity(producto);
+        }
+
+        public void MisProductos(){
+            Intent misproducto = new Intent(this, MisServiciosActivity.class);
+            startActivity(misproducto);
+        }
+
+        public void Reportes(){
+            Intent reporte = new Intent(this, RegistrarCitaActivity.class);
+            startActivity(reporte);
+        }
+
+        public void MisCitas(){
+            Intent miscitas = new Intent(this, MisCitas.class);
+            startActivity(miscitas);
+        }
+    //endregion
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".ActualizarProductoActivity">
+    tools:context=".ActualizarServicioActivity">
 
     <ScrollView
 
@@ -60,14 +60,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:inputType="textPersonName"
-                android:text="@string/actualizar_prod_lbl_titulo_principal"
+                android:text="@string/act_servicio_lbl_titulo_principal"
                 android:textColor="#e593bd"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -124,7 +124,7 @@
                                 android:layout_marginLeft="0dp"
                                 android:gravity="center_horizontal"
                                 android:paddingBottom="10sp"
-                                android:text="@string/reg_prod_imgbutton_camara"
+                                android:text="@string/crud_servicio_imgbutton_camara"
                                 android:textAlignment="center"
                                 android:textColor="#e768a9"
                                 android:textSize="12sp"
@@ -156,7 +156,7 @@
                                 android:layout_marginTop="6dp"
                                 android:gravity="center_horizontal"
                                 android:paddingBottom="10sp"
-                                android:text="@string/reg_prod_imgbutton_examinar"
+                                android:text="@string/crud_servicio_imgbutton_examinar"
                                 android:textAlignment="center"
                                 android:textColor="#e768a9"
                                 android:textSize="12sp"
@@ -180,17 +180,17 @@
                     android:layout_width="95dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
-                    android:text="@string/reg_prod_lbl_cod"
+                    android:text="@string/reg_servicio_lbl_idServicio"
                     android:textColor="#e768a9"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/act_pro_codigo"
+                    android:id="@+id/act_servicio_idServicio"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:hint="@string/actualizar_prod_lbl_codproducto"
+                    android:hint="@string/act_servicio_lbl_idServicio"
                     android:inputType="textPersonName"
                     android:textColor="#e768a9"
                     android:textSize="18dp"
@@ -204,17 +204,17 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/actualizar_prod_lbl_titulo"
+                android:text="@string/act_servicio_lbl_nombreServicio"
                 android:textColor="#e593bd"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/act_pro_titulo"
+                android:id="@+id/act_servicio_nombreServicio"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_marginTop="0dp"
                 android:gravity="top"
-                android:hint="@string/actualizar_prod_txt_titulo"
+                android:hint="@string/act_servicio_txt_nombreServicio"
                 android:inputType="textPersonName"
                 android:maxLength="35" />
 
@@ -225,17 +225,17 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/actualizar_prod_lbl_ingredientes"
+                android:text="@string/act_servicio_lbl_descripcionServicio"
                 android:textColor="#e593bd"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/act_pro_descripcion"
+                android:id="@+id/act_servicio_descripcionServicio"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="0dp"
                 android:gravity="top"
-                android:hint="@string/actualizar_prod_lbl_ingredientes"
+                android:hint="@string/act_servicio_lbl_descripcionServicio"
                 android:inputType="textMultiLine|textPersonName" />
 
             <LinearLayout
@@ -250,18 +250,18 @@
                     android:layout_height="wrap_content"
 
                     android:inputType="textPersonName"
-                    android:text="@string/actualizar_prod_lbl_precio"
+                    android:text="@string/act_servicio_lbl_costoServicio"
                     android:textColor="#e593bd"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/act_pro_precio"
+                    android:id="@+id/act_servicio_costoServicio"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:gravity="left"
                     android:inputType="numberDecimal"
-                    android:text="@string/actualizar_prod_txt_precio" />
+                    android:text="@string/act_servicio_txt_costoServicio" />
 
             </LinearLayout>
 
@@ -274,7 +274,7 @@
                 android:layout_marginRight="16dp"
                 android:background="#e593bd"
                 android:onClick="ActualizarProducto"
-                android:text="@string/actualizar_prod_btn_actualizar"
+                android:text="@string/act_servicio_btn_actualizar"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:textStyle="normal" />
@@ -288,7 +288,7 @@
                 android:layout_marginRight="16dp"
                 android:background="#e593bd"
                 android:onClick="AnularProducto"
-                android:text="@string/actualizar_prod_btn_anular"
+                android:text="@string/act_servicio_btn_anular"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:textStyle="normal" />

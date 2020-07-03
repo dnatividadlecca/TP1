@@ -76,7 +76,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_us_usuario"
+                android:id="@+id/txt_correoUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -95,12 +95,12 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_clave"
+                android:id="@+id/txt_passwordUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/US_txt_clave"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|textEmailAddress|textWebPassword" />
 
             <TextView
                 android:id="@+id/lbl_nombre"
@@ -113,7 +113,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_nombre"
+                android:id="@+id/txt_nombreUsuario"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
@@ -127,67 +127,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/US_lbl_apellido"
+                android:text="@string/US_lbl_apellidoPaterno"
                 android:textColor="#4d4549"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_apellido"
+                android:id="@+id/txt_apellidoPaterno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/US_txt_apellido"
+                android:hint="@string/US_txt_apellidoPaterno"
                 android:inputType="textPersonName" />
-
-            <TextView
-                android:id="@+id/lbl_titulo_fecha_nac"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:text="@string/US_lbl_fecha_nacimiento"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <DatePicker
-                android:id="@+id/datePicker1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#fefafc"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
-
-            <EditText
-                android:id="@+id/lbl_nacimiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="false"
-                android:hint="@string/US_lbl_fecha_nacimiento"
-                android:inputType="date"
-                android:maxLines="1"
-                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/lbl_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/US_lbl_direccion"
+                android:text="@string/US_lbl_apellidoMaterno"
                 android:textColor="#4d4549"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_direccion"
+                android:id="@+id/txt_apellidoMaterno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/US_txt_direccion"
+                android:hint="@string/US_txt_apellidoMaterno"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -201,7 +169,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_celular"
+                android:id="@+id/txt_telefonoUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
