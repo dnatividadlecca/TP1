@@ -104,12 +104,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
          */
+        guardarPreferencia(1, 7);
         MisCitas();
     }
 
-    public void guardarPreferencia(String valor) {
+    public void guardarPreferencia(Integer rol, Integer idUsuario) {
 
-
+        /*
         if (valor.equals("true")){
             EditText editText1 = (EditText) findViewById(R.id.txt_usuario);
 
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("sesionIniciada", true);
             editor.putString("CADENA", editText1.getText().toString());
-            editor.putString("PERMISO", valor);
+            editor.putString("PERMISO", String.valueOf(Boolean.parseBoolean(rol.toString())));
             editor.commit();
         }
         else{
@@ -133,8 +134,15 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("PERMISO", valor);
             editor.commit();
         }
-
-
+        */
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("sesionIniciada", true);
+        //editor.putString("CADENA", editText1.getText().toString());
+        editor.putString("PERMISO", String.valueOf(Boolean.parseBoolean(rol.toString())));
+        editor.putString("IDUSUSARIO", String.valueOf(idUsuario));
+        editor.commit();
     }
 
     //metodo para mostrar y ocultar el menu

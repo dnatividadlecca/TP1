@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.dnatividad.cutapp.Adaptadores.AdaptadorCitas;
 import com.dnatividad.cutapp.Adaptadores.AdaptadorServicios;
 import com.dnatividad.cutapp.Entidades.Citas;
+import com.dnatividad.cutapp.Entidades.Citas_Servicios;
 import com.dnatividad.cutapp.Entidades.Peluqueria;
 import com.dnatividad.cutapp.Entidades.Servicios;
 import com.dnatividad.cutapp.Entidades.Usuarios;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -88,13 +90,18 @@ public class MisCitas extends AppCompatActivity {
         return true;
     }
 
-    public void cargarCitas(){/*
+    public void cargarCitas(){
+
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
+        final Integer idUsusarioSesion = Integer.parseInt(prefs.getString("IDUSUSARIO", ""));
+        Log.i("Id Usuario Sesion ====>", idUsusarioSesion.toString());
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection httpURLConnection = null;
                 try {
-                    URL url = new URL(urlOrigin+"/servicios/listar");
+                    URL url = new URL(urlOrigin+"/citas/listar/" + idUsusarioSesion);
                     httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("GET");
                     httpURLConnection.setRequestProperty("Content-Type", "application/json");
@@ -102,7 +109,7 @@ public class MisCitas extends AppCompatActivity {
 
                     int responseCode = httpURLConnection.getResponseCode();
                     String responseMessage = httpURLConnection.getResponseMessage();
-
+                    Log.i("response", responseMessage);
                     if(responseCode == HttpURLConnection.HTTP_OK){
                         BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                         String response="";
@@ -124,37 +131,75 @@ public class MisCitas extends AppCompatActivity {
                         httpURLConnection.disconnect();
                 }
             }
-        });*/
-        updateLista("");
+        });
     }
 
     void updateLista(String reportList) {
 
-        /*
-        final ArrayList<Servicios>ListItems = new ArrayList<>();
+        final ArrayList<Citas>ListItems = new ArrayList<>();
         listItems = (ListView) findViewById(R.id.listaMisCitas);
         try {
-            //Log.i("reporte", reportList);
+            Log.i("reporte", reportList);
             JSONArray jsonArray = new JSONArray(reportList);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject objJson = jsonArray.getJSONObject(i);
-                //Log.i("item",objJson.toString());
+                //Log.i("citas",objJson.toString());
 
+                //region UsuarioRegistro
+                JSONObject objJsonusuario = objJson.getJSONObject("usuario");
+                //Log.i("objJsonusuario", objJsonusuario.toString());
+                Usuarios usuarioRegistro = new Usuarios(
+                        Integer.parseInt(objJsonusuario.getString("idUsuario")),
+                        objJsonusuario.getString("nombreUsuario") + "\n",
+                        objJsonusuario.getString("apellidoPaterno") + "\n",
+                        objJsonusuario.getString("apellidoMaterno") + "\n",
+                        "" + "\n",
+                        1,
+                        "" + "\n",
+                        "" + "\n"
+                );
+                //endregion
 
-                ListItems.add(new Servicios(
-                        Integer.parseInt(objJson.getString("idServicio")),
-                        objJson.getString("nombreServicio")+"\n",
-                        Double.parseDouble(objJson.getString("costoServicio")),
-                        objJson.getString("descripcionServicio")+"\n",
-                        objJson.getString("fotoServicio")+"\n"
+                //region ListadoServicios
+                JSONArray objJsonservicios = objJson.getJSONArray("servicios");
+                ArrayList<Citas_Servicios> listaServicios = new ArrayList<>();
+                //Log.i("objJsonservicios", objJsonservicios.toString());
+                for (int j = 0; j < objJsonservicios.length(); j++) {
+                    JSONObject objJsonServicio = objJsonservicios.getJSONObject(j);
+                     listaServicios.add(
+                             new Citas_Servicios(
+                                     Integer.parseInt(objJson.getString("idCita")),
+                                     new Servicios(
+                                             Integer.parseInt(objJsonServicio.getString("idServicio")),
+                                             objJsonServicio.getString("nombreServicio") + "\n",
+                                             Double.parseDouble(objJsonServicio.getString("costoServicio")),
+                                             objJsonServicio.getString("descripcionServicio") + "\n",
+                                             objJsonServicio.getString("fotoServicio") + "\n"
+                                     )
+                             )
+                     );
+                }
+
+                //endregion
+
+                ListItems.add(new Citas(
+                        Integer.parseInt(objJson.getString("idCita")),
+                        objJson.getString("fechaCita") + "\n",
+                        objJson.getString("horaCita") + "\n",
+                        Boolean.parseBoolean(objJson.getString("calificadaCita")),
+                        objJson.getString("comentarioCita") + "\n",
+                        objJson.getString("estadoCita")+"\n",
+                        usuarioRegistro,
+                        listaServicios
                 ));
+
             }
 
             runOnUiThread(new Runnable() {
                 //Muestro el contenido del arraylist
                 public void run() {
-                    adaptadorServicios = new AdaptadorServicios(MisCitas.this, ListItems);
-                    listItems.setAdapter(adaptadorServicios);
+                    adaptadorCitas = new AdaptadorCitas(MisCitas.this, ListItems);
+                    listItems.setAdapter(adaptadorCitas);
                 }
             });
 
@@ -163,21 +208,24 @@ public class MisCitas extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> arg0, View arg1,
                                         int position, long arg3) {
 
-                    Servicios serv = ListItems.get(position);
-                    Intent i = new Intent(getApplicationContext(), ActualizarServicioActivity.class);
-                    i.putExtra("idServicio", String.valueOf(serv.getIdServicio()));
-                    i.putExtra("nombreServicio", serv.getNombreServicio());
-                    i.putExtra("descripcionServicio", serv.getDescripcionServicio());
-                    i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                    Citas cita = ListItems.get(position);
+                    Intent i = new Intent(getApplicationContext(), DetalleCita.class);
+                    i.putExtra("idCita", String.valueOf(cita.getIdCita()));
+                    i.putExtra("nombreServicio", cita.getLista_servicios().get(0).getIdServicio().getNombreServicio());
+                    i.putExtra("descripcionServicio", cita.getLista_servicios().get(0).getIdServicio().getDescripcionServicio());
+                    i.putExtra("costoServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getCostoServicio()));
+                    i.putExtra("estadoServicio", cita.getEstado());
                     startActivity(i);
                 }
             });
 
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
+        /*
         listItems = (ListView) findViewById(R.id.listaMisCitas);
         final ArrayList<Citas>ListItems = new ArrayList<Citas>();
+
         ListItems.add(new Citas(
                 1,
                 "20/02/2020",
@@ -201,7 +249,8 @@ public class MisCitas extends AppCompatActivity {
                                 new Peluqueria(1,"","","","","","")),"Generada"
                 )
         );
-
+*/
+        /*
         runOnUiThread(new Runnable() {
             //Muestro el contenido del arraylist
             public void run() {
@@ -217,13 +266,14 @@ public class MisCitas extends AppCompatActivity {
                 Citas citas = ListItems.get(position);
                 Intent i = new Intent(getApplicationContext(), DetalleCita.class);
                 i.putExtra("idServicio", String.valueOf(citas.getIdCita()));
-                i.putExtra("nombreServicio", citas.getServicios_registro().getNombreServicio());
-                i.putExtra("descripcionServicio", citas.getServicios_registro().getDescripcionServicio());
-                i.putExtra("costoServicio", String.valueOf(citas.getServicios_registro().getCostoServicio()));
-                i.putExtra("estadoServicio", String.valueOf(citas.getEstado()));
+                //i.putExtra("nombreServicio", citas.getServicios_registro().getNombreServicio());
+                //i.putExtra("descripcionServicio", citas.getServicios_registro().getDescripcionServicio());
+                //i.putExtra("costoServicio", String.valueOf(citas.getServicios_registro().getCostoServicio()));
+                //i.putExtra("estadoServicio", String.valueOf(citas.getEstado()));
                 startActivity(i);
             }
         });
+         */
     }
 
     //metodo para asignar las funciones de las opciones

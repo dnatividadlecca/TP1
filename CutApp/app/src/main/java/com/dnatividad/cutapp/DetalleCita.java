@@ -7,20 +7,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetalleCita extends AppCompatActivity {
-TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServicio,txt_estado;
+TextView txt_idCita, txt_descripcionServicio, txt_nombreServicio, txt_costoServicio, txt_estado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,20 +24,20 @@ TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServ
     }
 
     private void setReferences() {
-        txt_idServicio = (TextView)findViewById(R.id.txt_idServicio);
+        txt_idCita = (TextView)findViewById(R.id.txt_idCita);
         txt_descripcionServicio = (TextView)findViewById(R.id.txt_descripcionServicio);
         txt_nombreServicio = (TextView)findViewById(R.id.txt_nombreServicio);
         txt_costoServicio = (TextView)findViewById(R.id.txt_costoServicio);
         txt_estado = (TextView)findViewById(R.id.txt_estado);
 
-        String datos_idServicio = getIntent().getStringExtra("idServicio");
+        String datos_ididCita = getIntent().getStringExtra("idCita");
         String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
         String datos_descripcionServicio = getIntent().getStringExtra("descripcionServicio");
         String datos_costoServicio = getIntent().getStringExtra("costoServicio");
         String datos_estadoServicio = getIntent().getStringExtra("estadoServicio");
 
         txt_estado.setText(datos_estadoServicio);
-        txt_idServicio.setText(datos_idServicio);
+        txt_idCita.setText(datos_ididCita);
         txt_nombreServicio.setText(datos_nombreServicio);
         txt_descripcionServicio.setText(datos_descripcionServicio);
         txt_costoServicio.setText(datos_costoServicio);

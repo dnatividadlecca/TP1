@@ -52,11 +52,11 @@ public class AdaptadorCitas extends BaseAdapter {
         TextView tvEstado = (TextView) convertView.findViewById(R.id.tvCitaDetalleEstado);
 
 
-        imgFoto.setImageBitmap(item.getServicios_registro().getImgFoto());
+        imgFoto.setImageBitmap(item.getLista_servicios().get(0).getIdServicio().getImgFoto());
         tvCodigo.setText("Cita #: " + String.valueOf(item.getIdCita()));
-        tvTitulo.setText(item.getServicios_registro().getNombreServicio());
-        tvContenido.setText(item.getServicios_registro().getDescripcionServicio());
-        tvPrecio.setText("S/." + item.getServicios_registro().getCostoServicio());
+        tvTitulo.setText(item.getLista_servicios().get(0).getIdServicio().getNombreServicio());
+        tvContenido.setText(item.getLista_servicios().get(0).getIdServicio().getDescripcionServicio());
+        tvPrecio.setText("S/." + item.getLista_servicios().get(0).getIdServicio().getCostoServicio());
         tvEstado.setText("Estado: " +  item.getEstado());
 
         return convertView;
