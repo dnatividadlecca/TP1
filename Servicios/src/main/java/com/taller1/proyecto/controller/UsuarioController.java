@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ public class UsuarioController {
     @Autowired
     IUsuarioService service;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    /*@Autowired
+    private BCryptPasswordEncoder passwordEncoder;*/
 
     @PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario registrar(@RequestBody Usuario usuario ){
