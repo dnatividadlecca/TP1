@@ -10,17 +10,18 @@
 
     <ScrollView
 
+        android:id="@+id/scrollView2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -55,241 +57,168 @@
 
 
             <TextView
-                android:id="@+id/reg_prod_titulo_prindipal"
-                android:layout_width="210dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:layout_gravity="center"
-                android:paddingBottom="10sp"
-                android:text="Registrar Servicio"
-                android:textAlignment="center"
+                android:id="@+id/lblCita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Titulo"
                 android:textColor="#5E394C"
-                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgfotoServicio"
+                        android:layout_width="130dp"
+                        android:layout_height="168dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:tag="PRO-"
+                        app:srcCompat="@drawable/preview" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="210dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/titulo_cod"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/Act_lbl_idServicio"
+                                android:textColor="#5E394C"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/titulo_prod"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginTop="17dp"
+                                android:text="@string/Act_lbl_nombreServicio"
+                                android:textColor="#5E394C"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txt_idServicio"
+                                android:layout_width="115dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:textColor="#B38524"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:hint="@string/codigo"
+                                android:inputType="textPersonName" />
+
+                            <TextView
+                                android:id="@+id/txt_nombreServicio"
+                                android:layout_width="115dp"
+                                android:layout_height="80dp"
+                                android:layout_marginTop="17dp"
+                                android:hint="@string/act_servicio_txt_nombreServicio"
+                                android:inputType="textMultiLine|textPersonName"
+                                android:textColor="#B38524"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/reg_prod_etiq_lbl_titulo"
+                android:id="@+id/lbl_fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Nombre de peluquería"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/fechaCita"
+                android:textColor="#5E394C"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <CalendarView
+
+                android:id="@+id/simpleCalendarView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dp" />
+
+            <TimePicker
+                android:id="@+id/simpleTimeView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/fechaCita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Fechaseleccionada"
                 android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_txt_cod" />
-
-            <EditText
-                android:id="@+id/nombre_peluqueria"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:hint="Nombre de la peluquería"
-                android:inputType="textPersonName"
-                android:maxLength="35"
-                android:textAllCaps="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_titulo" />
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/txttelefonoPeluqueria"
+                android:id="@+id/horaCita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="30dp"
-                android:text="Telefono de peluquería"
+                android:layout_marginTop="20dp"
+                android:text="Fechaseleccionada"
                 android:textColor="#5E394C"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
-
-            <EditText
-                android:id="@+id/telefono_peluqueria"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Telefono de la peluquería"
-                android:inputType="textMultiLine|textPersonName"
-                android:maxLength="250"
-                android:textAllCaps="false"
-                android:textColor="#070113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_descripcion" />
-
-            <TextView
-                android:id="@+id/txtDireccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="30dp"
-                android:text="Dirección de peluquería"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
-
-            <EditText
-                android:id="@+id/direccion_peluqueria"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Dirección de peluquería"
-                android:inputType="textMultiLine|textPersonName"
-                android:maxLength="250"
-                android:textAllCaps="false"
-                android:textColor="#070113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_descripcion" />
-
-            <TextView
-                android:id="@+id/txtHora"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="30dp"
-                android:text="Hora de inicio"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
-
-            <EditText
-                android:id="@+id/hora_inicio"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Hora de Inicio"
-                android:inputType="textMultiLine|textPersonName"
-                android:maxLength="250"
-                android:textAllCaps="false"
-                android:textColor="#070113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_descripcion" />
-
-
-            <TextView
-                android:id="@+id/txtHoraf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="30dp"
-                android:text="Hora de Fin"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
-
-
-            <EditText
-                android:id="@+id/hora_fin"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Hora de Fin"
-                android:inputType="textMultiLine|textPersonName"
-                android:maxLength="250"
-                android:textAllCaps="false"
-                android:textColor="#070113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_descripcion" />
-
-            <TextView
-                android:id="@+id/txtDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="30dp"
-                android:text="Descripción"
-                android:textColor="#5E394C"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_nombreServicio" />
-
-            <EditText
-                android:id="@+id/descripcion_peluqueria"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Descripción de peluquería"
-                android:inputType="textMultiLine|textPersonName"
-                android:maxLength="250"
-                android:textAllCaps="false"
-                android:textColor="#070113"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_prod_etiq_lbl_descripcion" />
-
+                android:visibility="gone" />
 
             <Button
-                android:id="@+id/reg_prod_etiq_btn_registrar"
+                android:id="@+id/btn_ActualizarPedido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="42dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="20dp"
                 android:background="#5E394C"
-                android:onClick="Reg_peluqueria"
-                android:text="Registrar Peluquería"
-                android:textColor="#FFFFFF"
+                android:onClick="Reg_Citas"
+                android:text="@string/boton_registrarCita"
+                android:textColor="#ffffff"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reg_costoServicio" />
-
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

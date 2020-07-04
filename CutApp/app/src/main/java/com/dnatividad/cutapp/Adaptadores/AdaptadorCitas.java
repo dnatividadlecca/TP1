@@ -46,17 +46,19 @@ public class AdaptadorCitas extends BaseAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.item_detalle,null);
         ImageView imgFoto =(ImageView) convertView.findViewById(R.id.imgFoto);
         TextView tvCodigo =(TextView) convertView.findViewById(R.id.tvCodigo);
+        TextView tvCodigoServicio =(TextView) convertView.findViewById(R.id.tvCodigoServicio);
         TextView tvTitulo =(TextView) convertView.findViewById(R.id.tvTitulo);
         TextView  tvContenido =(TextView) convertView.findViewById(R.id.tvIngrediente);
         TextView  tvPrecio =(TextView) convertView.findViewById(R.id.tvPrecio);
         TextView tvEstado = (TextView) convertView.findViewById(R.id.tvCitaDetalleEstado);
 
 
-        imgFoto.setImageBitmap(item.getServicios_registro().getImgFoto());
+        imgFoto.setImageBitmap(item.getLista_servicios().get(0).getIdServicio().getImgFoto());
         tvCodigo.setText("Cita #: " + String.valueOf(item.getIdCita()));
-        tvTitulo.setText(item.getServicios_registro().getNombreServicio());
-        tvContenido.setText(item.getServicios_registro().getDescripcionServicio());
-        tvPrecio.setText("S/." + item.getServicios_registro().getCostoServicio());
+        tvCodigoServicio.setText(String.valueOf(item.getLista_servicios().get(0).getIdServicio().getIdServicio()));
+        tvTitulo.setText(item.getLista_servicios().get(0).getIdServicio().getNombreServicio());
+        tvContenido.setText(item.getLista_servicios().get(0).getIdServicio().getDescripcionServicio());
+        tvPrecio.setText("S/." + item.getLista_servicios().get(0).getIdServicio().getCostoServicio());
         tvEstado.setText("Estado: " +  item.getEstado());
 
         return convertView;

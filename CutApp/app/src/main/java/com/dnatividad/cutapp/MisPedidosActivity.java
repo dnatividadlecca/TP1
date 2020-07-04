@@ -59,32 +59,32 @@ public class MisPedidosActivity extends AppCompatActivity {
         //otorgo permiso de acceso a las opciones del menu
         if(permiso.equals("true")){
             //esta linea permite hacer visible un item del menu
-            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_6);
+            MenuItem itemMenuCatalogo = menu.findItem(R.id.item_registroCitas);
             itemMenuCatalogo.setVisible(true);
 
-            MenuItem itemMenuRegProd = menu.findItem(R.id.item_8);
+            MenuItem itemMenuRegProd = menu.findItem(R.id.item_registroServicios);
             itemMenuRegProd.setVisible(true);
 
-            MenuItem itemMenuMisProd = menu.findItem(R.id.item_9);
+            MenuItem itemMenuMisProd = menu.findItem(R.id.item_misServicios);
             itemMenuMisProd.setVisible(true);
 
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
+            MenuItem itemMenuLogin = menu.findItem(R.id.item_login);
             itemMenuLogin.setVisible(false);
 
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
+            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_registroUsuarios);
             itemMenuRegistrar.setVisible(false);
         }else {
-            MenuItem itemMenuPedidos = menu.findItem(R.id.item_7);
+            MenuItem itemMenuPedidos = menu.findItem(R.id.item_misCitas);
             itemMenuPedidos.setVisible(false);
 
-            MenuItem itemMenuLogin = menu.findItem(R.id.item_1);
+            MenuItem itemMenuLogin = menu.findItem(R.id.item_login);
             itemMenuLogin.setVisible(false);
 
-            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_2);
+            MenuItem itemMenuRegistrar = menu.findItem(R.id.item_registroUsuarios);
             itemMenuRegistrar.setVisible(false);
         }
         //------------------------------------------------------------------------------------------
-        MenuItem itemMenuRegistrar = menu.findItem(R.id.item_11);
+        MenuItem itemMenuRegistrar = menu.findItem(R.id.item_cerrarSesion);
         itemMenuRegistrar.setVisible(true);
         //------------------------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarPedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
                             i.putExtra("foto",x.get("foto").toString());
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
@@ -244,7 +244,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarPedidosActivity.class);
+                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
                             i.putExtra("titulo",x.get("titulo").toString());
@@ -276,43 +276,43 @@ public class MisPedidosActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
+        else if (id ==R.id.item_registroUsuarios){
             Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
+        else if (id ==R.id.item_contactenos){
             Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
+        else if (id ==R.id.item_registroCitas){
             Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
             Catalogo();
         }
-        else if (id ==R.id.item_7){
+        else if (id ==R.id.item_misCitas){
             Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
             MisPedidos();
         }
-        else if (id ==R.id.item_8){
+        else if (id ==R.id.item_registroServicios){
             Toast.makeText(this,"Reg. Producto", Toast.LENGTH_SHORT).show();
             reg_producto();
         }
-        else if (id ==R.id.item_9){
+        else if (id ==R.id.item_misServicios){
             Toast.makeText(this,"Mis Productos", Toast.LENGTH_SHORT).show();
             MisProductos();
         }
-        else if (id ==R.id.item_11){
+        else if (id ==R.id.item_cerrarSesion){
             //Toast.makeText(this,"Cerrar Sesión", Toast.LENGTH_SHORT).show();
             cerrarSesion();
         }

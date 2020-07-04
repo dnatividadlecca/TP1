@@ -1,13 +1,10 @@
 package com.dnatividad.cutapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,27 +35,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
+        else if (id ==R.id.item_registroUsuarios){
             Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
+        else if (id ==R.id.item_contactenos){
             Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
+        else if (id ==R.id.item_registroCitas){
             Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
             Catalogo();
         }    return super.onOptionsItemSelected(item);

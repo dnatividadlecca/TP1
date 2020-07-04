@@ -38,7 +38,7 @@
             android:layout_marginRight="16dp"
             android:paddingLeft="10dp"
             android:text="@string/lbl_contac_titulo1"
-            android:textColor="#e593bd"
+            android:textColor="#5E394C"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="24dp"
             android:layout_marginTop="50dp"
-            android:background="#e593bd"
+            android:background="#5E394C"
             android:onClick="enviarMail"
             android:text="@string/btn_contac_enviar"
             android:textColor="#ffffff"

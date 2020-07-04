@@ -7,20 +7,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.ManejoMenu.controlMenuOpciones;
+
 public class DetalleCita extends AppCompatActivity {
-TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServicio,txt_estado;
+TextView txt_idCita, txt_descripcionServicio, txt_nombreServicio, txt_costoServicio, txt_estado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,97 +26,95 @@ TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServ
     }
 
     private void setReferences() {
-        txt_idServicio = (TextView)findViewById(R.id.txt_idServicio);
+        txt_idCita = (TextView)findViewById(R.id.txt_idCita);
         txt_descripcionServicio = (TextView)findViewById(R.id.txt_descripcionServicio);
         txt_nombreServicio = (TextView)findViewById(R.id.txt_nombreServicio);
         txt_costoServicio = (TextView)findViewById(R.id.txt_costoServicio);
         txt_estado = (TextView)findViewById(R.id.txt_estado);
 
-        String datos_idServicio = getIntent().getStringExtra("idServicio");
+        String datos_ididCita = getIntent().getStringExtra("idCita");
         String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
         String datos_descripcionServicio = getIntent().getStringExtra("descripcionServicio");
         String datos_costoServicio = getIntent().getStringExtra("costoServicio");
         String datos_estadoServicio = getIntent().getStringExtra("estadoServicio");
 
         txt_estado.setText(datos_estadoServicio);
-        txt_idServicio.setText(datos_idServicio);
+        txt_idCita.setText(datos_ididCita);
         txt_nombreServicio.setText(datos_nombreServicio);
         txt_descripcionServicio.setText(datos_descripcionServicio);
         txt_costoServicio.setText(datos_costoServicio);
     }
-    //region Navegacion
+
+    //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.overflow,menu);
+
         //--------------obtengo el correo almacenado a la hora que se logueo------------------------
         SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
-        String permiso = prefs.getString("PERMISO", "");
-        Log.i("permiso logueado ====>", permiso.trim());
+        String permisoAdmin = prefs.getString("PERMISOADMIN", "");
+        String sesionIniciada = prefs.getString("SESIONINICIADA", "");
+        Log.i("permiso Admin ====>", permisoAdmin.trim());
+        Log.i("sesion Iniciada ====>", sesionIniciada.trim());
         //------------------------------------------------------------------------------------------
 
-        //otorgo permiso de acceso a las opciones del menu
-        if(permiso.equals("true")){
-            //esta linea permite hacer visible un item del menu
-            MenuItem item = menu.findItem(R.id.item_6);
-            item.setVisible(true);
-            MenuItem item2 = menu.findItem(R.id.item_7);
-            item2.setVisible(true);
-        }else {
-            MenuItem item = menu.findItem(R.id.item_7);
-            item.setVisible(false);
-        }
-        //------------------------------------------------------------------------------------------
-        MenuItem itemMenuRegistrar = menu.findItem(R.id.item_11);
-        itemMenuRegistrar.setVisible(true);
-        //------------------------------------------------------------------------------------------
+        controlMenuOpciones opcionesMenu = new controlMenuOpciones();
+        opcionesMenu.asignarOpcionesAcceso(menu, permisoAdmin, sesionIniciada);
+
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
-        if(id ==R.id.item_1){
+        if(id ==R.id.item_login){
             Toast.makeText(this,"Login", Toast.LENGTH_SHORT).show();
             Login();
         }
-        else if (id ==R.id.item_2){
-            Toast.makeText(this,"Registrar usurio", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_registroUsuarios){
+            Toast.makeText(this,"Registrar Usuario", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_3){
+        else if (id ==R.id.item_nosotros){
             Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
             Nosotros();
         }
-        else if (id ==R.id.item_4){
-            Toast.makeText(this,"Contactenos", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_contactenos){
+            Toast.makeText(this,"Contáctenos", Toast.LENGTH_SHORT).show();
             Contactenos();
         }
-        else if (id ==R.id.item_5){
+        else if (id ==R.id.item_ubicanos){
             Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
             Ubicanos();
         }
-        else if (id ==R.id.item_6){
-            Toast.makeText(this,"Catalogo", Toast.LENGTH_SHORT).show();
-            Catalogo();
+        else if (id ==R.id.item_registroCitas){
+            Toast.makeText(this,"Registro Citas", Toast.LENGTH_SHORT).show();
+            RegistrarCita();
         }
-        else if (id ==R.id.item_7){
-            Toast.makeText(this,"Mis Pedidos", Toast.LENGTH_SHORT).show();
-            MisPedidos();
+        else if (id ==R.id.item_misCitas){
+            Toast.makeText(this,"Mis Citas", Toast.LENGTH_SHORT).show();
+            MisCitas();
         }
-        else if (id ==R.id.item_8){
-            Toast.makeText(this,"Reg. Producto", Toast.LENGTH_SHORT).show();
-            reg_producto();
+        else if (id ==R.id.item_reporteCitas){
+            Toast.makeText(this,"Reporte Citas", Toast.LENGTH_SHORT).show();
+            CitasCliente();
         }
-        else if (id ==R.id.item_9){
-            Toast.makeText(this,"Mis Productos", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_registroServicios){
+            Toast.makeText(this,"Reg. Servicios", Toast.LENGTH_SHORT).show();
+            RegistrarServicios();
+        }
+        else if (id ==R.id.item_misServicios){
+            Toast.makeText(this,"Mis Servicios", Toast.LENGTH_SHORT).show();
             MisProductos();
         }
-        else if (id ==R.id.item_11){
-            //Toast.makeText(this,"Cerrar Sesión", Toast.LENGTH_SHORT).show();
+        else if (id ==R.id.item_cerrarSesion){
             cerrarSesion();
         }
         return super.onOptionsItemSelected(item);
-    }
 
+    }
+    //endregion
+
+    //region Navegacion
     public void Login(){
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
@@ -145,17 +140,22 @@ TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServ
         startActivity(ubicanos);
     }
 
-    public void Catalogo(){
-        Intent Catalogo = new Intent(this, CatalogoActivity.class);
+    public void RegistrarCita(){
+        Intent Catalogo = new Intent(this, MisServiciosClienteActivity.class);
         startActivity(Catalogo);
     }
 
-    public void MisPedidos(){
-        Intent mispedidos = new Intent(this, MisPedidosActivity.class);
-        startActivity(mispedidos);
+    public void MisCitas(){
+        Intent misCitas = new Intent(this, MisCitas.class);
+        startActivity(misCitas);
     }
 
-    public void reg_producto(){
+    public void CitasCliente(){
+        Intent miscitas = new Intent(this, CitasTotalClientesActivity.class);
+        startActivity(miscitas);
+    }
+
+    public void RegistrarServicios(){
         Intent producto = new Intent(this, RegistrarServicioActivity.class);
         startActivity(producto);
     }
@@ -190,5 +190,6 @@ TextView txt_idServicio,txt_descripcionServicio,txt_nombreServicio,txt_costoServ
         builder.setMessage(R.string.lbl_confirmacion_cerrar_sesion).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
                 .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
     }
+
     //endregion
 }
