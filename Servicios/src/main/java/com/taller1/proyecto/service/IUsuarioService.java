@@ -15,4 +15,6 @@ public interface IUsuarioService {
     Usuario listarId(int idUsuario);
 
     List<Usuario> listar();
+
+    Usuario buscarPorCredenciales(String correoUsuario, String password);
 }

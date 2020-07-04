@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,15 +19,20 @@ public class UsuarioController {
     @Autowired
     IUsuarioService service;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario ){
-        Usuario u = new Usuario();
-        try {
-            u = service.registrar(usuario);
-        } catch (Exception e) {
-            return new ResponseEntity<Usuario>(u, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+    public Usuario registrar(@RequestBody Usuario usuario ){
+        Usuario us = new Usuario();
+            us.setNombreUsuario(usuario.getNombreUsuario());
+            us.setApellidoPaterno(usuario.getApellidoPaterno());
+            us.setApellidoMaterno(usuario.getApellidoMaterno());
+            us.setRolUsuario(usuario.getRolUsuario());
+            us.setTelefono(usuario.getTelefono());
+            us.setCorreoUsuario(usuario.getCorreoUsuario());
+            us.setPassword(usuario.getPassword());
+           return service.registrar(us);
     }
 
     @GetMapping(value = "/listar", produces =  MediaType.APPLICATION_JSON_VALUE)
@@ -73,5 +79,13 @@ public class UsuarioController {
             resultado = 0;
         }
         return new ResponseEntity<Integer>(resultado,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/listar-por-credenciales/{correoUsuario}/{password}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Usuario> buscarPorCredenciales(@PathVariable("correoUsuario") String correoUsuario, @PathVariable("password") String password){
+        Usuario usuario = new Usuario();
+            usuario = service.buscarPorCredenciales(correoUsuario, password);
+
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 }

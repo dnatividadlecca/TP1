@@ -38,4 +38,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<Usuario> listar() {
         return usuarioDAO.findAll();
     }
+
+    @Override
+    public Usuario buscarPorCredenciales(String correoUsuario, String password) {
+        return usuarioDAO.buscarPorCredenciales(correoUsuario, password);
+    }
 }

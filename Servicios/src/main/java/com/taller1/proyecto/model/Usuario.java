@@ -22,9 +22,10 @@ public class Usuario {
     @Column(name = "telefono", nullable = false, length = 45)
     private String telefono;
 
-    private int rolUsuario;
+    @Column(name = "rolUsuario", nullable = false, length = 25)
+    private String rolUsuario;
 
-    @Column(name = "correoUsuario", nullable = false, length = 100)
+    @Column(name = "correoUsuario", unique = true, nullable = false, length = 100)
     private String correoUsuario;
 
     @Column(name = "password", nullable = false, length = 100)
@@ -70,11 +71,11 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public int getRolUsuario() {
+    public String getRolUsuario() {
         return rolUsuario;
     }
 
-    public void setRolUsuario(int rolUsuario) {
+    public void setRolUsuario(String rolUsuario) {
         this.rolUsuario = rolUsuario;
     }
 
