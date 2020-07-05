@@ -10,46 +10,50 @@
 
     <item
         android:id="@+id/item_login"
-        android:title="@string/opc_uno"
+        android:title="@string/opc_login"
         android:visible="false"/>
     <item
         android:id="@+id/item_registroUsuarios"
-        android:title="@string/opc_dos"
-        android:visible="false"/>
-    <item
-        android:id="@+id/item_nosotros"
-        android:title="@string/opc_tres"
+        android:title="@string/opc_registrarUsuario"
         android:visible="false"/>
     <item
         android:id="@+id/item_contactenos"
-        android:title="@string/opc_cuatro"
+        android:title="@string/opc_contactenos"
         android:visible="false"/>
     <item
         android:id="@+id/item_ubicanos"
-        android:title="@string/opc_cinco"
+        android:title="@string/opc_ubicanos"
         android:visible="false"/>
     <item
         android:id="@+id/item_registroCitas"
-        android:title="@string/opc_seis"
+        android:title="@string/opc_registrarCitas"
         android:visible="false"/>
     <item
         android:id="@+id/item_misCitas"
-        android:title="@string/opc_siete"
+        android:title="@string/opc_misCitas"
         android:visible="false"/>
     <item
         android:id="@+id/item_registroServicios"
-        android:title="@string/opc_ocho"
+        android:title="@string/opc_registrarServicios"
         android:visible="false"/>
     <item
         android:id="@+id/item_misServicios"
-        android:title="@string/opc_nueve"
+        android:title="@string/opc_misServicios"
         android:visible="false"/>
     <item
         android:id="@+id/item_reporteCitas"
-        android:title="@string/opc_diez"
+        android:title="@string/opc_reporteCitas"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_nosotros"
+        android:title="@string/opc_nosotros"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_nosotrosEdicion"
+        android:title="@string/opc_nosotrosEdicion"
         android:visible="false"/>
     <item
         android:id="@+id/item_cerrarSesion"
-        android:title="@string/opc_once"
+        android:title="@string/opc_cerrarSesion"
         android:visible="false"/>
 </menu>

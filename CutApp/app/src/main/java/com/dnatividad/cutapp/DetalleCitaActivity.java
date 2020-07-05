@@ -156,7 +156,6 @@ public class DetalleCitaActivity extends AppCompatActivity implements OnMapReady
                         txt_direccionPeluqueria.setText(objetoPeluqueria.getDireccionPeluqueria());
 
                         ImageView llamada = findViewById(R.id.imgLlamada);
-
                         llamada.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

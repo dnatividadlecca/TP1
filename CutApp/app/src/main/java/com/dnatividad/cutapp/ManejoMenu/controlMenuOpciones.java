@@ -37,6 +37,12 @@ public class controlMenuOpciones {
 
                         item = menu.findItem(R.id.item_reporteCitas);
                         item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotros);
+                        item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotrosEdicion);
+                        item.setVisible(true);
                         break;
 
                     case "false":
@@ -53,6 +59,12 @@ public class controlMenuOpciones {
                         item.setVisible(true);
 
                         item = menu.findItem(R.id.item_reporteCitas);
+                        item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotros);
+                        item.setVisible(true);
+
+                        item = menu.findItem(R.id.item_nosotrosEdicion);
                         item.setVisible(false);
                         break;
                 }
