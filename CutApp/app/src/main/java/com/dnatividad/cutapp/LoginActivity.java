@@ -7,17 +7,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
+
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnatividad.cutapp.Entidades.Usuarios;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +37,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks {
     String urlOrigin;
+    CheckBox checkBox;
     TextView txt_correoUsuario, txt_contrasenaUsuario;
-
+    GoogleApiClient googleApiClient;
+    String SiteKey = "6Lf2Ku8UAAAAAM0em8iDij9BVHgpeSpavP7VhRox";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,61 +56,95 @@ public class LoginActivity extends AppCompatActivity {
         //En caso se acceda a la pantalla de login, se borran las credenciales si es que aún existen
         SharedPreferences preferences = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
         preferences.edit().clear().commit();
+        checkBox = findViewById(R.id.check_box);
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(SafetyNet.API)
+                .addConnectionCallbacks(LoginActivity.this)
+                .build();
+        googleApiClient.connect();
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox.isChecked()){
+                    SafetyNet.SafetyNetApi.verifyWithRecaptcha(googleApiClient, SiteKey)
+                            .setResultCallback(new ResultCallback<SafetyNetApi.RecaptchaTokenResult>() {
+                                @Override
+                                public void onResult(@NonNull SafetyNetApi.RecaptchaTokenResult recaptchaTokenResult) {
+                                    Status status = recaptchaTokenResult.getStatus();
+                                    if ((status != null) && status.isSuccess()){
+                                        Toast.makeText(getApplicationContext(),
+                                                "Successfully verified",Toast.LENGTH_LONG).show();
+                                        checkBox.setTextColor(Color.GREEN);
+                                    }
+                                }
+                            });
+                }else {
+                    checkBox.setTextColor(Color.BLACK);
+                }
+            }
+        });
     }
 
     private void setUrlOrigin() {
         urlOrigin = getString(R.string.urlOrigin);
     }
 
-    public void buscar(View v){
+    public void buscar(View v) {
         txt_correoUsuario = (TextView) findViewById(R.id.txt_correoUsuario);
         txt_contrasenaUsuario = (TextView) findViewById(R.id.txt_contrasenaUsuario);
+        if (!txt_correoUsuario.getText().toString().isEmpty() && !txt_contrasenaUsuario.getText().toString().isEmpty()) {
+            if (checkBox.isChecked()){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection httpURLConnection = null;
+                    try {
+                        URL url = new URL(urlOrigin + "/usuarios/listar-por-credenciales/" + txt_correoUsuario.getText() + '/' + txt_contrasenaUsuario.getText());
+                        httpURLConnection = (HttpURLConnection) url.openConnection();
+                        httpURLConnection.setRequestMethod("GET");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection httpURLConnection = null;
-                try {
-                    URL url = new URL(urlOrigin + "/usuarios/listar-por-credenciales/" + txt_correoUsuario.getText() + '/' + txt_contrasenaUsuario.getText());
-                    httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestMethod("GET");
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                        int responseCode = httpURLConnection.getResponseCode();
+                        String responseMessage = httpURLConnection.getResponseMessage();
 
-                    int responseCode = httpURLConnection.getResponseCode();
-                    String responseMessage = httpURLConnection.getResponseMessage();
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                            String response = "";
+                            String line = "";
+                            //Log.i("response","Por ejecutar");
 
-                    if(responseCode == HttpURLConnection.HTTP_OK){
-                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-                        String response = "";
-                        String line = "";
-                        //Log.i("response","Por ejecutar");
+                            while ((line = br.readLine()) != null) {
+                                response += line;
+                            }
+                            //Log.i("response",response);
+                            verificarAccesos(response);
 
-                        while ((line=br.readLine()) != null) {
-                            response += line;
+                        } else {
+                            Log.v("CatalogClient", "Response code:" + responseCode);
+                            Log.v("CatalogClient", "Response message:" + responseMessage);
                         }
-                        //Log.i("response",response);
-                        verificarAccesos(response);
 
-                    }else{
-                        Log.v("CatalogClient", "Response code:"+ responseCode);
-                        Log.v("CatalogClient", "Response message:"+ responseMessage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (httpURLConnection != null)
+                            httpURLConnection.disconnect();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }finally {
-                    if(httpURLConnection != null)
-                        httpURLConnection.disconnect();
                 }
-            }
-        });
-        runOnUiThread(new Runnable() {
-            public void run() {
-                //mostrarErrorLogin(response[0]);
-            }
-        });
+            });
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    //mostrarErrorLogin(response[0]);
+                }
+            });
 
+        }
+        else{Toast.makeText(LoginActivity.this,"Resolver recaptcha",Toast.LENGTH_LONG).show();}
+        }else{
+            Toast.makeText(LoginActivity.this,"Los campos no pueden ser nulos",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void mostrarErrorLogin(String response) {
@@ -321,5 +369,15 @@ public class LoginActivity extends AppCompatActivity {
             Intent registroCitas = new Intent(this, MisServiciosClienteActivity.class);
             startActivity(registroCitas);
         }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
     //endregion
 }
