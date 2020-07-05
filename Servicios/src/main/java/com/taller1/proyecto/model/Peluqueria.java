@@ -28,6 +28,10 @@ public class Peluqueria {
     @Column(name = "descripcion", nullable = true, length = 500)
     private String descripcion;
 
+    private Double latitud;
+
+    private Double longitud;
+
     public int getIdPeluqueria() {
         return idPeluqueria;
     }
@@ -82,5 +86,21 @@ public class Peluqueria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 }
