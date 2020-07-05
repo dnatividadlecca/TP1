@@ -169,8 +169,9 @@ public class MisCitas extends AppCompatActivity {
                                         int position, long arg3) {
 
                     Citas cita = ListItems.get(position);
-                    Intent i = new Intent(getApplicationContext(), DetalleCita.class);
+                    Intent i = new Intent(getApplicationContext(), DetalleCitaActivity.class);
                     i.putExtra("idCita", String.valueOf(cita.getIdCita()));
+                    i.putExtra("idServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getIdServicio()));
                     i.putExtra("nombreServicio", cita.getLista_servicios().get(0).getIdServicio().getNombreServicio());
                     i.putExtra("descripcionServicio", cita.getLista_servicios().get(0).getIdServicio().getDescripcionServicio());
                     i.putExtra("costoServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getCostoServicio()));

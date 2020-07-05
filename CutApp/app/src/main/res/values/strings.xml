@@ -172,4 +172,7 @@
     <string name="lbl_Fotografia">Envíanos una fotografía del módelo de la torta que desearías para tu ser querido.. Nosotros con gusto te la diseñamos.</string>
 
     <string name="urlOrigin">http://10.0.2.2:8080</string>
+    <string name="hexColorPrimario">#5E394C</string>
+    <string name="hexColorSecundario">#B38524</string>
+
 </resources>

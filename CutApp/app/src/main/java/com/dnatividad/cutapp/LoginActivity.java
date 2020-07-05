@@ -144,10 +144,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("rolAdmin", String.valueOf(rolAdmin));
                 switch (String.valueOf(rolAdmin)){
                     case "true":
-                        listadoServiciosEscoger();
+                        CitasCliente();
                         break;
                     case "false":
-                        CitasCliente();
+                        listadoServiciosEscoger();
                         break;
                 }
             }
