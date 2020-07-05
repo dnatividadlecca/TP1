@@ -12,12 +12,12 @@ public class Servicios {
     private String fotoServicio;
     private Peluqueria peluqueria;
 
-    public Servicios(   int idServicio,
-                        String nombreServicio,
-                        Double costoServicio,
-                        String descripcionServicio,
-                        String fotoServicio,
-                        Peluqueria peluqueria){
+    public Servicios(int idServicio,
+                     String nombreServicio,
+                     Double costoServicio,
+                     String descripcionServicio,
+                     String fotoServicio,
+                     Peluqueria peluqueria){
 
         this.idServicio = idServicio;
         this.nombreServicio = nombreServicio;
@@ -65,5 +65,9 @@ public class Servicios {
 
     public String getFotoServicio() {
         return fotoServicio;
+    }
+
+    public Peluqueria getPeluqueria() {
+        return peluqueria;
     }
 }

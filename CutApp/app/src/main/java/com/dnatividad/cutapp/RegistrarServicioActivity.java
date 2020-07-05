@@ -105,7 +105,7 @@ public class RegistrarServicioActivity extends AppCompatActivity {
                     jsonObject.put("costoServicio", reg_costoServicio.getText().toString());
                     //Log.i("costoServicio", reg_costoServicio.getText().toString());
                     jsonObject.put("fotoServicio", fotoEnBase64);
-                    Log.i("fotoServicio", fotoEnBase64);
+                    //Log.i("fotoServicio", fotoEnBase64);
 
                     JSONObject jsonObjectPeluqueria = new JSONObject();
                     jsonObjectPeluqueria.put("idPeluqueria", "1");

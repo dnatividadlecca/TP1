@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name">CutApp</string>
 
-    <string name="opc_uno">Login</string>
-    <string name="opc_dos">Registrar</string>
-    <string name="opc_tres">Nosotros</string>
-    <string name="opc_cuatro">Contáctenos</string>
-    <string name="opc_cinco">Ubícanos</string>
-    <string name="opc_prueba">Citas</string>
-    <string name="opc_seis">Registrar Cita</string>
-    <string name="opc_siete">Mis Citas</string>
-    <string name="opc_ocho">Reg. Servicios</string>
-    <string name="opc_nueve">Mis Servicios</string>
-    <string name="opc_diez">Reporte de Mis Citas</string>
-    <string name="opc_once">Cerrar Sesión</string>
+    <string name="opc_login">Login</string>
+    <string name="opc_registrarUsuario">Registrar</string>
+    <string name="opc_nosotros">Nosotros</string>
+    <string name="opc_nosotrosEdicion">Edición Datos Peluqiería</string>
+    <string name="opc_contactenos">Contáctenos</string>
+    <string name="opc_ubicanos">Ubícanos</string>
+    <string name="opc_citas">Citas</string>
+    <string name="opc_registrarCitas">Registrar Cita</string>
+    <string name="opc_misCitas">Mis Citas</string>
+    <string name="opc_registrarServicios">Reg. Servicios</string>
+    <string name="opc_misServicios">Mis Servicios</string>
+    <string name="opc_reporteCitas">Reporte de Mis Citas</string>
+    <string name="opc_cerrarSesion">Cerrar Sesión</string>
 
     <!-- Login Activity -->
     <string name="text_usuario">Usuario ó Correo</string>
@@ -171,5 +172,13 @@
     <!-- titulo fato -->
     <string name="lbl_Fotografia">Envíanos una fotografía del módelo de la torta que desearías para tu ser querido.. Nosotros con gusto te la diseñamos.</string>
 
+    <string name="lbl_nombrePeluqueria">Nombre de Peluquería</string>
+    <string name="lbl_horarioAtencionPeluqueria">Horario de Atención</string>
+    <string name="lbl_descripcionPeluqueria">Acerca de Nosotros</string>
+    <string name="lbl_ubicacionPeluqueria">Nuestra Ubicación</string>
+
     <string name="urlOrigin">http://10.0.2.2:8080</string>
+    <string name="hexColorPrimario">#5E394C</string>
+    <string name="hexColorSecundario">#B38524</string>
+
 </resources>

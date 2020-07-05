@@ -1,14 +1,17 @@
 package com.dnatividad.cutapp;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
@@ -35,6 +38,8 @@ import java.net.URL;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class ActualizarCitasActivity extends AppCompatActivity {
     private ImageView fotoServicio;
@@ -47,6 +52,8 @@ public class ActualizarCitasActivity extends AppCompatActivity {
     private TextView nombreServicio;
     private TextView estadoCita;
     private Spinner spi_estado;
+    private String datos_telefonoUsuario;
+    private static final int REQUEST_CALL = 1;
 
     //Para mostrar la imagen de codigo a bitmap
     private static final int REQUEST_IMAGE = 100;
@@ -82,7 +89,6 @@ public class ActualizarCitasActivity extends AppCompatActivity {
         nombreServicio = (TextView)findViewById(R.id.act_nombreServicio);
         estadoCita = (TextView)findViewById(R.id.act_estado);
 
-
         String datos_fotoServicio = getIntent().getStringExtra("fotoServicio");
         String datos_idCita = getIntent().getStringExtra("idCita");
         String datos_idServicio = getIntent().getStringExtra("idServicio");
@@ -94,6 +100,7 @@ public class ActualizarCitasActivity extends AppCompatActivity {
         String datos_nombreUsuario = getIntent().getStringExtra("nombreUsuario");
         String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
         String datos_estadoServicio = getIntent().getStringExtra("estadoServicio");
+        datos_telefonoUsuario = getIntent().getStringExtra("telefonoUsuario");
 
         //obtengo la imagen codificada como string y se la envio al metodo base64ToBitmap la cual me devuelve la imagen
         byte [] encodeByte = Base64.decode(String.valueOf(datos_fotoServicio),Base64.DEFAULT);
@@ -110,6 +117,24 @@ public class ActualizarCitasActivity extends AppCompatActivity {
         nombreUsuario.setText(datos_nombreUsuario);
         nombreServicio.setText(datos_nombreServicio);
         estadoCita.setText(datos_estadoServicio);
+
+        ImageView llamada = findViewById(R.id.imgLlamada);
+        llamada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamar(datos_telefonoUsuario);
+            }
+        });
+    }
+
+    private void llamar(String telefonoPeluqueria) {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        }
+        else{
+            String numeroLlamar = "tel:" + telefonoPeluqueria;
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(numeroLlamar)));
+        }
     }
 
     public void ActualizarPedido(View v){

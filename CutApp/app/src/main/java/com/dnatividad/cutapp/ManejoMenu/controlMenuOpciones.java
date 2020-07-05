@@ -36,6 +36,12 @@ public class controlMenuOpciones {
                         item.setVisible(false);
 
                         item = menu.findItem(R.id.item_reporteCitas);
+                        item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotros);
+                        item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotrosEdicion);
                         item.setVisible(true);
                         break;
 
@@ -53,6 +59,12 @@ public class controlMenuOpciones {
                         item.setVisible(true);
 
                         item = menu.findItem(R.id.item_reporteCitas);
+                        item.setVisible(false);
+
+                        item = menu.findItem(R.id.item_nosotros);
+                        item.setVisible(true);
+
+                        item = menu.findItem(R.id.item_nosotrosEdicion);
                         item.setVisible(false);
                         break;
                 }

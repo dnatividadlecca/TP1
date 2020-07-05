@@ -52,7 +52,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         reg_apellidoPaterno = findViewById(R.id.txt_apellidoPaterno);
         reg_telefono = findViewById(R.id.txt_telefonoUsuario);
         reg_correoUsuario = findViewById(R.id.txt_correoUsuario);
-        reg_password = findViewById(R.id.txt_passwordUsuario);
+        reg_password = findViewById(R.id.txt_contrasenaUsuario);
     }
 
     private void setValues() {

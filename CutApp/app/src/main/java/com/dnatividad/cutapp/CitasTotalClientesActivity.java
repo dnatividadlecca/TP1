@@ -115,7 +115,7 @@ public class CitasTotalClientesActivity extends AppCompatActivity {
                         objJsonusuario.getString("nombreUsuario") + "\n",
                         objJsonusuario.getString("apellidoPaterno") + "\n",
                         objJsonusuario.getString("apellidoMaterno") + "\n",
-                        "" + "\n",
+                        objJsonusuario.getString("telefono") + "\n",
                         1,
                         objJsonusuario.getString("correoUsuario") + "\n",
                         "" + "\n"
@@ -181,6 +181,7 @@ public class CitasTotalClientesActivity extends AppCompatActivity {
                              cita.getUsuarios_registro().getNomUser() + ' ' +
                                    cita.getUsuarios_registro().getApePatUser() + ' ' +
                                    cita.getUsuarios_registro().getApeMatUser());
+                    i.putExtra("telefonoUsuario", cita.getUsuarios_registro().getTelfUser());
                     i.putExtra("fechaCita", cita.getFechaCita());
                     i.putExtra("horaCita", cita.getHoraCita());
                     i.putExtra("costoServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getCostoServicio()));

@@ -1,104 +1,159 @@
 package com.dnatividad.cutapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.dnatividad.cutapp.Entidades.Usuarios;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-
+    String urlOrigin;
+    TextView txt_correoUsuario, txt_contrasenaUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setUrlOrigin();
 
         //En caso se acceda a la pantalla de login, se borran las credenciales si es que aún existen
         SharedPreferences preferences = getSharedPreferences("PREFERENCIAS", MODE_PRIVATE);
         preferences.edit().clear().commit();
     }
 
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
     public void buscar(View v){
+        txt_correoUsuario = (TextView) findViewById(R.id.txt_correoUsuario);
+        txt_contrasenaUsuario = (TextView) findViewById(R.id.txt_contrasenaUsuario);
 
-        /*
-        EditText user_log = (EditText) findViewById(R.id.txt_usuario);
-        EditText pass_log = (EditText) findViewById(R.id.txt_passwordUsuario);
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                //.url("http://lasrositas.dx.am/index.php/usuarios/"+user_log.getText().toString()+"/"+pass_log.getText().toString())
-                .url("http://cutapp.atwebpages.com/index.php/usuarios/"+user_log.getText().toString()+"/"+pass_log.getText().toString())
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+            public void run() {
+                HttpURLConnection httpURLConnection = null;
+                try {
+                    URL url = new URL(urlOrigin + "/usuarios/listar-por-credenciales/" + txt_correoUsuario.getText() + '/' + txt_contrasenaUsuario.getText());
+                    httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
 
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
+                    int responseCode = httpURLConnection.getResponseCode();
+                    String responseMessage = httpURLConnection.getResponseMessage();
 
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                } else {
-                    String cadenaJson = response.body().string();
-                    Log.i("RESPUESTA ====>", cadenaJson);
+                    if(responseCode == HttpURLConnection.HTTP_OK){
+                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String response = "";
+                        String line = "";
+                        //Log.i("response","Por ejecutar");
 
-                    try {
-                        JSONArray resp= new JSONArray(cadenaJson);
-
-                        if ((resp == null) && (resp.equals(" "))){
-                            // Log.i("no entro ====>", cadenaJson);
+                        while ((line=br.readLine()) != null) {
+                            response += line;
                         }
-                        else{
-                            for(int index = 0;index < resp.length(); index++) {
-                                JSONObject jsonObject = resp.getJSONObject(index);
-                                Boolean ok = jsonObject.getBoolean("success");
-                                String valor = jsonObject.getString("cod_usuario");
-                                String valor2 = jsonObject.getString("password");
-                                String valor3 = jsonObject.getString("permiso");
-                                //obtengo los valores del JSONArray y lo convierto a aun jsonObject para poder obtener sus valores
-                                Log.i("tiene permiso====>", valor3);
+                        //Log.i("response",response);
+                        verificarAccesos(response);
 
-
-                                if (ok== true){
-
-                                    guardarPreferencia(valor3);// como esto le doy permiso al usuario
-                                    if(valor3 == "0") //admin
-                                        Catalogo();
-                                    else
-                                        MisCitas();
-
-                                    LoginActivity.this.finish();
-                                }
-
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    }else{
+                        Log.v("CatalogClient", "Response code:"+ responseCode);
+                        Log.v("CatalogClient", "Response message:"+ responseMessage);
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    if(httpURLConnection != null)
+                        httpURLConnection.disconnect();
                 }
             }
         });
-         */
-        Boolean rolAdmin = true;
-        Boolean sesionIniciada = true;
-        guardarPreferencia(rolAdmin, sesionIniciada, 15);
+        runOnUiThread(new Runnable() {
+            public void run() {
+                //mostrarErrorLogin(response[0]);
+            }
+        });
 
-        if(rolAdmin)
-            CitasCliente();
-        else
-            listadoServiciosEscoger();
+    }
+
+    private void mostrarErrorLogin(String response) {
+        Log.i("error", response);
+        if(response.equals("true")){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.
+                    setTitle("Error").
+                    setMessage("Usuario y/o contraseña no válidos").
+                    setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).show();
+        }
+    }
+
+    private void verificarAccesos(String response) {
+
+        try{
+            JSONObject jsonObject = new JSONObject(response);
+            Log.i("jsonObject", String.valueOf(jsonObject));
+
+            Usuarios usuarioLogin = new Usuarios(
+                    Integer.parseInt(jsonObject.getString("idUsuario")),
+                    jsonObject.getString("nombreUsuario")+"\n",
+                    jsonObject.getString("apellidoMaterno")+"\n",
+                    jsonObject.getString("apellidoPaterno")+"\n",
+                    jsonObject.getString("telefono")+"\n",
+                    Integer.parseInt(jsonObject.getString("rolUsuario")),
+                    jsonObject.getString("correoUsuario")+"\n",
+                    ""+"\n"
+            );
+
+            if(usuarioLogin.getIdUser() > 0){
+                Boolean rolAdmin;
+                if(String.valueOf(usuarioLogin.getRol()).equals("0"))
+                    rolAdmin = false;
+                else
+                    rolAdmin = true;
+
+                guardarPreferencia(rolAdmin, true, usuarioLogin.getIdUser());
+
+                Log.i("rolAdmin", String.valueOf(rolAdmin));
+                switch (String.valueOf(rolAdmin)){
+                    case "true":
+                        CitasCliente();
+                        break;
+                    case "false":
+                        listadoServiciosEscoger();
+                        break;
+                }
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void guardarPreferencia(Boolean rolAdmin, Boolean sesionIniciada, Integer idUsuario) {

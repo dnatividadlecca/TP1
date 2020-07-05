@@ -8,17 +8,17 @@
     tools:context=".LoginActivity">
 
     <EditText
-        android:id="@+id/txt_usuario"
+        android:id="@+id/txt_correoUsuario"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="268dp"
-        android:layout_marginEnd="60dp"
         android:drawableLeft="@drawable/icon_email"
         android:ems="10"
         android:hint="@string/text_usuario"
         android:inputType="textPersonName"
-        android:text="lasrositas@hotmail.com"
+        android:text="correo@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,21 +44,21 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/txt_passwordUsuario"
+        android:id="@+id/txt_contrasenaUsuario"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
         android:drawableLeft="@drawable/icon_lock"
         android:ems="10"
         android:hint="@string/text_password"
         android:inputType="textPassword"
-        android:text="marilu"
+        android:text="123456"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_usuario" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_correoUsuario" />
 
     <Button
         android:id="@+id/btn_login"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_passwordUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_contrasenaUsuario" />
 
     <ImageView
         android:id="@+id/imageView"

@@ -8,6 +8,8 @@ public class Peluqueria {
     private String horaInicioPeluqueria;
     private String horaFinPeluqueria;
     private String descripcion;
+    private Double latitud;
+    private Double longitud;
 
     public Peluqueria(  int idPeluqueria,
                         String nombrePeluqueria,
@@ -15,7 +17,9 @@ public class Peluqueria {
                         String direccionPeluqueria,
                         String horaInicioPeluqueria,
                         String horaFinPeluqueria,
-                        String descripcion){
+                        String descripcion,
+                        Double latitud,
+                        Double longitud){
 
         this.idPeluqueria = idPeluqueria;
         this.nombrePeluqueria = nombrePeluqueria;
@@ -24,6 +28,8 @@ public class Peluqueria {
         this.horaInicioPeluqueria = horaInicioPeluqueria;
         this.horaFinPeluqueria = horaFinPeluqueria;
         this.descripcion = descripcion;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public int getIdPeluqueria() {
@@ -52,5 +58,13 @@ public class Peluqueria {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
     }
 }
