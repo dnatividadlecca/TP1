@@ -122,17 +122,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             verificarAccesos(response);
 
                         } else {
-                            Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
+
                             Log.v("CatalogClient", "Response code:" + responseCode);
                             Log.v("CatalogClient", "Response message:" + responseMessage);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
+
                     } finally {
                         if (httpURLConnection != null)
                             httpURLConnection.disconnect();
+                        Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -203,6 +204,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         }catch (JSONException e) {
             e.printStackTrace();
+            Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
         }
     }
 
