@@ -122,12 +122,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             verificarAccesos(response);
 
                         } else {
+                            Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
                             Log.v("CatalogClient", "Response code:" + responseCode);
                             Log.v("CatalogClient", "Response message:" + responseMessage);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Toast.makeText(LoginActivity.this,"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
                     } finally {
                         if (httpURLConnection != null)
                             httpURLConnection.disconnect();
@@ -141,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             });
 
         }
-        else{Toast.makeText(LoginActivity.this,"Resolver recaptcha",Toast.LENGTH_LONG).show();}
+        else{Toast.makeText(LoginActivity.this,"Confirmar que usted no es un robot",Toast.LENGTH_LONG).show();}
         }else{
             Toast.makeText(LoginActivity.this,"Los campos no pueden ser nulos",Toast.LENGTH_LONG).show();
         }
