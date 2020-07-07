@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity">
+    tools:context=".App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity">
 
     <ListView
         android:id="@+id/listaMisServiciosCliente"

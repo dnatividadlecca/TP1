@@ -13,11 +13,11 @@ import com.dnatividad.cutapp.R;
 
 import java.util.ArrayList;
 
-public class AdaptadorListadoTotalCitas extends BaseAdapter {
+public class AdaptadorListadoCitasAdmin extends BaseAdapter {
     private Context context;
     private ArrayList<Citas> listItems;
 
-    public AdaptadorListadoTotalCitas(Context context, ArrayList<Citas> listItems) {
+    public AdaptadorListadoCitasAdmin(Context context, ArrayList<Citas> listItems) {
         this.context = context;
         this.listItems = listItems;
     }

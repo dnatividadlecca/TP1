@@ -1,36 +1,156 @@
-package com.dnatividad.cutapp.Calificaciones;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.dnatividad.cutapp.App.Seguridad;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+//import android.support.v7.app.AppCompatActivity;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
-public class Calificaciones_Admin_MisCalificacionesActivity extends AppCompatActivity {
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class Seguridad_RegistrarUsuarioActivity extends AppCompatActivity {
+    EditText reg_nombreUsuario, reg_apellidoMaterno, reg_apellidoPaterno, reg_telefono, reg_correoUsuario, reg_password;
+    String urlOrigin;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calificaciones_admin_mis_calificaciones);
+        //setReferences();
+        setUrlOrigin();
+        //setValues();
+        setContentView(R.layout.activity_seguridad_registrar_usuario);
+    }
+
+    private void setUrlOrigin() {
+        //urlOrigin = getString(R.string.urlOrigin);
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
+    void setReferences(){
+        reg_nombreUsuario = findViewById(R.id.txt_nombreUsuario);
+        reg_apellidoMaterno = findViewById(R.id.txt_apellidoMaterno);
+        reg_apellidoPaterno = findViewById(R.id.txt_apellidoPaterno);
+        reg_telefono = findViewById(R.id.txt_telefonoUsuario);
+        reg_correoUsuario = findViewById(R.id.txt_correoUsuario);
+        reg_password = findViewById(R.id.txt_contrasenaUsuario);
+    }
+
+    private void setValues() {
+        reg_nombreUsuario.setText(Integer.toString(getIntent().getIntExtra("nombreUsuario",0)));
+        reg_apellidoMaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoMaterno",0)));
+        reg_apellidoPaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoPaterno",0)));
+        reg_telefono.setText(Integer.toString(getIntent().getIntExtra("telefono",0)));
+        reg_correoUsuario.setText(Integer.toString(getIntent().getIntExtra("correoUsuario",0)));
+        reg_password.setText(Integer.toString(getIntent().getIntExtra("password",0)));
+    }
+
+    public void Reg_usuario(View v){
+         updateData();
+    }
+
+    void updateData(){
+        setReferences();
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/usuarios/registrar");
+
+                    JSONObject jsonObject = new JSONObject();
+                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+
+                    jsonObject.put("nombreUsuario", reg_nombreUsuario.getText().toString());
+                    //Log.i("nombreUsuario", reg_nombreUsuario.getText().toString());
+                    jsonObject.put("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                    //Log.i("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                    jsonObject.put("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                    //Log.i("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                    jsonObject.put("telefono", reg_telefono.getText().toString());
+                    //Log.i("telefono", reg_telefono.getText().toString());
+                    jsonObject.put("rolUsuario", "0");
+                    jsonObject.put("correoUsuario", reg_correoUsuario.getText().toString());
+                    //Log.i("correoUsuario", reg_correoUsuario.getText().toString());
+                    jsonObject.put("password", reg_password.getText().toString());
+                    //Log.i("password", reg_password.getText().toString());
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+
+                    String response = "";
+                    String line = "";
+
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
+
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
+        }
     }
 
     //region opciones Navegacion

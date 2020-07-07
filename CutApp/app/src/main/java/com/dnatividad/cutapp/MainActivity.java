@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

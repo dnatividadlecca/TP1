@@ -1,84 +1,78 @@
-package com.dnatividad.cutapp.Nosotros;
+package com.dnatividad.cutapp.App.Citas;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
-import com.dnatividad.cutapp.Utilitarios.Entidades.Peluqueria;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.Utilitarios.Adaptadores.AdaptadorListadoCitasAdmin;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Citas;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Citas_Servicios;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Servicios;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Usuarios;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class Citas_Admin_MisCitasActivity extends AppCompatActivity {
+    private ListView listItems;
+    private AdaptadorListadoCitasAdmin adaptadorCitas;
 
-public class Nosotros_Cliente_NosotrosActivity extends AppCompatActivity implements OnMapReadyCallback {
     String urlOrigin;
-    final static int idPeluqueria = 1;
-    TextView txt_nombrePeluqueria, txt_horarioAtencionPeluqueria, txt_descripcionPeluqueria;
-    private GoogleMap mapaPeluquieria;
-    Peluqueria objPeluqueria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nosotros_cliente_nosotros);
-        setUrlOrigin();
-        setReferences();
+        setContentView(R.layout.activity_citas_admin_mis_citas);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapaPeluquieria);
-        mapFragment.getMapAsync((OnMapReadyCallback) this);
+        setUrlOrigin();
+        cargarCitas();
     }
 
     private void setUrlOrigin() {
         urlOrigin = getString(R.string.urlOrigin);
     }
 
-    private void setReferences() {
-        txt_nombrePeluqueria = (TextView)findViewById(R.id.txt_nombrePeluqueria);
-        txt_horarioAtencionPeluqueria = (TextView)findViewById(R.id.txt_horarioAtencionPeluqueria);
-        txt_descripcionPeluqueria = (TextView)findViewById(R.id.txt_descripcionPeluqueria);
+    public void cargarCitas(){
+        Log.i("demo", "se cargara datos de todos");
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
+        final Integer idUsusarioSesion = Integer.parseInt(prefs.getString("IDUSUSARIO", ""));
+        Log.i("Id Usuario Sesion ====>", idUsusarioSesion.toString());
 
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection httpURLConnection = null;
                 try {
-                    URL url = new URL(urlOrigin + "/peluquerias/listar/" + idPeluqueria);
-
+                    URL url = new URL(urlOrigin+"/citas/listar");
                     httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("GET");
                     httpURLConnection.setRequestProperty("Content-Type", "application/json");
@@ -86,37 +80,16 @@ public class Nosotros_Cliente_NosotrosActivity extends AppCompatActivity impleme
 
                     int responseCode = httpURLConnection.getResponseCode();
                     String responseMessage = httpURLConnection.getResponseMessage();
-
+                    Log.i("response", responseMessage);
                     if(responseCode == HttpURLConnection.HTTP_OK){
                         BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-                        String response = "";
+                        String response="";
                         String line = "";
-                        //Log.i("response","Por ejecutar");
-
                         while ((line=br.readLine()) != null) {
                             response += line;
                         }
+                        updateLista(response);
 
-                        JSONObject objJsonPeluqueria = new JSONObject(response);
-                        Log.i("objJsonPeluqueria", objJsonPeluqueria.toString());
-
-                        objPeluqueria = new Peluqueria(
-                                Integer.parseInt(objJsonPeluqueria.getString("idPeluqueria")),
-                                objJsonPeluqueria.getString("nombrePeluqueria")+"\n",
-                                objJsonPeluqueria.getString("telfPeluqueria")+"\n",
-                                objJsonPeluqueria.getString("direccionPeluqueria")+"\n",
-                                objJsonPeluqueria.getString("horaInicioPeluqueria")+"\n",
-                                objJsonPeluqueria.getString("horaFinPeluqueria")+"\n",
-                                objJsonPeluqueria.getString("descripcion")+"\n",
-                                Double.parseDouble(objJsonPeluqueria.getString("latitud")),
-                                Double.parseDouble(objJsonPeluqueria.getString("longitud"))
-                                //-12.04592,
-                                //-77.030565
-                        );
-
-                        txt_nombrePeluqueria.setText(objPeluqueria.getNombrePeluqueria());
-                        txt_horarioAtencionPeluqueria.setText(objPeluqueria.getHoraInicioPeluqueria() + '-' + objPeluqueria.getHoraFinPeluqueria());
-                        txt_descripcionPeluqueria.setText(objPeluqueria.getDescripcion());
                     }else{
                         Log.v("CatalogClient", "Response code:"+ responseCode);
                         Log.v("CatalogClient", "Response message:"+ responseMessage);
@@ -132,32 +105,105 @@ public class Nosotros_Cliente_NosotrosActivity extends AppCompatActivity impleme
         });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mapaPeluquieria = googleMap;
+    void updateLista(String reportList) {
 
-        //Habilitar opciones de zoom
-        mapaPeluquieria.getUiSettings().setZoomControlsEnabled(true);
+        final ArrayList<Citas> ListItems = new ArrayList<>();
+        listItems = (ListView) findViewById(R.id.listaMisCitas);
+        try {
+            Log.i("reporte", reportList);
+            JSONArray jsonArray = new JSONArray(reportList);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject objJson = jsonArray.getJSONObject(i);
+                //Log.i("citas",objJson.toString());
 
-        // Add a marker in Peluqueria and move the camera
-        LatLng centro = new LatLng(objPeluqueria.getLatitud(), objPeluqueria.getLongitud());
-        mapaPeluquieria.addMarker(
-                new MarkerOptions().
-                        position(centro).
-                        title(objPeluqueria.getNombrePeluqueria()).
-                        icon(getMarkerIcon(getString(R.string.hexColorPrimario))));
+                //region UsuarioRegistro
+                JSONObject objJsonusuario = objJson.getJSONObject("usuario");
+                //Log.i("objJsonusuario", objJsonusuario.toString());
+                Usuarios usuarioRegistro = new Usuarios(
+                        Integer.parseInt(objJsonusuario.getString("idUsuario")),
+                        objJsonusuario.getString("nombreUsuario") + "\n",
+                        objJsonusuario.getString("apellidoPaterno") + "\n",
+                        objJsonusuario.getString("apellidoMaterno") + "\n",
+                        objJsonusuario.getString("telefono") + "\n",
+                        1,
+                        objJsonusuario.getString("correoUsuario") + "\n",
+                        "" + "\n"
+                );
+                //endregion
 
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(centro));
-        mapaPeluquieria.animateCamera(CameraUpdateFactory.newLatLngZoom(centro,15));
+                //region ListadoServicios
+                JSONArray objJsonservicios = objJson.getJSONArray("servicios");
+                ArrayList<Citas_Servicios> listaServicios = new ArrayList<>();
+                //Log.i("objJsonservicios", objJsonservicios.toString());
+                for (int j = 0; j < objJsonservicios.length(); j++) {
+                    JSONObject objJsonServicio = objJsonservicios.getJSONObject(j);
+                    listaServicios.add(
+                            new Citas_Servicios(
+                                    Integer.parseInt(objJson.getString("idCita")),
+                                    new Servicios(
+                                            Integer.parseInt(objJsonServicio.getString("idServicio")),
+                                            objJsonServicio.getString("nombreServicio") + "\n",
+                                            Double.parseDouble(objJsonServicio.getString("costoServicio")),
+                                            objJsonServicio.getString("descripcionServicio") + "\n",
+                                            objJsonServicio.getString("fotoServicio") + "\n"
+                                    )
+                            )
+                    );
+                }
+
+                //endregion
+
+                ListItems.add(new Citas(
+                        Integer.parseInt(objJson.getString("idCita")),
+                        objJson.getString("fechaCita") + "\n",
+                        objJson.getString("horaCita") + "\n",
+                        Boolean.parseBoolean(objJson.getString("calificadaCita")),
+                        objJson.getString("comentarioCita") + "\n",
+                        objJson.getString("estadoCita")+"\n",
+                        usuarioRegistro,
+                        listaServicios
+                ));
+
+            }
+
+            runOnUiThread(new Runnable() {
+                //Muestro el contenido del arraylist
+                public void run() {
+                    adaptadorCitas = new AdaptadorListadoCitasAdmin(Citas_Admin_MisCitasActivity.this, ListItems);
+                    listItems.setAdapter(adaptadorCitas);
+                }
+            });
+
+            listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+                    Citas cita = ListItems.get(position);
+                    Intent i = new Intent(getApplicationContext(), Citas_Admin_ActualizarCitasActivity.class);
+                    i.putExtra("idCita", String.valueOf(cita.getIdCita()));
+                    i.putExtra("idServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getIdServicio()));
+                    i.putExtra("correoUsuario", String.valueOf(cita.getUsuarios_registro().getCorreoUser()));
+                    i.putExtra("nombreServicio", cita.getLista_servicios().get(0).getIdServicio().getNombreServicio());
+                    i.putExtra("idUsuario", String.valueOf(cita.getUsuarios_registro().getIdUser()));
+                    i.putExtra("nombreUsuario",
+                             cita.getUsuarios_registro().getNomUser() + ' ' +
+                                   cita.getUsuarios_registro().getApePatUser() + ' ' +
+                                   cita.getUsuarios_registro().getApeMatUser());
+                    i.putExtra("telefonoUsuario", cita.getUsuarios_registro().getTelfUser());
+                    i.putExtra("fechaCita", cita.getFechaCita());
+                    i.putExtra("horaCita", cita.getHoraCita());
+                    i.putExtra("costoServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getCostoServicio()));
+                    i.putExtra("estadoServicio", cita.getEstado());
+                    i.putExtra("fotoServicio", String.valueOf(cita.getLista_servicios().get(0).getIdServicio().getFotoServicio()));
+                    startActivity(i);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    //region maneja los colores
-    public BitmapDescriptor getMarkerIcon(String color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(Color.parseColor(color), hsv);
-        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
-    }
-    //endregion
 
     //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){

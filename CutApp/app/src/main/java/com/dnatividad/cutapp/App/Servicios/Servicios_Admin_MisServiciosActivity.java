@@ -1,36 +1,150 @@
-package com.dnatividad.cutapp.Calificaciones;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.dnatividad.cutapp.App.Servicios;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+//import android.support.v7.app.AlertDialog;
+//import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Utilitarios.Adaptadores.AdaptadorServicios;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Servicios;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
-public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Servicios_Admin_MisServiciosActivity extends AppCompatActivity {
+    private ListView listItems;
+    private AdaptadorServicios adaptadorServicios;
+
+    String urlOrigin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calificaciones_cliente_registro_calificacion);
+        setContentView(R.layout.activity_servicios_admin_mis_servicios);
+        setUrlOrigin();
+        cargarServicios();
+    }
+
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
+    public void cargarServicios(){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection httpURLConnection = null;
+                try {
+                    URL url = new URL(urlOrigin+"/servicios/listar");
+                    httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+
+                    int responseCode = httpURLConnection.getResponseCode();
+                    String responseMessage = httpURLConnection.getResponseMessage();
+
+                    if(responseCode == HttpURLConnection.HTTP_OK){
+                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String response="";
+                        String line = "";
+                        while ((line=br.readLine()) != null) {
+                            response += line;
+                        }
+                        updateLista(response);
+
+                    }else{
+                        Log.v("CatalogClient", "Response code:"+ responseCode);
+                        Log.v("CatalogClient", "Response message:"+ responseMessage);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    if(httpURLConnection != null)
+                        httpURLConnection.disconnect();
+                }
+            }
+        });
+    }
+
+    void updateLista(String reportList) {
+        final ArrayList<Servicios>ListItems = new ArrayList<>();
+        listItems = (ListView) findViewById(R.id.listaMisServiciosCliente);
+        try {
+            //Log.i("reporte", reportList);
+            JSONArray jsonArray = new JSONArray(reportList);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject objJson = jsonArray.getJSONObject(i);
+                //Log.i("item",objJson.toString());
+
+
+                ListItems.add(new Servicios(
+                        Integer.parseInt(objJson.getString("idServicio")),
+                        objJson.getString("nombreServicio")+"\n",
+                        Double.parseDouble(objJson.getString("costoServicio")),
+                        objJson.getString("descripcionServicio")+"\n",
+                        objJson.getString("fotoServicio")+"\n"
+                ));
+            }
+
+            runOnUiThread(new Runnable() {
+                //Muestro el contenido del arraylist
+                public void run() {
+                    adaptadorServicios = new AdaptadorServicios(Servicios_Admin_MisServiciosActivity.this, ListItems);
+                    listItems.setAdapter(adaptadorServicios);
+                }
+            });
+
+            listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+
+                    Servicios serv = ListItems.get(position);
+                    Intent i = new Intent(getApplicationContext(), Servicios_Admin_ActualizarServicioActivity.class);
+                    i.putExtra("idServicio", String.valueOf(serv.getIdServicio()));
+                    i.putExtra("nombreServicio", serv.getNombreServicio());
+                    i.putExtra("descripcionServicio", serv.getDescripcionServicio());
+                    i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
+                    i.putExtra("fotoServicio", String.valueOf(serv.getFotoServicio()));
+                    startActivity(i);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //region opciones Navegacion
@@ -191,3 +305,4 @@ public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppComp
 
     //endregion
 }
+

@@ -1,107 +1,148 @@
-package com.dnatividad.cutapp.Seguridad;
+package com.dnatividad.cutapp.App.Citas;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
 import android.content.SharedPreferences;
+//import android.support.v7.app.AlertDialog;
+//import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.CalendarView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
-
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class Seguridad_RegistrarUsuarioActivity extends AppCompatActivity {
-    EditText reg_nombreUsuario, reg_apellidoMaterno, reg_apellidoPaterno, reg_telefono, reg_correoUsuario, reg_password;
+public class Citas_Cliente_RegistrarCitaActivity extends AppCompatActivity {
+    private ImageView img_fotoServicio;
+    private TextView txt_idServicio, txt_nombreServicio, txt_descripcionServicio;
     String urlOrigin;
-    
+
+    //extraer la fecha del calendario
+    CalendarView calendarView;
+    TimePicker timePicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setReferences();
+        setContentView(R.layout.activity_citas_cliente_registrar_cita);
         setUrlOrigin();
-        //setValues();
-        setContentView(R.layout.activity_seguridad_registrar_usuario);
+        setReferences();
     }
 
     private void setUrlOrigin() {
-        //urlOrigin = getString(R.string.urlOrigin);
         urlOrigin = getString(R.string.urlOrigin);
     }
 
-    void setReferences(){
-        reg_nombreUsuario = findViewById(R.id.txt_nombreUsuario);
-        reg_apellidoMaterno = findViewById(R.id.txt_apellidoMaterno);
-        reg_apellidoPaterno = findViewById(R.id.txt_apellidoPaterno);
-        reg_telefono = findViewById(R.id.txt_telefonoUsuario);
-        reg_correoUsuario = findViewById(R.id.txt_correoUsuario);
-        reg_password = findViewById(R.id.txt_contrasenaUsuario);
+    private void setReferences() {
+        img_fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
+        txt_idServicio = (TextView)findViewById(R.id.txt_idServicio);
+        txt_nombreServicio = (TextView)findViewById(R.id.txt_nombreServicio);
+
+        String datos_fotoServicio = getIntent().getStringExtra("fotoServicio");
+        String datos_idServicio = getIntent().getStringExtra("idServicio");
+        String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
+        //String datos_descripcionServicio = getIntent().getStringExtra("descripcionServicio");
+
+        byte [] encodeByte = Base64.decode(String.valueOf(datos_fotoServicio),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+
+        img_fotoServicio.setImageBitmap(bitmap);
+        txt_idServicio.setText(datos_idServicio);
+        txt_nombreServicio.setText(datos_nombreServicio);
     }
 
-    private void setValues() {
-        reg_nombreUsuario.setText(Integer.toString(getIntent().getIntExtra("nombreUsuario",0)));
-        reg_apellidoMaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoMaterno",0)));
-        reg_apellidoPaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoPaterno",0)));
-        reg_telefono.setText(Integer.toString(getIntent().getIntExtra("telefono",0)));
-        reg_correoUsuario.setText(Integer.toString(getIntent().getIntExtra("correoUsuario",0)));
-        reg_password.setText(Integer.toString(getIntent().getIntExtra("password",0)));
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void Reg_Citas(View v){
+        insertData();
     }
 
-    public void Reg_usuario(View v){
-         updateData();
-    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    void insertData(){
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
+        final Integer idUsuario = Integer.parseInt(prefs.getString("IDUSUSARIO", ""));
+        calendarView = (CalendarView) findViewById(R.id.simpleCalendarView);
+        timePicker = (TimePicker) findViewById(R.id.simpleTimeView);
 
-    void updateData(){
-        setReferences();
+        final SimpleDateFormat simpleDatePickerFechaPedido = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        //final SimpleDateFormat simpleTimePickerFechaPedido = new SimpleDateFormat("hh:mm aaa", Locale.getDefault());
+
+        String hora = "";
+        hora = String.valueOf(timePicker.getHour()) + ':' + String.valueOf(timePicker.getMinute()) + " ";
+
+        if(timePicker.getHour() < 12)
+            hora += "AM";
+        else
+            hora += "PM";
+
+        final String finalHora = hora;
+        Log.i("idUsuario", String.valueOf(idUsuario));
+        Log.i("fecha", simpleDatePickerFechaPedido.format(calendarView.getDate()));
+        Log.i("hora", hora);
         AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void run() {
                 try {
-                    URL url = new URL(urlOrigin + "/usuarios/registrar");
+                    URL url = new URL(urlOrigin + "/citas/registrar");
 
                     JSONObject jsonObject = new JSONObject();
                     //jsonObject.put("id", getIntent().getStringExtra("id"));
 
-                    jsonObject.put("nombreUsuario", reg_nombreUsuario.getText().toString());
-                    //Log.i("nombreUsuario", reg_nombreUsuario.getText().toString());
-                    jsonObject.put("apellidoMaterno", reg_apellidoMaterno.getText().toString());
-                    //Log.i("apellidoMaterno", reg_apellidoMaterno.getText().toString());
-                    jsonObject.put("apellidoPaterno", reg_apellidoPaterno.getText().toString());
-                    //Log.i("apellidoPaterno", reg_apellidoPaterno.getText().toString());
-                    jsonObject.put("telefono", reg_telefono.getText().toString());
-                    //Log.i("telefono", reg_telefono.getText().toString());
-                    jsonObject.put("rolUsuario", "0");
-                    jsonObject.put("correoUsuario", reg_correoUsuario.getText().toString());
-                    //Log.i("correoUsuario", reg_correoUsuario.getText().toString());
-                    jsonObject.put("password", reg_password.getText().toString());
-                    //Log.i("password", reg_password.getText().toString());
+                    jsonObject.put("fechaCita", simpleDatePickerFechaPedido.format(calendarView.getDate()));
+                    //Log.i("fechaCita", txt_nombreServicio.getText().toString());
+                    jsonObject.put("horaCita", finalHora);
+                    //Log.i("horaCita", horaCita);
+                    jsonObject.put("comentarioCita", "");
+                    //Log.i("comentarioCita", txt_costoServicio.getText().toString());
+                    jsonObject.put("estadoCita", "GENERADA");
+
+                    JSONObject jsonObjectUsuario = new JSONObject();
+                    jsonObjectUsuario.put("idUsuario", Integer.parseInt(String.valueOf(idUsuario)));
+
+                    jsonObject.put("usuario", jsonObjectUsuario);
+                    //Log.i("usuario", jsonObjectUsuario.toString());
+
+                    JSONObject jsonObjectServicio = new JSONObject();
+                    jsonObjectServicio.put("idServicio", Integer.parseInt(txt_idServicio.getText().toString()));
+                    JSONArray objJsonservicios = new JSONArray();
+                    objJsonservicios.put(jsonObjectServicio);
+                    jsonObject.put("servicios", objJsonservicios);
 
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
@@ -137,7 +178,7 @@ public class Seguridad_RegistrarUsuarioActivity extends AppCompatActivity {
 
         switch (response){
             case "validData":
-                Intent intent = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Servicios_Admin_MisServiciosActivity.class);
                 intent.putExtra("urlOrigin", urlOrigin);
                 startActivity(intent);
                 break;
@@ -146,12 +187,14 @@ public class Seguridad_RegistrarUsuarioActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Intent intentP = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
+                Intent intentP = new Intent(getApplicationContext(), Citas_Cliente_MisCitasActivity.class);
                 intentP.putExtra("urlOrigin", urlOrigin);
                 startActivity(intentP);
                 break;
         }
     }
+
+    //------------------------------------MENU-----------------------------------------------
 
     //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){

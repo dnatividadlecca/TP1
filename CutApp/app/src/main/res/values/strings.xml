@@ -89,16 +89,13 @@
     <string name="btn_contac_adjuntar">Adjuntar</string>
     <string name="btn_contac_enviar">Enviar</string>
 
-    <!--Catalogo -->
     <string name="Catalogo">Catálogo de Productos</string>
-    <!--Mispedidos -->
     <string name="Citas">Citas</string>
-    <!--Misproductos -->
+    <string name="CitasPorCalificar">Citas Por Calificar</string>
     <string name="Servicios">Mis Servicios</string>
     <string name="ServiciosCliente">Seleccione un Servicio</string>
-    <!--Misproductos -->
     <string name="Reporte">Reporte de Mis Citas</string>
-    <!--Nosotros-->
+    <string name="MisCalificaciones">Mis Calificaciones</string>
     <string name="descripcionEmpresa">La idea de "Las Rositas", nació como agradecimiento para de todas esas personas que siempre estuvieron con nosotros en las buenas y malas. Es así como la idea de ofrecer nuestros obsequios fue creciendo para llegar a mas personas. </string>
 
     <!--actualizar pedidos -->

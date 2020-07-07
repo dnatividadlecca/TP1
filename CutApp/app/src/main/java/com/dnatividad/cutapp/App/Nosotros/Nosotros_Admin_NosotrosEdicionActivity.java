@@ -1,4 +1,4 @@
-package com.dnatividad.cutapp.Nosotros;
+package com.dnatividad.cutapp.App.Nosotros;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,18 +19,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_MisCitasActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
-import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.dnatividad.cutapp.Utilitarios.Entidades.Peluqueria;
-import com.dnatividad.cutapp.Utilitarios.Entidades.Usuarios;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONException;
@@ -73,6 +72,7 @@ public class Nosotros_Admin_NosotrosEdicionActivity extends AppCompatActivity {
         lbl_longitud = (TextView) findViewById(R.id.lbl_longitud);
 
         AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void run() {
                 HttpURLConnection httpURLConnection = null;

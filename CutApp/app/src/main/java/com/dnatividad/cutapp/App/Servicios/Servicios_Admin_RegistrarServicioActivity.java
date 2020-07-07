@@ -1,151 +1,218 @@
-package com.dnatividad.cutapp.Servicios;
+package com.dnatividad.cutapp.App.Servicios;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+//import android.support.v4.app.ActivityCompat;
+//import android.support.v4.content.ContextCompat;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.MainActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
-import com.dnatividad.cutapp.Utilitarios.Adaptadores.AdaptadorServicios;
-import com.dnatividad.cutapp.Utilitarios.Entidades.Servicios;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Servicios_Admin_MisServiciosActivity extends AppCompatActivity {
-    private ListView listItems;
-    private AdaptadorServicios adaptadorServicios;
 
+public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity {
+
+    EditText reg_nombreServicio, reg_descripcionServicio, reg_costoServicio;
+    ImageView fotografia;
+    //Request codes para la camara
+    private static final int REQUEST_IMAGE = 100;
+    private static final int REQUEST_IMAGE_CAMERA = 101;
+
+    //declaro mi variable fotoEnBase64 que almacenara el codigo
+    String fotoEnBase64 ="";
     String urlOrigin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_servicios_admin_mis_servicios);
         setUrlOrigin();
-        cargarServicios();
+        setContentView(R.layout.activity_servicios_admin_registrar_servicio);
     }
 
     private void setUrlOrigin() {
         urlOrigin = getString(R.string.urlOrigin);
     }
 
-    public void cargarServicios(){
+    public void Reg_producto(View v){
+        registrarServicio();
+    }
+
+    private void setReferences() {
+        reg_nombreServicio = (EditText) findViewById(R.id.reg_nombreServicio);
+        reg_descripcionServicio = (EditText) findViewById(R.id.reg_descripcionServicio);
+        reg_costoServicio = (EditText) findViewById(R.id.reg_costoServicio);
+        fotografia = (ImageView) findViewById(R.id.imgfotoServicio);
+    }
+
+    private void registrarServicio() {
+        setReferences();
+
+        Bitmap bitmap = ((BitmapDrawable) fotografia.getDrawable()).getBitmap();
+
+        if (bitmap != null) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        }
+
+        insertData();
+    }
+
+    void insertData(){
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                HttpURLConnection httpURLConnection = null;
                 try {
-                    URL url = new URL(urlOrigin+"/servicios/listar");
-                    httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestMethod("GET");
+                    URL url = new URL(urlOrigin + "/servicios/registrar");
+
+                    JSONObject jsonObject = new JSONObject();
+                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+
+                    jsonObject.put("nombreServicio", reg_nombreServicio.getText().toString());
+                    //Log.i("nombreServicio", reg_nombreServicio.getText().toString());
+                    jsonObject.put("descripcionServicio", reg_descripcionServicio.getText().toString());
+                    //Log.i("descripcionServicio", reg_descripcionServicio.getText().toString());
+                    jsonObject.put("costoServicio", reg_costoServicio.getText().toString());
+                    //Log.i("costoServicio", reg_costoServicio.getText().toString());
+                    jsonObject.put("fotoServicio", fotoEnBase64);
+                    //Log.i("fotoServicio", fotoEnBase64);
+
+                    JSONObject jsonObjectPeluqueria = new JSONObject();
+                    jsonObjectPeluqueria.put("idPeluqueria", "1");
+
+                    jsonObject.put("peluqueria", jsonObjectPeluqueria);
+                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setRequestProperty("Content-Type", "application/json");
                     httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
 
-                    int responseCode = httpURLConnection.getResponseCode();
-                    String responseMessage = httpURLConnection.getResponseMessage();
+                    String response = "";
+                    String line = "";
 
-                    if(responseCode == HttpURLConnection.HTTP_OK){
-                        BufferedReader br=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-                        String response="";
-                        String line = "";
-                        while ((line=br.readLine()) != null) {
-                            response += line;
-                        }
-                        updateLista(response);
-
-                    }else{
-                        Log.v("CatalogClient", "Response code:"+ responseCode);
-                        Log.v("CatalogClient", "Response message:"+ responseMessage);
+                    while ((line = br.readLine()) != null) {
+                        response += line;
                     }
 
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
-                    if(httpURLConnection != null)
-                        httpURLConnection.disconnect();
                 }
             }
         });
     }
 
-    void updateLista(String reportList) {
-        final ArrayList<Servicios>ListItems = new ArrayList<>();
-        listItems = (ListView) findViewById(R.id.listaMisServiciosCliente);
-        try {
-            //Log.i("reporte", reportList);
-            JSONArray jsonArray = new JSONArray(reportList);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject objJson = jsonArray.getJSONObject(i);
-                //Log.i("item",objJson.toString());
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
 
-
-                ListItems.add(new Servicios(
-                        Integer.parseInt(objJson.getString("idServicio")),
-                        objJson.getString("nombreServicio")+"\n",
-                        Double.parseDouble(objJson.getString("costoServicio")),
-                        objJson.getString("descripcionServicio")+"\n",
-                        objJson.getString("fotoServicio")+"\n"
-                ));
-            }
-
-            runOnUiThread(new Runnable() {
-                //Muestro el contenido del arraylist
-                public void run() {
-                    adaptadorServicios = new AdaptadorServicios(Servicios_Admin_MisServiciosActivity.this, ListItems);
-                    listItems.setAdapter(adaptadorServicios);
-                }
-            });
-
-            listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1,
-                                        int position, long arg3) {
-
-                    Servicios serv = ListItems.get(position);
-                    Intent i = new Intent(getApplicationContext(), Servicios_Admin_ActualizarServicioActivity.class);
-                    i.putExtra("idServicio", String.valueOf(serv.getIdServicio()));
-                    i.putExtra("nombreServicio", serv.getNombreServicio());
-                    i.putExtra("descripcionServicio", serv.getDescripcionServicio());
-                    i.putExtra("costoServicio", String.valueOf(serv.getCostoServicio()));
-                    i.putExtra("fotoServicio", String.valueOf(serv.getFotoServicio()));
-                    startActivity(i);
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), Servicios_Admin_MisServiciosActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), Servicios_Admin_MisServiciosActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
         }
     }
+
+    //region funciones de camara
+        public void seleccionarImagenDesdeGaleria(View view) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE);
+        }
+
+        public void tomarFoto(View view) {
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivityForResult(intent, REQUEST_IMAGE_CAMERA);
+
+
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgfotoServicio);
+            Bitmap img = (Bitmap)data.getExtras().get("data");
+            imgFotoPerfil.setImageBitmap(img);
+
+            if (resultCode == MainActivity.RESULT_OK) {
+                switch (requestCode) {
+                    case REQUEST_IMAGE:
+                        try {
+                            Uri selectedImage = data.getData();
+
+                            InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                            final Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+                            imgFotoPerfil.setImageBitmap(bmp);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+            }
+        }
+    //endregion
 
     //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){
@@ -305,4 +372,3 @@ public class Servicios_Admin_MisServiciosActivity extends AppCompatActivity {
 
     //endregion
 }
-

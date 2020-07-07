@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".Citas.Citas_Cliente_MisCitasActivity">
+    tools:context=".App.Citas.Citas_Cliente_MisCitasActivity">
 
     <ListView
         android:id="@+id/listaMisCitas"

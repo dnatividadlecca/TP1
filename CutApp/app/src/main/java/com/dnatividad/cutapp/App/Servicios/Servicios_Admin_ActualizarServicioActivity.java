@@ -1,4 +1,4 @@
-package com.dnatividad.cutapp.Servicios;
+package com.dnatividad.cutapp.App.Servicios;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-//import android.support.v4.app.ActivityCompat;
-//import android.support.v4.content.ContextCompat;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
@@ -22,19 +20,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
-import com.dnatividad.cutapp.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
-import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Admin_MisCalificacionesActivity;
+import com.dnatividad.cutapp.App.Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
 import com.dnatividad.cutapp.MainActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
-import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
+import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
-import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONObject;
@@ -49,74 +48,100 @@ import java.net.URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity {
-
-    EditText reg_nombreServicio, reg_descripcionServicio, reg_costoServicio;
-    ImageView fotografia;
-    //Request codes para la camara
+public class Servicios_Admin_ActualizarServicioActivity extends AppCompatActivity {
+    private  ImageView img_fotoServicio;
+    private TextView txt_idServicio;
+    private EditText txt_nombreServicio, txt_descripcionServicio, txt_costoServicio;
     private static final int REQUEST_IMAGE = 100;
     private static final int REQUEST_IMAGE_CAMERA = 101;
-
+    String urlOrigin;
     //declaro mi variable fotoEnBase64 que almacenara el codigo
     String fotoEnBase64 ="";
-    String urlOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_servicios_admin_actualizar_servicio);
         setUrlOrigin();
-        setContentView(R.layout.activity_servicios_admin_registrar_servicio);
+        setReferences();
     }
 
     private void setUrlOrigin() {
         urlOrigin = getString(R.string.urlOrigin);
     }
 
-    public void Reg_producto(View v){
-        registrarServicio();
-    }
-
     private void setReferences() {
-        reg_nombreServicio = (EditText) findViewById(R.id.reg_nombreServicio);
-        reg_descripcionServicio = (EditText) findViewById(R.id.reg_descripcionServicio);
-        reg_costoServicio = (EditText) findViewById(R.id.reg_costoServicio);
-        fotografia = (ImageView) findViewById(R.id.imgfotoServicio);
+        img_fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
+        txt_idServicio = (TextView)findViewById(R.id.act_servicio_idServicio);
+        txt_nombreServicio = (EditText)findViewById(R.id.act_servicio_nombreServicio);
+        txt_descripcionServicio = (EditText)findViewById(R.id.act_servicio_descripcionServicio);
+        txt_costoServicio = (EditText)findViewById(R.id.act_servicio_costoServicio);
+
+        String dato_fotoServicio = getIntent().getStringExtra("fotoServicio");
+        String datos_idServicio = getIntent().getStringExtra("idServicio");
+        String datos_nombreServicio = getIntent().getStringExtra("nombreServicio");
+        String datos_descripcionServicio = getIntent().getStringExtra("descripcionServicio");
+        String datos_costoServicio = getIntent().getStringExtra("costoServicio");
+
+        //obtengo la imagen codificada como string y se la envio al metodo base64ToBitmap la cual me devuelve la imagen
+        byte [] encodeByte = Base64.decode(String.valueOf(dato_fotoServicio),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        //*************************************************************************************************
+
+        img_fotoServicio.setImageBitmap(bitmap);
+        txt_idServicio.setText(datos_idServicio);
+        txt_nombreServicio.setText(datos_nombreServicio);
+        txt_descripcionServicio.setText(datos_descripcionServicio);
+        txt_costoServicio.setText(datos_costoServicio);
     }
 
-    private void registrarServicio() {
-        setReferences();
+    private Bitmap base64ToBitmap(String b64) {
+        byte[] imageAsBytes = Base64.decode(b64.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+    }
 
-        Bitmap bitmap = ((BitmapDrawable) fotografia.getDrawable()).getBitmap();
+    public void ActualizarProducto(View v){
+        updateData();
+    }
 
+    public void AnularProducto(View v){
+        deleteData();
+    }
+
+    void updateData(){
+        //region manejo foto
+        Bitmap bitmap = ((BitmapDrawable) img_fotoServicio.getDrawable()).getBitmap();
         if (bitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
         }
+        //endregion
 
-        insertData();
-    }
+        img_fotoServicio = (ImageView) findViewById(R.id.imgfotoServicio);
+        txt_idServicio = (TextView)findViewById(R.id.act_servicio_idServicio);
+        txt_nombreServicio = (EditText)findViewById(R.id.act_servicio_nombreServicio);
+        txt_descripcionServicio = (EditText)findViewById(R.id.act_servicio_descripcionServicio);
+        txt_costoServicio = (EditText)findViewById(R.id.act_servicio_costoServicio);
 
-    void insertData(){
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(urlOrigin + "/servicios/registrar");
+                    URL url = new URL(urlOrigin + "/servicios/actualizar");
 
                     JSONObject jsonObject = new JSONObject();
-                    //jsonObject.put("id", getIntent().getStringExtra("id"));
-
-                    jsonObject.put("nombreServicio", reg_nombreServicio.getText().toString());
-                    //Log.i("nombreServicio", reg_nombreServicio.getText().toString());
-                    jsonObject.put("descripcionServicio", reg_descripcionServicio.getText().toString());
-                    //Log.i("descripcionServicio", reg_descripcionServicio.getText().toString());
-                    jsonObject.put("costoServicio", reg_costoServicio.getText().toString());
-                    //Log.i("costoServicio", reg_costoServicio.getText().toString());
+                    jsonObject.put("idServicio", Integer.parseInt(txt_idServicio.getText().toString()));
+                    //Log.i("idServicio", txt_idServicio.getText().toString());
+                    jsonObject.put("nombreServicio", txt_nombreServicio.getText().toString());
+                    //Log.i("nombreServicio", txt_nombreServicio.getText().toString());
+                    jsonObject.put("descripcionServicio", txt_descripcionServicio.getText().toString());
+                    //Log.i("descripcionServicio", txt_descripcionServicio.getText().toString());
+                    jsonObject.put("costoServicio", txt_costoServicio.getText().toString());
+                    //Log.i("costoServicio", txt_costoServicio.getText().toString());
                     jsonObject.put("fotoServicio", fotoEnBase64);
-                    //Log.i("fotoServicio", fotoEnBase64);
+                    Log.i("fotoServicio", fotoEnBase64);
 
                     JSONObject jsonObjectPeluqueria = new JSONObject();
                     jsonObjectPeluqueria.put("idPeluqueria", "1");
@@ -125,17 +150,17 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
                     //Log.i("peluqueria", jsonObjectPeluqueria.toString());
 
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                     httpURLConnection.setDoOutput(true);
                     httpURLConnection.setDoInput(true);
+                    httpURLConnection.setRequestMethod("PUT");
+
                     httpURLConnection.connect();
                     DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
                     dataOutputStream.writeBytes(jsonObject.toString());
                     dataOutputStream.flush();
                     dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
 
                     String response = "";
                     String line = "";
@@ -145,6 +170,41 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
                     }
 
                     analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    void deleteData(){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/servicios/eliminar/" + txt_idServicio.getText().toString());
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("DELETE");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    httpURLConnection.setRequestProperty("charset","utf-8");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.connect();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                    String temp = null;
+                    StringBuilder sb = new StringBuilder();
+                    while((temp = in.readLine()) != null){
+                        sb.append(temp).append(" ");
+                    }
+                    String result = sb.toString();
+                    Log.i("resultado", result);
+                    in.close();
+
+                    analyseResponse(result);
                     httpURLConnection.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -173,46 +233,6 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
                 break;
         }
     }
-
-    //region funciones de camara
-        public void seleccionarImagenDesdeGaleria(View view) {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, REQUEST_IMAGE);
-        }
-
-        public void tomarFoto(View view) {
-            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-            startActivityForResult(intent, REQUEST_IMAGE_CAMERA);
-
-
-        }
-
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgfotoServicio);
-            Bitmap img = (Bitmap)data.getExtras().get("data");
-            imgFotoPerfil.setImageBitmap(img);
-
-            if (resultCode == MainActivity.RESULT_OK) {
-                switch (requestCode) {
-                    case REQUEST_IMAGE:
-                        try {
-                            Uri selectedImage = data.getData();
-
-                            InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                            final Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-                            imgFotoPerfil.setImageBitmap(bmp);
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                }
-            }
-        }
-    //endregion
 
     //region opciones Navegacion
     public boolean onCreateOptionsMenu(Menu menu){
@@ -370,5 +390,49 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
                 .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
     }
 
+    //endregion
+
+    //region Camara
+    public void seleccionarImagenDesdeGaleria(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    public void tomarFoto(View view) {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, REQUEST_IMAGE_CAMERA);
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            ImageView imgFotoPerfil = (ImageView) findViewById(R.id.imgfotoServicio);
+            Bitmap img = (Bitmap)data.getExtras().get("data");
+            imgFotoPerfil.setImageBitmap(img);
+
+            if (resultCode == MainActivity.RESULT_OK) {
+                switch (requestCode) {
+                    case REQUEST_IMAGE:
+                        try {
+                            Uri selectedImage = data.getData();
+
+                            InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                            final Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+
+
+                            imgFotoPerfil.setImageBitmap(bmp);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
+                }
+            }
+        }
     //endregion
 }

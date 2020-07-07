@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.dnatividad.cutapp.R;
-import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

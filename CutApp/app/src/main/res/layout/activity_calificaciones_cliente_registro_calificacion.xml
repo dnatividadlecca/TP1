@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Calificaciones.Calificaciones_Cliente_RegistroCalificacionActivity">
+    tools:context=".App.Calificaciones.Calificaciones_Cliente_RegistroCalificacionActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

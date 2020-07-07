@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".Seguridad.Seguridad_RegistrarUsuarioActivity">
+    tools:context=".App.Seguridad.Seguridad_RegistrarUsuarioActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
