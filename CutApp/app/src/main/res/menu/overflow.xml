@@ -45,6 +45,14 @@
         android:title="@string/opc_reporteCitas"
         android:visible="false"/>
     <item
+        android:id="@+id/item_citasPorCalificar"
+        android:title="@string/opc_citasPorCalificar"
+        android:visible="false"/>
+    <item
+        android:id="@+id/item_misCalificaciones"
+        android:title="@string/opc_misCalificaciones"
+        android:visible="false"/>
+    <item
         android:id="@+id/item_nosotros"
         android:title="@string/opc_nosotros"
         android:visible="false"/>

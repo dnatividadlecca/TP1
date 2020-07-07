@@ -1,81 +1,36 @@
-package com.dnatividad.cutapp;
+package com.dnatividad.cutapp.Calificaciones;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
-import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
 import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.Nosotros.Nosotros_Admin_NosotrosEdicionActivity;
 import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.R;
 import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
 import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
 import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
 import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCallback {
-
-    SupportMapFragment mapFragment;
+public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubicanos);
-
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.setTrafficEnabled(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.setTrafficEnabled(true);
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-12.076319, -77.071837))
-                .title("Las Rositas - Calle Arnaldo Paniza 250 Pueblo Libre")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-12.046681, -77.059069))
-                .title("Las Rositas - Av. Guillermo Dansey 1340A - Cercado Lima")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-12.117845, -77.026601))
-                .title("Las Rositas - Calle Alfonso Ugarte 214 - Miraflores")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-12.076319, -77.071837), 12));
-
+        setContentView(R.layout.activity_calificaciones_cliente_registro_calificacion);
     }
 
     //region opciones Navegacion
@@ -95,7 +50,9 @@ public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCal
 
         return true;
     }
+    //endregion
 
+    //region Navegacion
     public boolean onOptionsItemSelected(MenuItem item){
         int id= item.getItemId();
 
@@ -107,47 +64,50 @@ public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCal
             Toast.makeText(this,"Registrar Usuario", Toast.LENGTH_SHORT).show();
             RegistrarUsuario();
         }
-        else if (id ==R.id.item_nosotros){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
-            Nosotros();
-        }
-        else if (id ==R.id.item_contactenos){
-            Toast.makeText(this,"Contáctenos", Toast.LENGTH_SHORT).show();
-            Contactenos();
-        }
-        else if (id ==R.id.item_ubicanos){
-            Toast.makeText(this,"Ubícanos", Toast.LENGTH_SHORT).show();
-            Ubicanos();
-        }
-        else if (id ==R.id.item_registroCitas){
-            Toast.makeText(this,"Registro Citas", Toast.LENGTH_SHORT).show();
-            RegistrarCita();
-        }
-        else if (id ==R.id.item_misCitas){
-            Toast.makeText(this,"Mis Citas", Toast.LENGTH_SHORT).show();
-            MisCitas();
-        }
-        else if (id ==R.id.item_reporteCitas){
-            Toast.makeText(this,"Reporte Citas", Toast.LENGTH_SHORT).show();
-            CitasCliente();
+        else if (id ==R.id.item_misServicios){
+            Toast.makeText(this,"Mis Servicios", Toast.LENGTH_SHORT).show();
+            MisServicios();
         }
         else if (id ==R.id.item_registroServicios){
             Toast.makeText(this,"Reg. Servicios", Toast.LENGTH_SHORT).show();
             RegistrarServicios();
         }
-        else if (id ==R.id.item_misServicios){
-            Toast.makeText(this,"Mis Servicios", Toast.LENGTH_SHORT).show();
-            MisProductos();
+        else if (id ==R.id.item_misCitas){
+            Toast.makeText(this,"Mis Citas", Toast.LENGTH_SHORT).show();
+            MisCitas();
+        }
+        else if (id ==R.id.item_registroCitas){
+            Toast.makeText(this,"Registro Citas", Toast.LENGTH_SHORT).show();
+            RegistrarCita();
+        }
+        else if (id ==R.id.item_reporteCitas){
+            Toast.makeText(this,"Reporte Citas", Toast.LENGTH_SHORT).show();
+            CitasCliente();
+        }
+        else if (id ==R.id.item_nosotros){
+            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Nosotros();
+        }
+        else if (id ==R.id.item_citasPorCalificar){
+            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            CitasPorCalificar();
+        }
+        else if (id ==R.id.item_misCalificaciones){
+            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            MisCalificaciones();
+        }
+        else if (id ==R.id.item_nosotrosEdicion){
+            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            NosotrosEdicion();
         }
         else if (id ==R.id.item_cerrarSesion){
             cerrarSesion();
         }
+
         return super.onOptionsItemSelected(item);
 
     }
-    //endregion
 
-    //region Navegacion
     public void Login(){
         Intent login = new Intent(this, Seguridad_LoginActivity.class);
         startActivity(login);
@@ -158,34 +118,9 @@ public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCal
         startActivity(registrarusuario);
     }
 
-    public void Nosotros(){
-        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
-        startActivity(nosotros);
-    }
-
-    public void Contactenos(){
-        Intent contactenos = new Intent(this, ContactenosActivity.class);
-        startActivity(contactenos);
-    }
-
-    public void Ubicanos(){
-        Intent ubicanos = new Intent(this, UbicanosActivity.class);
-        startActivity(ubicanos);
-    }
-
-    public void RegistrarCita(){
-        Intent Catalogo = new Intent(this, Citas_Cliente_ListadoServiciosSeleccionarActivity.class);
-        startActivity(Catalogo);
-    }
-
-    public void MisCitas(){
-        Intent misCitas = new Intent(this, Citas_Cliente_MisCitasActivity.class);
-        startActivity(misCitas);
-    }
-
-    public void CitasCliente(){
-        Intent miscitas = new Intent(this, Citas_Admin_MisCitasActivity.class);
-        startActivity(miscitas);
+    public void MisServicios(){
+        Intent misServicios = new Intent(this, Servicios_Admin_MisServiciosActivity.class);
+        startActivity(misServicios);
     }
 
     public void RegistrarServicios(){
@@ -193,9 +128,39 @@ public class UbicanosActivity extends AppCompatActivity implements OnMapReadyCal
         startActivity(producto);
     }
 
-    public void MisProductos(){
-        Intent misproducto = new Intent(this, Servicios_Admin_MisServiciosActivity.class);
-        startActivity(misproducto);
+    public void MisCitas(){
+        Intent misCitas = new Intent(this, Citas_Cliente_MisCitasActivity.class);
+        startActivity(misCitas);
+    }
+
+    public void RegistrarCita(){
+        Intent Catalogo = new Intent(this, Citas_Cliente_ListadoServiciosSeleccionarActivity.class);
+        startActivity(Catalogo);
+    }
+
+    public void CitasCliente(){
+        Intent miscitas = new Intent(this, Citas_Admin_MisCitasActivity.class);
+        startActivity(miscitas);
+    }
+
+    public void CitasPorCalificar(){
+        Intent miscitas = new Intent(this, Calificaciones_Cliente_CitasPorCalificarActivity.class);
+        startActivity(miscitas);
+    }
+
+    public void MisCalificaciones(){
+        Intent miscitas = new Intent(this, Calificaciones_Admin_MisCalificacionesActivity.class);
+        startActivity(miscitas);
+    }
+
+    public void Nosotros(){
+        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
+        startActivity(nosotros);
+    }
+
+    public void NosotrosEdicion(){
+        Intent nosotros = new Intent(this, Nosotros_Admin_NosotrosEdicionActivity.class);
+        startActivity(nosotros);
     }
 
     private void cerrarSesion(){

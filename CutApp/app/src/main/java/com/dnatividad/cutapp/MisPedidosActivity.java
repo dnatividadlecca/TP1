@@ -17,6 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.Citas.Citas_Admin_ActualizarCitasActivity;
+import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -152,7 +158,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
+                            Intent i = new Intent(getApplicationContext(), Citas_Admin_ActualizarCitasActivity.class);
                             i.putExtra("foto",x.get("foto").toString());
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
@@ -244,7 +250,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                             //Log.i("actualizar ====>", x.get("titulo")+"");
                             //startActivity(new Intent(getApplicationContext(),PedidosActivity.class));
                             //intent put extra o shared preference
-                            Intent i = new Intent(getApplicationContext(), ActualizarCitasActivity.class);
+                            Intent i = new Intent(getApplicationContext(), Citas_Admin_ActualizarCitasActivity.class);
                             i.putExtra("cod_pedido",x.get("cod_pedido").toString());
                             i.putExtra("cod_producto",x.get("cod_producto").toString());
                             i.putExtra("titulo",x.get("titulo").toString());
@@ -323,15 +329,15 @@ public class MisPedidosActivity extends AppCompatActivity {
 
     //Navegacion de los botones del menu
     public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
+        Intent login = new Intent(this, Seguridad_LoginActivity.class);
         startActivity(login);
     }
     public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        Intent registrarusuario = new Intent(this, Seguridad_RegistrarUsuarioActivity.class);
         startActivity(registrarusuario);
     }
     public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
         startActivity(nosotros);
     }
     public void Contactenos(){
@@ -351,11 +357,11 @@ public class MisPedidosActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarServicioActivity.class);
+        Intent producto = new Intent(this, Servicios_Admin_RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisServiciosActivity.class);
+        Intent misproducto = new Intent(this, Servicios_Admin_MisServiciosActivity.class);
         startActivity(misproducto);
     }
     private void cerrarSesion(){
@@ -369,7 +375,7 @@ public class MisPedidosActivity extends AppCompatActivity {
                         preferences.edit().clear().commit();
 
                         //Regresa Pantalla Login
-                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
                         startActivity(intent);
 
                         break;

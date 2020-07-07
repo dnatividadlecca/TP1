@@ -13,6 +13,8 @@
     <string name="opc_registrarServicios">Reg. Servicios</string>
     <string name="opc_misServicios">Mis Servicios</string>
     <string name="opc_reporteCitas">Reporte de Mis Citas</string>
+    <string name="opc_citasPorCalificar">Citas por Calificar</string>
+    <string name="opc_misCalificaciones">Mis Calificaciones</string>
     <string name="opc_cerrarSesion">Cerrar Sesión</string>
 
     <!-- Login Activity -->
@@ -174,6 +176,10 @@
 
     <string name="lbl_nombrePeluqueria">Nombre de Peluquería</string>
     <string name="lbl_horarioAtencionPeluqueria">Horario de Atención</string>
+    <string name="lbl_direccionPeluqueria">Dirección</string>
+    <string name="lbl_telefonoPeluqueria">Teléfono</string>
+    <string name="lbl_horarioAtencionInicioPeluqueria">Hora de Inicio de Atención</string>
+    <string name="lbl_horarioAtencionFinPeluqueria">Hora de Fin de Atención</string>
     <string name="lbl_descripcionPeluqueria">Acerca de Nosotros</string>
     <string name="lbl_ubicacionPeluqueria">Nuestra Ubicación</string>
 

@@ -11,11 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MisServiciosClienteActivity"></activity>
-        <activity android:name=".CitasTotalClientesActivity" />
-        <activity android:name=".DetalleCitaActivity" />
-        <activity android:name=".MisCitas" />
-        <activity android:name=".splashActivity">
+        <activity android:name=".Calificaciones.Calificaciones_Admin_DetalleMisCalificaciones"></activity>
+        <activity android:name=".Calificaciones.Calificaciones_Admin_MisCalificacionesActivity" />
+        <activity android:name=".Calificaciones.Calificaciones_Cliente_RegistroCalificacionActivity" />
+        <activity android:name=".Calificaciones.Calificaciones_Cliente_CitasPorCalificarActivity" />
+        <activity android:name=".Nosotros.Nosotros_Admin_NosotrosEdicionActivity" />
+        <activity android:name=".Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity" />
+        <activity android:name=".Citas.Citas_Admin_MisCitasActivity" />
+        <activity android:name=".Citas.Citas_Cliente_DetalleCitaActivity" />
+        <activity android:name=".Citas.Citas_Cliente_MisCitasActivity" />
+        <activity android:name=".Utilitarios.Utilitarios_SplashActivity">
 
             <!-- Splash animacion introductoria -->
             <intent-filter>
@@ -24,19 +29,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MisServiciosActivity" />
-        <activity android:name=".ActualizarServicioActivity" />
-        <activity android:name=".RegistrarServicioActivity" />
-        <activity android:name=".ActualizarCitasActivity" /> <!-- Notificaciones -->
+        <activity android:name=".Servicios.Servicios_Admin_MisServiciosActivity" />
+        <activity android:name=".Servicios.Servicios_Admin_ActualizarServicioActivity" />
+        <activity android:name=".Servicios.Servicios_Admin_RegistrarServicioActivity" />
+        <activity android:name=".Citas.Citas_Admin_ActualizarCitasActivity" /> <!-- Notificaciones -->
         <activity android:name=".UbicanosActivity" /> <!-- Google Maps -->
         <activity android:name=".CatalogoActivity" /> <!-- llave de google maps -->
-        <activity android:name=".RegistrarCitaActivity" />
+        <activity android:name=".Citas.Citas_Cliente_RegistrarCitaActivity" />
         <activity android:name=".CitasClienteActivity" />
         <activity android:name=".MisPedidosActivity" />
         <activity android:name=".ContactenosActivity" />
-        <activity android:name=".RegistrarUsuarioActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".NosotrosActivity" />
+        <activity android:name=".Seguridad.Seguridad_RegistrarUsuarioActivity" />
+        <activity android:name=".Seguridad.Seguridad_LoginActivity" />
+        <activity android:name=".Nosotros.Nosotros_Cliente_NosotrosActivity" />
         <activity android:name=".MainActivity" />
 
         <meta-data
@@ -62,5 +67,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
 </manifest>

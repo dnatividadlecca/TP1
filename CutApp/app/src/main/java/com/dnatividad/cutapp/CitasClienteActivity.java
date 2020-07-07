@@ -22,6 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -340,15 +346,15 @@ public class CitasClienteActivity extends AppCompatActivity {
 
     //Navegacion de los botones del menu
     public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
+        Intent login = new Intent(this, Seguridad_LoginActivity.class);
         startActivity(login);
     }
     public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        Intent registrarusuario = new Intent(this, Seguridad_RegistrarUsuarioActivity.class);
         startActivity(registrarusuario);
     }
     public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
         startActivity(nosotros);
     }
     public void Contactenos(){
@@ -368,11 +374,11 @@ public class CitasClienteActivity extends AppCompatActivity {
         startActivity(mispedidos);
     }
     public void reg_producto(){
-        Intent producto = new Intent(this, RegistrarServicioActivity.class);
+        Intent producto = new Intent(this, Servicios_Admin_RegistrarServicioActivity.class);
         startActivity(producto);
     }
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisServiciosActivity.class);
+        Intent misproducto = new Intent(this, Servicios_Admin_MisServiciosActivity.class);
         startActivity(misproducto);
     }
 }

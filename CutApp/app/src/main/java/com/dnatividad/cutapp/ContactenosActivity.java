@@ -21,7 +21,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.dnatividad.cutapp.ManejoMenu.controlMenuOpciones;
+import com.dnatividad.cutapp.Citas.Citas_Admin_MisCitasActivity;
+import com.dnatividad.cutapp.Citas.Citas_Cliente_MisCitasActivity;
+import com.dnatividad.cutapp.Citas.Citas_Cliente_ListadoServiciosSeleccionarActivity;
+import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_MisServiciosActivity;
+import com.dnatividad.cutapp.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -112,17 +120,17 @@ public class ContactenosActivity extends AppCompatActivity {
 
     //region Navegacion
     public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
+        Intent login = new Intent(this, Seguridad_LoginActivity.class);
         startActivity(login);
     }
 
     public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        Intent registrarusuario = new Intent(this, Seguridad_RegistrarUsuarioActivity.class);
         startActivity(registrarusuario);
     }
 
     public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
         startActivity(nosotros);
     }
 
@@ -137,27 +145,27 @@ public class ContactenosActivity extends AppCompatActivity {
     }
 
     public void RegistrarCita(){
-        Intent Catalogo = new Intent(this, MisServiciosClienteActivity.class);
+        Intent Catalogo = new Intent(this, Citas_Cliente_ListadoServiciosSeleccionarActivity.class);
         startActivity(Catalogo);
     }
 
     public void MisCitas(){
-        Intent misCitas = new Intent(this, MisCitas.class);
+        Intent misCitas = new Intent(this, Citas_Cliente_MisCitasActivity.class);
         startActivity(misCitas);
     }
 
     public void CitasCliente(){
-        Intent miscitas = new Intent(this, CitasTotalClientesActivity.class);
+        Intent miscitas = new Intent(this, Citas_Admin_MisCitasActivity.class);
         startActivity(miscitas);
     }
 
     public void RegistrarServicios(){
-        Intent producto = new Intent(this, RegistrarServicioActivity.class);
+        Intent producto = new Intent(this, Servicios_Admin_RegistrarServicioActivity.class);
         startActivity(producto);
     }
 
     public void MisProductos(){
-        Intent misproducto = new Intent(this, MisServiciosActivity.class);
+        Intent misproducto = new Intent(this, Servicios_Admin_MisServiciosActivity.class);
         startActivity(misproducto);
     }
 
@@ -172,7 +180,7 @@ public class ContactenosActivity extends AppCompatActivity {
                         preferences.edit().clear().commit();
 
                         //Regresa Pantalla Login
-                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), Seguridad_LoginActivity.class);
                         startActivity(intent);
 
                         break;

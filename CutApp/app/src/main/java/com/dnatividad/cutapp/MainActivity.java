@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.dnatividad.cutapp.Nosotros.Nosotros_Cliente_NosotrosActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_LoginActivity;
+import com.dnatividad.cutapp.Seguridad.Seguridad_RegistrarUsuarioActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -62,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
     }
     //Navegacion de los botones del menu
     public void Login(){
-        Intent login = new Intent(this, LoginActivity.class);
+        Intent login = new Intent(this, Seguridad_LoginActivity.class);
         startActivity(login);
     }
     public void RegistrarUsuario(){
-        Intent registrarusuario = new Intent(this, RegistrarUsuarioActivity.class);
+        Intent registrarusuario = new Intent(this, Seguridad_RegistrarUsuarioActivity.class);
         startActivity(registrarusuario);
     }
     public void Nosotros(){
-        Intent nosotros = new Intent(this, NosotrosActivity.class);
+        Intent nosotros = new Intent(this, Nosotros_Cliente_NosotrosActivity.class);
         startActivity(nosotros);
     }
     public void Contactenos(){

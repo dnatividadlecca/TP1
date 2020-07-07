@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B38524"
-    tools:context=".Citas.Citas_Cliente_RegistrarCitaActivity">
+    tools:context=".Citas.Citas_Admin_MisCitasActivity">
 
     <ListView
         android:id="@+id/listaMisCitas"
@@ -31,16 +31,14 @@
         android:id="@+id/lbl_titulo_Reporte"
         android:layout_width="375dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/Reporte"
+        android:text="@string/Citas"
         android:textColor="#5E394C"
         android:textSize="20sp"
         android:textStyle="bold"
