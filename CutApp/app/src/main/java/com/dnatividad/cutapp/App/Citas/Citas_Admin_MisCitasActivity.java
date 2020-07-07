@@ -261,11 +261,11 @@ public class Citas_Admin_MisCitasActivity extends AppCompatActivity {
             Nosotros();
         }
         else if (id ==R.id.item_citasPorCalificar){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Citas por Calificar", Toast.LENGTH_SHORT).show();
             CitasPorCalificar();
         }
         else if (id ==R.id.item_misCalificaciones){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Mis Calificaciones", Toast.LENGTH_SHORT).show();
             MisCalificaciones();
         }
         else if (id ==R.id.item_nosotrosEdicion){

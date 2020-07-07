@@ -116,9 +116,10 @@ public class Calificaciones_Cliente_CitasPorCalificarActivity extends AppCompatA
                 //Log.i("citas",objJson.toString());
 
                 Integer citaCalificada = Integer.parseInt(objJson.getString("calificadaCita"));
+                String estadoCita = objJson.getString("estadoCita");
 
                 //Solo se muestran las citas sin calificar
-                if(citaCalificada == 0){
+                if(citaCalificada == 0 && estadoCita.equals("ATENDIDO")){
                     //region UsuarioRegistro
                     JSONObject objJsonusuario = objJson.getJSONObject("usuario");
                     //Log.i("objJsonusuario", objJsonusuario.toString());
@@ -255,11 +256,11 @@ public class Calificaciones_Cliente_CitasPorCalificarActivity extends AppCompatA
             Nosotros();
         }
         else if (id ==R.id.item_citasPorCalificar){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Citas por Calificar", Toast.LENGTH_SHORT).show();
             CitasPorCalificar();
         }
         else if (id ==R.id.item_misCalificaciones){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Mis Calificaciones", Toast.LENGTH_SHORT).show();
             MisCalificaciones();
         }
         else if (id ==R.id.item_nosotrosEdicion){

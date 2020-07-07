@@ -178,6 +178,7 @@
     <string name="lbl_horarioAtencionInicioPeluqueria">Hora de Inicio de Atención</string>
     <string name="lbl_horarioAtencionFinPeluqueria">Hora de Fin de Atención</string>
     <string name="lbl_descripcionPeluqueria">Acerca de Nosotros</string>
+    <string name="lbl_calificacionCita">Registre su calificación</string>
     <string name="lbl_ubicacionPeluqueria">Nuestra Ubicación</string>
 
     <string name="urlOrigin">http://10.0.2.2:8080</string>

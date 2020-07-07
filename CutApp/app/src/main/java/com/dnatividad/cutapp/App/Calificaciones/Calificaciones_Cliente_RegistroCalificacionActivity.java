@@ -1,5 +1,6 @@
 package com.dnatividad.cutapp.App.Calificaciones;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -7,10 +8,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dnatividad.cutapp.App.Citas.Citas_Admin_MisCitasActivity;
@@ -23,14 +29,245 @@ import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
 import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
 import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
 import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Citas;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Citas_Servicios;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Servicios;
+import com.dnatividad.cutapp.Utilitarios.Entidades.Usuarios;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
 public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppCompatActivity {
+    TextView txt_idCita, txt_cliente, txt_nombreservicio, txt_fechaHoraCita;
+    EditText txt_Comentario;
+    String urlOrigin;
+    Citas datosCita;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calificaciones_cliente_registro_calificacion);
+        setUrlOrigin();
+        cargarDetalle();
+    }
+
+    private void setUrlOrigin() {
+        urlOrigin = getString(R.string.urlOrigin);
+    }
+
+    private void cargarDetalle() {
+        final String datos_idCita = getIntent().getStringExtra("idCita");
+
+        AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void run() {
+                HttpURLConnection httpURLConnection = null;
+                try {
+                    URL url = new URL(urlOrigin + "/citas/listar-por-id-cita/" + datos_idCita);
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                    httpURLConnection.setRequestProperty("Accept", "application/json");
+
+                    int responseCode = httpURLConnection.getResponseCode();
+                    String responseMessage = httpURLConnection.getResponseMessage();
+
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        String response = "";
+                        String line = "";
+                        //Log.i("response","Por ejecutar");
+
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+                        //Log.i("response",response);
+                        llenarCampos(response);
+
+                    } else {
+
+                        Log.v("CatalogClient", "Response code:" + responseCode);
+                        Log.v("CatalogClient", "Response message:" + responseMessage);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable(){
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Error Message",Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                } finally {
+                    if (httpURLConnection != null)
+                        httpURLConnection.disconnect();
+                }
+            }
+        });
+    }
+
+    private void llenarCampos(String response) {
+        try{
+            txt_idCita = (TextView) findViewById(R.id.txt_idCita);
+            txt_cliente = (TextView) findViewById(R.id.txt_cliente);
+            txt_nombreservicio = (TextView) findViewById(R.id.txt_nombreservicio);
+            txt_fechaHoraCita = (TextView) findViewById(R.id.txt_fechaHoraCita);
+            txt_Comentario = (EditText) findViewById(R.id.txt_Comentario);
+
+            JSONObject jsonObject = new JSONObject(response);
+            Log.i("jsonObject", String.valueOf(jsonObject));
+
+            //region UsuarioRegistro
+            JSONObject objJsonusuario = jsonObject.getJSONObject("usuario");
+            //Log.i("objJsonusuario", jsonObject.toString());
+            Usuarios usuarioRegistro = new Usuarios(
+                    Integer.parseInt(objJsonusuario.getString("idUsuario")),
+                    objJsonusuario.getString("nombreUsuario") + "\n",
+                    objJsonusuario.getString("apellidoPaterno") + "\n",
+                    objJsonusuario.getString("apellidoMaterno") + "\n",
+                    "" + "\n",
+                    1,
+                    "" + "\n",
+                    "" + "\n"
+            );
+
+            //region ListadoServicios
+            JSONArray objJsonservicios = jsonObject.getJSONArray("servicios");
+            ArrayList<Citas_Servicios> listaServicios = new ArrayList<>();
+            //Log.i("objJsonservicios", objJsonservicios.toString());
+            for (int j = 0; j < objJsonservicios.length(); j++) {
+                JSONObject objJsonServicio = objJsonservicios.getJSONObject(j);
+                listaServicios.add(
+                        new Citas_Servicios(
+                                Integer.parseInt(jsonObject.getString("idCita")),
+                                new Servicios(
+                                        Integer.parseInt(objJsonServicio.getString("idServicio")),
+                                        objJsonServicio.getString("nombreServicio") + "\n",
+                                        Double.parseDouble(objJsonServicio.getString("costoServicio")),
+                                        objJsonServicio.getString("descripcionServicio") + "\n",
+                                        objJsonServicio.getString("fotoServicio") + "\n"
+                                )
+                        )
+                );
+            }
+
+            datosCita = new Citas(
+                    Integer.parseInt(jsonObject.getString("idCita")),
+                    jsonObject.getString("fechaCita")+"\n",
+                    jsonObject.getString("horaCita")+"\n",
+                    Boolean.parseBoolean(jsonObject.getString("calificadaCita")),
+                    jsonObject.getString("comentarioCita")+"\n",
+                    jsonObject.getString("estadoCita")+"\n",
+                    usuarioRegistro,
+                    listaServicios
+            );
+
+            txt_idCita.setText(String.valueOf(datosCita.getIdCita()));
+            txt_cliente.setText(
+                    datosCita.getUsuarios_registro().getNomUser() + ' ' +
+                            datosCita.getUsuarios_registro().getApePatUser() + ' ' +
+                            datosCita.getUsuarios_registro().getApeMatUser());
+            txt_nombreservicio.setText(datosCita.getLista_servicios().get(0).getIdServicio().getNombreServicio());
+            txt_fechaHoraCita.setText(datosCita.getFechaCita() + ' ' + datosCita.getHoraCita());
+            //txt_Comentario.setText(datosCita.getComentarioCita());
+
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void calificarCita(View view){
+        updateData();
+    }
+
+    private void updateData() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlOrigin + "/citas/actualizar");
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("idCita", Integer.parseInt(txt_idCita.getText().toString()));
+                    jsonObject.put("fechaCita", datosCita.getFechaCita());
+                    jsonObject.put("horaCita", datosCita.getHoraCita());
+                    jsonObject.put("comentarioCita", txt_Comentario.getText().toString());
+                    jsonObject.put("estadoCita", datosCita.getEstado());
+                    jsonObject.put("calificadaCita", 1);
+
+                    JSONObject jsonObjectUsuario = new JSONObject();
+                    jsonObjectUsuario.put("idUsuario", datosCita.getUsuarios_registro().getIdUser());
+
+                    jsonObject.put("usuario", jsonObjectUsuario);
+                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+
+                    JSONObject jsonObjectServicio = new JSONObject();
+                    jsonObjectServicio.put("idServicio", datosCita.getLista_servicios().get(0).getIdServicio().getIdServicio());
+                    JSONArray objJsonservicios = new JSONArray();
+                    objJsonservicios.put(jsonObjectServicio);
+                    jsonObject.put("servicios", objJsonservicios);
+
+                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.setRequestMethod("PUT");
+
+                    httpURLConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(jsonObject.toString());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+
+                    String response = "";
+                    String line = "";
+
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+
+                    analyseResponse(response);
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    void analyseResponse(String response){
+        Log.i("Respuesta", response);
+
+        switch (response){
+            case "validData":
+                Intent intent = new Intent(getApplicationContext(), Servicios_Admin_MisServiciosActivity.class);
+                intent.putExtra("urlOrigin", urlOrigin);
+                startActivity(intent);
+                break;
+            case "invalidData":
+                //textViewInvalidData.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Intent intentP = new Intent(getApplicationContext(), Calificaciones_Cliente_CitasPorCalificarActivity.class);
+                intentP.putExtra("urlOrigin", urlOrigin);
+                startActivity(intentP);
+                break;
+        }
     }
 
     //region opciones Navegacion
@@ -89,11 +326,11 @@ public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppComp
             Nosotros();
         }
         else if (id ==R.id.item_citasPorCalificar){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Citas por Calificar", Toast.LENGTH_SHORT).show();
             CitasPorCalificar();
         }
         else if (id ==R.id.item_misCalificaciones){
-            Toast.makeText(this,"Nosotros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Mis Calificaciones", Toast.LENGTH_SHORT).show();
             MisCalificaciones();
         }
         else if (id ==R.id.item_nosotrosEdicion){

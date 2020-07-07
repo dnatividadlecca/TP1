@@ -38,7 +38,7 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/CitasPorCalificar"
+        android:text="@string/opc_reporteCitas"
         android:textColor="#5E394C"
         android:textSize="20sp"
         android:textStyle="bold"
