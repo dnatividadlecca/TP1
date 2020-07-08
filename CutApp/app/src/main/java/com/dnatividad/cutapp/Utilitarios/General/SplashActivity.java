@@ -1,4 +1,4 @@
-package com.dnatividad.cutapp.Utilitarios;
+package com.dnatividad.cutapp.Utilitarios.General;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,7 +12,7 @@ import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Utilitarios_SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     private final int DURACION_SPLASH=2500;//Tiempo que durara la foto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class Utilitarios_SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
 
             public void run() {
-                Intent intent= new Intent(Utilitarios_SplashActivity.this, Seguridad_LoginActivity.class);
+                Intent intent= new Intent(SplashActivity.this, Seguridad_LoginActivity.class);
                 startActivity(intent);
                 finish();
 

@@ -176,7 +176,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/reg_prod_etiq_lbl_cod"
+                    android:id="@+id/reg_serv_etiq_lbl_cod"
                     android:layout_width="95dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
@@ -192,13 +192,13 @@
                     android:layout_marginTop="0dp"
                     android:hint="@string/act_servicio_lbl_idServicio"
                     android:inputType="textPersonName"
-                    android:textColor="#e768a9"
+                    android:textColor="#5E394C"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/actualizar_prod_lbl_titulo"
+                android:id="@+id/actualizar_serv_lbl_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -245,7 +245,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/actualizar_prod_lbl_prec"
+                    android:id="@+id/actualizar_serv_lbl_prec"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
 

@@ -33,6 +33,7 @@ import com.dnatividad.cutapp.Utilitarios.Entidades.Citas;
 import com.dnatividad.cutapp.Utilitarios.Entidades.Citas_Servicios;
 import com.dnatividad.cutapp.Utilitarios.Entidades.Servicios;
 import com.dnatividad.cutapp.Utilitarios.Entidades.Usuarios;
+import com.dnatividad.cutapp.Utilitarios.General.ManejoErrores;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONArray;
@@ -192,61 +193,78 @@ public class Calificaciones_Cliente_RegistroCalificacionActivity extends AppComp
         updateData();
     }
 
+    private boolean hayErrores() {
+        ManejoErrores manejoErrores = new ManejoErrores();
+        String errores = "";
+        //String saltolinea = "\n";
+        if(txt_Comentario.getText().toString().equals("")){
+            errores += "Falta ingresar la calificación";
+        }
+
+        //Log.i("errores",errores);
+        if(errores.equals("")) return false;
+        else{
+            manejoErrores.MostrarError(this,errores);
+            return true;
+        }
+    }
+
     private void updateData() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(urlOrigin + "/citas/actualizar");
+        if(!hayErrores()){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(urlOrigin + "/citas/actualizar");
 
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("idCita", Integer.parseInt(txt_idCita.getText().toString()));
-                    jsonObject.put("fechaCita", datosCita.getFechaCita());
-                    jsonObject.put("horaCita", datosCita.getHoraCita());
-                    jsonObject.put("comentarioCita", txt_Comentario.getText().toString());
-                    jsonObject.put("estadoCita", datosCita.getEstado());
-                    jsonObject.put("calificadaCita", 1);
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("idCita", Integer.parseInt(txt_idCita.getText().toString()));
+                        jsonObject.put("fechaCita", datosCita.getFechaCita());
+                        jsonObject.put("horaCita", datosCita.getHoraCita());
+                        jsonObject.put("comentarioCita", txt_Comentario.getText().toString());
+                        jsonObject.put("estadoCita", datosCita.getEstado());
+                        jsonObject.put("calificadaCita", 1);
 
-                    JSONObject jsonObjectUsuario = new JSONObject();
-                    jsonObjectUsuario.put("idUsuario", datosCita.getUsuarios_registro().getIdUser());
+                        JSONObject jsonObjectUsuario = new JSONObject();
+                        jsonObjectUsuario.put("idUsuario", datosCita.getUsuarios_registro().getIdUser());
 
-                    jsonObject.put("usuario", jsonObjectUsuario);
-                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+                        jsonObject.put("usuario", jsonObjectUsuario);
+                        //Log.i("peluqueria", jsonObjectPeluqueria.toString());
 
-                    JSONObject jsonObjectServicio = new JSONObject();
-                    jsonObjectServicio.put("idServicio", datosCita.getLista_servicios().get(0).getIdServicio().getIdServicio());
-                    JSONArray objJsonservicios = new JSONArray();
-                    objJsonservicios.put(jsonObjectServicio);
-                    jsonObject.put("servicios", objJsonservicios);
+                        JSONObject jsonObjectServicio = new JSONObject();
+                        jsonObjectServicio.put("idServicio", datosCita.getLista_servicios().get(0).getIdServicio().getIdServicio());
+                        JSONArray objJsonservicios = new JSONArray();
+                        objJsonservicios.put(jsonObjectServicio);
+                        jsonObject.put("servicios", objJsonservicios);
 
-                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    httpURLConnection.setRequestMethod("PUT");
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.setRequestMethod("PUT");
 
-                    httpURLConnection.connect();
-                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                    dataOutputStream.writeBytes(jsonObject.toString());
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+                        httpURLConnection.connect();
+                        DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        dataOutputStream.writeBytes(jsonObject.toString());
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
 
-                    String response = "";
-                    String line = "";
+                        String response = "";
+                        String line = "";
 
-                    while ((line = br.readLine()) != null) {
-                        response += line;
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+
+                        analyseResponse(response);
+                        httpURLConnection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    analyseResponse(response);
-                    httpURLConnection.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
-
+            });
+        }
     }
 
     void analyseResponse(String response){

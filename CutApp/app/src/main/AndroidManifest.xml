@@ -20,7 +20,7 @@
         <activity android:name=".App.Citas.Citas_Admin_MisCitasActivity" />
         <activity android:name=".App.Citas.Citas_Cliente_DetalleCitaActivity" />
         <activity android:name=".App.Citas.Citas_Cliente_MisCitasActivity" />
-        <activity android:name=".Utilitarios.Utilitarios_SplashActivity">
+        <activity android:name=".Utilitarios.General.SplashActivity">
 
             <!-- Splash animacion introductoria -->
             <intent-filter>

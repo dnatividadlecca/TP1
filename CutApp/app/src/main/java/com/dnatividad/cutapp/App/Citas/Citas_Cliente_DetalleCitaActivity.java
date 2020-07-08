@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +82,8 @@ public class Citas_Cliente_DetalleCitaActivity extends AppCompatActivity impleme
         txt_nombreServicio = (TextView)findViewById(R.id.txt_nombreServicio);
         txt_costoServicio = (TextView)findViewById(R.id.txt_costoServicio);
         txt_estado = (TextView)findViewById(R.id.txt_estado);
+        ImageButton btnLlamada = (ImageButton) findViewById(R.id.imgLlamada);
+        btnLlamada.setBackgroundResource(0);
 
         String datos_idCita = getIntent().getStringExtra("idCita");
         String datos_idServicio = getIntent().getStringExtra("idServicio");

@@ -35,6 +35,7 @@ import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
 import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
 import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Utilitarios.General.ManejoErrores;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONObject;
@@ -57,6 +58,7 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
     //Request codes para la camara
     private static final int REQUEST_IMAGE = 100;
     private static final int REQUEST_IMAGE_CAMERA = 101;
+    private Bitmap fotografiaOriginal;
 
     //declaro mi variable fotoEnBase64 que almacenara el codigo
     String fotoEnBase64 ="";
@@ -67,6 +69,10 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setUrlOrigin();
         setContentView(R.layout.activity_servicios_admin_registrar_servicio);
+
+        fotografia = (ImageView) findViewById(R.id.imgfotoServicio);
+
+        fotografiaOriginal =((BitmapDrawable) fotografia.getDrawable()).getBitmap();
     }
 
     private void setUrlOrigin() {
@@ -99,58 +105,93 @@ public class Servicios_Admin_RegistrarServicioActivity extends AppCompatActivity
         insertData();
     }
 
-    void insertData(){
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(urlOrigin + "/servicios/registrar");
+    private boolean hayErrores() {
+        ManejoErrores manejoErrores = new ManejoErrores();
+        String errores = "";
+        String saltolinea = "\n";
+        if(reg_nombreServicio.getText().toString().equals("")){
+            errores += "Falta ingresar su el nombre del servicio" + saltolinea;
+        }
 
-                    JSONObject jsonObject = new JSONObject();
-                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+        if(reg_descripcionServicio.getText().toString().equals("")){
+            errores += "Falta ingresar la descrición del servicio" + saltolinea;
+        }
 
-                    jsonObject.put("nombreServicio", reg_nombreServicio.getText().toString());
-                    //Log.i("nombreServicio", reg_nombreServicio.getText().toString());
-                    jsonObject.put("descripcionServicio", reg_descripcionServicio.getText().toString());
-                    //Log.i("descripcionServicio", reg_descripcionServicio.getText().toString());
-                    jsonObject.put("costoServicio", reg_costoServicio.getText().toString());
-                    //Log.i("costoServicio", reg_costoServicio.getText().toString());
-                    jsonObject.put("fotoServicio", fotoEnBase64);
-                    //Log.i("fotoServicio", fotoEnBase64);
-
-                    JSONObject jsonObjectPeluqueria = new JSONObject();
-                    jsonObjectPeluqueria.put("idPeluqueria", "1");
-
-                    jsonObject.put("peluqueria", jsonObjectPeluqueria);
-                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
-
-                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                    httpURLConnection.setRequestProperty("Accept", "application/json");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    httpURLConnection.connect();
-                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                    dataOutputStream.writeBytes(jsonObject.toString());
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-
-                    String response = "";
-                    String line = "";
-
-                    while ((line = br.readLine()) != null) {
-                        response += line;
-                    }
-
-                    analyseResponse(response);
-                    httpURLConnection.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        if(reg_costoServicio.getText().toString().equals("")){
+            errores += "Falta ingresar el costo del servicio" + saltolinea;
+        }else{
+            if(Double.parseDouble(reg_costoServicio.getText().toString()) == 0){
+                errores += "El costo no puede ser cero" + saltolinea;
             }
-        });
+        }
+
+        Bitmap fotografiaNueva = ((BitmapDrawable) fotografia.getDrawable()).getBitmap();
+        if(fotografiaNueva == fotografiaOriginal){
+            errores += "Falta ingresar la imagen del servicio" + saltolinea;
+        }
+
+        //Log.i("errores",errores);
+        if(errores.equals("")) return false;
+        else{
+            manejoErrores.MostrarError(this,errores);
+            return true;
+        }
+    }
+
+    void insertData(){
+        if(!hayErrores()){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(urlOrigin + "/servicios/registrar");
+
+                        JSONObject jsonObject = new JSONObject();
+                        //jsonObject.put("id", getIntent().getStringExtra("id"));
+
+                        jsonObject.put("nombreServicio", reg_nombreServicio.getText().toString());
+                        //Log.i("nombreServicio", reg_nombreServicio.getText().toString());
+                        jsonObject.put("descripcionServicio", reg_descripcionServicio.getText().toString());
+                        //Log.i("descripcionServicio", reg_descripcionServicio.getText().toString());
+                        jsonObject.put("costoServicio", reg_costoServicio.getText().toString());
+                        //Log.i("costoServicio", reg_costoServicio.getText().toString());
+                        jsonObject.put("fotoServicio", fotoEnBase64);
+                        //Log.i("fotoServicio", fotoEnBase64);
+
+                        JSONObject jsonObjectPeluqueria = new JSONObject();
+                        jsonObjectPeluqueria.put("idPeluqueria", "1");
+
+                        jsonObject.put("peluqueria", jsonObjectPeluqueria);
+                        //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                        httpURLConnection.setRequestMethod("POST");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.connect();
+                        DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        dataOutputStream.writeBytes(jsonObject.toString());
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+
+                        String response = "";
+                        String line = "";
+
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+
+                        analyseResponse(response);
+                        httpURLConnection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     void analyseResponse(String response){

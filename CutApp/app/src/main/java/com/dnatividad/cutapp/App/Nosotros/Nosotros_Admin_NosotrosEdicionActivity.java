@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
 import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_MisServiciosActivity;
 import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
 import com.dnatividad.cutapp.Utilitarios.Entidades.Peluqueria;
+import com.dnatividad.cutapp.Utilitarios.General.ManejoErrores;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONException;
@@ -40,6 +43,8 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalTime;
 
 public class Nosotros_Admin_NosotrosEdicionActivity extends AppCompatActivity {
     TextView lbl_idPeluqueria, lbl_latitud, lbl_longitud, txt_nombrePeluqueria, txt_descripcionPeluqueria, txt_direccionPeluqueria, txt_telefonoPeluqueria;
@@ -247,67 +252,102 @@ public class Nosotros_Admin_NosotrosEdicionActivity extends AppCompatActivity {
         final String finalHoraInicio = horaInicio;
         final String finalHoraFin = horaFin;
 
-        AsyncTask.execute(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(urlOrigin + "/peluquerias/actualizar");
+        if(!hayErrores()){
+            AsyncTask.execute(new Runnable() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(urlOrigin + "/peluquerias/actualizar");
 
-                    JSONObject jsonObject = new JSONObject();
-                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+                        JSONObject jsonObject = new JSONObject();
+                        //jsonObject.put("id", getIntent().getStringExtra("id"));
 
-                    jsonObject.put("idPeluqueria", lbl_idPeluqueria.getText().toString());
-                    //Log.i("idPeluqueria", lbl_idPeluqueria.getText().toString());
-                    jsonObject.put("nombrePeluqueria", txt_nombrePeluqueria.getText().toString());
-                    //Log.i("nombrePeluqueria", txt_nombrePeluqueria.getText().toString());
-                    jsonObject.put("direccionPeluqueria", txt_direccionPeluqueria.getText().toString());
-                    //Log.i("direccionPeluqueria", txt_direccionPeluqueria.getText().toString());
-                    jsonObject.put("telfPeluqueria", txt_telefonoPeluqueria.getText().toString());
-                    //Log.i("telfPeluqueria", txt_telefonoPeluqueria.getText().toString());
-                    jsonObject.put("descripcion", txt_descripcionPeluqueria.getText().toString());
-                    //Log.i("descripcion", txt_descripcionPeluqueria.getText().toString());
-                    jsonObject.put("latitud", lbl_latitud.getText().toString());
-                    //Log.i("latitud", lbl_latitud.getText().toString());
-                    jsonObject.put("longitud", lbl_longitud.getText().toString());
-                    //Log.i("longitud", lbl_longitud.getText().toString());
-                    jsonObject.put("horaInicioPeluqueria", finalHoraInicio);
-                    //Log.i("horaInicioPeluqueria", horaInicio);
-                    jsonObject.put("horaFinPeluqueria", finalHoraFin);
-                    //Log.i("horaFinPeluqueria", finalHoraFin);
+                        jsonObject.put("idPeluqueria", lbl_idPeluqueria.getText().toString());
+                        //Log.i("idPeluqueria", lbl_idPeluqueria.getText().toString());
+                        jsonObject.put("nombrePeluqueria", txt_nombrePeluqueria.getText().toString());
+                        //Log.i("nombrePeluqueria", txt_nombrePeluqueria.getText().toString());
+                        jsonObject.put("direccionPeluqueria", txt_direccionPeluqueria.getText().toString());
+                        //Log.i("direccionPeluqueria", txt_direccionPeluqueria.getText().toString());
+                        jsonObject.put("telfPeluqueria", txt_telefonoPeluqueria.getText().toString());
+                        //Log.i("telfPeluqueria", txt_telefonoPeluqueria.getText().toString());
+                        jsonObject.put("descripcion", txt_descripcionPeluqueria.getText().toString());
+                        //Log.i("descripcion", txt_descripcionPeluqueria.getText().toString());
+                        jsonObject.put("latitud", lbl_latitud.getText().toString());
+                        //Log.i("latitud", lbl_latitud.getText().toString());
+                        jsonObject.put("longitud", lbl_longitud.getText().toString());
+                        //Log.i("longitud", lbl_longitud.getText().toString());
+                        jsonObject.put("horaInicioPeluqueria", finalHoraInicio);
+                        //Log.i("horaInicioPeluqueria", horaInicio);
+                        jsonObject.put("horaFinPeluqueria", finalHoraFin);
+                        //Log.i("horaFinPeluqueria", finalHoraFin);
 
-                    //endregion
+                        //endregion
 
-                    //region hora fin
-                    //endregion
+                        //region hora fin
+                        //endregion
 
-                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    httpURLConnection.setRequestMethod("PUT");
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.setRequestMethod("PUT");
 
-                    httpURLConnection.connect();
-                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                    dataOutputStream.writeBytes(jsonObject.toString());
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+                        httpURLConnection.connect();
+                        DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        dataOutputStream.writeBytes(jsonObject.toString());
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
 
-                    String response = "";
-                    String line = "";
+                        String response = "";
+                        String line = "";
 
-                    while ((line = br.readLine()) != null) {
-                        response += line;
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+
+                        analyseResponse(response);
+                        httpURLConnection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    analyseResponse(response);
-                    httpURLConnection.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
+    }
+
+     private boolean hayErrores() {
+        ManejoErrores manejoErrores = new ManejoErrores();
+        String errores = "";
+        String saltolinea = "\n";
+        if(txt_nombrePeluqueria.getText().toString().equals("")){
+            errores += "Falta ingresar su el nombre de la peluquería" + saltolinea;
+        }
+
+        if(txt_direccionPeluqueria.getText().toString().equals("")){
+            errores += "Falta ingresar la dirección" + saltolinea;
+        }
+
+        if(txt_telefonoPeluqueria.getText().toString().equals("")){
+            errores += "Falta ingresar el teléfono" + saltolinea;
+        }
+
+        if(txt_descripcionPeluqueria.getText().toString().equals("")){
+            errores += "Falta ingresar la descrición" + saltolinea;
+        }
+
+        //LocalTime horaInicio = LocalTime.parse( String.valueOf(tp_horarioAtencionInicioPeluqueria.getHour()) + ':' + String.valueOf(tp_horarioAtencionInicioPeluqueria.getMinute())) ;
+        //LocalTime horaFin = LocalTime.parse( String.valueOf(tp_horarioAtencionFinPeluqueria.getHour()) + ':' + String.valueOf(tp_horarioAtencionFinPeluqueria.getMinute())) ;
+        //if(Duration.between( horaInicio , horaFin ).isNegative())
+            //errores += "La hora de Inicio no puede ser mayor a la hora de Fin" + saltolinea;
+
+        //Log.i("errores",errores);
+        if(errores.equals("")) return false;
+        else{
+            manejoErrores.MostrarError(this,errores);
+            return true;
+        }
     }
 
     void analyseResponse(String response){

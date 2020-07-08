@@ -25,6 +25,7 @@ import com.dnatividad.cutapp.App.Citas.Citas_Cliente_ListadoServiciosSeleccionar
 import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
 import com.dnatividad.cutapp.App.Servicios.Servicios_Admin_RegistrarServicioActivity;
+import com.dnatividad.cutapp.Utilitarios.General.ManejoErrores;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONObject;
@@ -65,71 +66,102 @@ public class Seguridad_RegistrarUsuarioActivity extends AppCompatActivity {
         reg_password = findViewById(R.id.txt_contrasenaUsuario);
     }
 
-    private void setValues() {
-        reg_nombreUsuario.setText(Integer.toString(getIntent().getIntExtra("nombreUsuario",0)));
-        reg_apellidoMaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoMaterno",0)));
-        reg_apellidoPaterno.setText(Integer.toString(getIntent().getIntExtra("apellidoPaterno",0)));
-        reg_telefono.setText(Integer.toString(getIntent().getIntExtra("telefono",0)));
-        reg_correoUsuario.setText(Integer.toString(getIntent().getIntExtra("correoUsuario",0)));
-        reg_password.setText(Integer.toString(getIntent().getIntExtra("password",0)));
-    }
-
     public void Reg_usuario(View v){
-         updateData();
+        insertData();
     }
 
-    void updateData(){
+    void insertData(){
         setReferences();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(urlOrigin + "/usuarios/registrar");
 
-                    JSONObject jsonObject = new JSONObject();
-                    //jsonObject.put("id", getIntent().getStringExtra("id"));
+        Log.i("hayErrores", "se llama hayErrores");
+        if(!hayErrores()){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(urlOrigin + "/usuarios/registrar");
 
-                    jsonObject.put("nombreUsuario", reg_nombreUsuario.getText().toString());
-                    //Log.i("nombreUsuario", reg_nombreUsuario.getText().toString());
-                    jsonObject.put("apellidoMaterno", reg_apellidoMaterno.getText().toString());
-                    //Log.i("apellidoMaterno", reg_apellidoMaterno.getText().toString());
-                    jsonObject.put("apellidoPaterno", reg_apellidoPaterno.getText().toString());
-                    //Log.i("apellidoPaterno", reg_apellidoPaterno.getText().toString());
-                    jsonObject.put("telefono", reg_telefono.getText().toString());
-                    //Log.i("telefono", reg_telefono.getText().toString());
-                    jsonObject.put("rolUsuario", "0");
-                    jsonObject.put("correoUsuario", reg_correoUsuario.getText().toString());
-                    //Log.i("correoUsuario", reg_correoUsuario.getText().toString());
-                    jsonObject.put("password", reg_password.getText().toString());
-                    //Log.i("password", reg_password.getText().toString());
+                        JSONObject jsonObject = new JSONObject();
+                        //jsonObject.put("id", getIntent().getStringExtra("id"));
 
-                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json");
-                    httpURLConnection.setRequestProperty("Accept", "application/json");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    httpURLConnection.connect();
-                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                    dataOutputStream.writeBytes(jsonObject.toString());
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                        jsonObject.put("nombreUsuario", reg_nombreUsuario.getText().toString());
+                        //Log.i("nombreUsuario", reg_nombreUsuario.getText().toString());
+                        jsonObject.put("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                        //Log.i("apellidoMaterno", reg_apellidoMaterno.getText().toString());
+                        jsonObject.put("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                        //Log.i("apellidoPaterno", reg_apellidoPaterno.getText().toString());
+                        jsonObject.put("telefono", reg_telefono.getText().toString());
+                        //Log.i("telefono", reg_telefono.getText().toString());
+                        jsonObject.put("rolUsuario", "0");
+                        jsonObject.put("correoUsuario", reg_correoUsuario.getText().toString());
+                        //Log.i("correoUsuario", reg_correoUsuario.getText().toString());
+                        jsonObject.put("password", reg_password.getText().toString());
+                        //Log.i("password", reg_password.getText().toString());
 
-                    String response = "";
-                    String line = "";
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                        httpURLConnection.setRequestMethod("POST");
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.setRequestProperty("Accept", "application/json");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.connect();
+                        DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        dataOutputStream.writeBytes(jsonObject.toString());
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
 
-                    while ((line = br.readLine()) != null) {
-                        response += line;
+                        String response = "";
+                        String line = "";
+
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+
+                        analyseResponse(response);
+                        httpURLConnection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    analyseResponse(response);
-                    httpURLConnection.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
+    }
+
+    private boolean hayErrores() {
+        ManejoErrores manejoErrores = new ManejoErrores();
+        String errores = "";
+        String saltolinea = "\n";
+        if(reg_nombreUsuario.getText().toString().equals("")){
+            errores += "Falta ingresar su nombre" + saltolinea;
+        }
+
+        if(reg_apellidoPaterno.getText().toString().equals("")){
+            errores += "Falta ingresar su apellido paterno" + saltolinea;
+        }
+
+        if(reg_apellidoMaterno.getText().toString().equals("")){
+            errores += "Falta ingresar su apellido materno" + saltolinea;
+        }
+
+        if(reg_telefono.getText().toString().equals("")){
+            errores += "Falta ingresar su teléfono" + saltolinea;
+        }
+
+        if(reg_correoUsuario.getText().toString().equals("")){
+            errores += "Falta ingresar su correo" + saltolinea;
+        }
+
+        if(reg_password.getText().toString().equals("")){
+            errores += "Falta ingresar su contraseña" + saltolinea;
+        }
+
+        //Log.i("errores",errores);
+        if(errores.equals("")) return false;
+        else{
+            manejoErrores.MostrarError(this,errores);
+            return true;
+        }
     }
 
     void analyseResponse(String response){

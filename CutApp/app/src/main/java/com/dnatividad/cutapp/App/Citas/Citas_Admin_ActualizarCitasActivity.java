@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -97,6 +98,9 @@ public class Citas_Admin_ActualizarCitasActivity extends AppCompatActivity {
         nombreUsuario = (TextView)findViewById(R.id.act_nombreUsuario);
         nombreServicio = (TextView)findViewById(R.id.act_nombreServicio);
         estadoCita = (TextView)findViewById(R.id.act_estado);
+
+        ImageButton btnLlamada = (ImageButton) findViewById(R.id.imgLlamada);
+        btnLlamada.setBackgroundResource(0);
 
         String datos_fotoServicio = getIntent().getStringExtra("fotoServicio");
         String datos_idCita = getIntent().getStringExtra("idCita");

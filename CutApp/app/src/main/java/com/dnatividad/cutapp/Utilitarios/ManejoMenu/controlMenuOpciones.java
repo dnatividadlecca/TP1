@@ -36,7 +36,7 @@ public class controlMenuOpciones {
                         item.setVisible(false);
 
                         item = menu.findItem(R.id.item_reporteCitas);
-                        item.setVisible(false);
+                        item.setVisible(true);
 
                         item = menu.findItem(R.id.item_citasPorCalificar);
                         item.setVisible(false);

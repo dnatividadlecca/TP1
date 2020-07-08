@@ -163,6 +163,8 @@
     <string name="act_servicio_btn_anular">Eliminar Servicio </string>
 
     <string name="lbl_confirmacion_cerrar_sesion">¿Está seguro de cerrar la sesión?</string>
+    <string name="lbl_confirmacion_registrar_cita">¿Está seguro de registrar la cita?</string>
+    <string name="lbl_confirmacion_eliminar_servicio">¿Está seguro de eliminar el servicio?</string>
     <string name="lbl_confirmacion_anular_cita">¿Está seguro de anular la cita?</string>
     <string name="lbl_confirmacion_si">Sí</string>
     <string name="lbl_confirmacion_no">No</string>

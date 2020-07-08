@@ -89,7 +89,23 @@ public class Citas_Cliente_RegistrarCitaActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void Reg_Citas(View v){
-        insertData();
+        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        insertData();;
+
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lbl_confirmacion_registrar_cita).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

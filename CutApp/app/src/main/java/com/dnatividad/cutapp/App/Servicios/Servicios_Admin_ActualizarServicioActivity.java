@@ -34,6 +34,7 @@ import com.dnatividad.cutapp.App.Nosotros.Nosotros_Cliente_NosotrosActivity;
 import com.dnatividad.cutapp.R;
 import com.dnatividad.cutapp.App.Seguridad.Seguridad_LoginActivity;
 import com.dnatividad.cutapp.App.Seguridad.Seguridad_RegistrarUsuarioActivity;
+import com.dnatividad.cutapp.Utilitarios.General.ManejoErrores;
 import com.dnatividad.cutapp.Utilitarios.ManejoMenu.controlMenuOpciones;
 
 import org.json.JSONObject;
@@ -105,7 +106,50 @@ public class Servicios_Admin_ActualizarServicioActivity extends AppCompatActivit
     }
 
     public void AnularProducto(View v){
-        deleteData();
+        DialogInterface.OnClickListener confirmacion = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        deleteData();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.lbl_confirmacion_eliminar_servicio).setPositiveButton(R.string.lbl_confirmacion_si, confirmacion)
+                .setNegativeButton(R.string.lbl_confirmacion_no, confirmacion).show();
+    }
+
+    private boolean hayErrores() {
+        ManejoErrores manejoErrores = new ManejoErrores();
+        String errores = "";
+        String saltolinea = "\n";
+        if(txt_nombreServicio.getText().toString().equals("")){
+            errores += "Falta ingresar su el nombre del servicio" + saltolinea;
+        }
+
+        if(txt_descripcionServicio.getText().toString().equals("")){
+            errores += "Falta ingresar la descrición del servicio" + saltolinea;
+        }
+
+        if(txt_costoServicio.getText().toString().equals("")){
+            errores += "Falta ingresar el costo del servicio" + saltolinea;
+        }else{
+            if(Double.parseDouble(txt_costoServicio.getText().toString()) == 0){
+                errores += "El costo no puede ser cero" + saltolinea;
+            }
+        }
+
+        //Log.i("errores",errores);
+        if(errores.equals("")) return false;
+        else{
+            manejoErrores.MostrarError(this,errores);
+            return true;
+        }
     }
 
     void updateData(){
@@ -125,57 +169,59 @@ public class Servicios_Admin_ActualizarServicioActivity extends AppCompatActivit
         txt_descripcionServicio = (EditText)findViewById(R.id.act_servicio_descripcionServicio);
         txt_costoServicio = (EditText)findViewById(R.id.act_servicio_costoServicio);
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(urlOrigin + "/servicios/actualizar");
+        if(!hayErrores()){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(urlOrigin + "/servicios/actualizar");
 
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("idServicio", Integer.parseInt(txt_idServicio.getText().toString()));
-                    //Log.i("idServicio", txt_idServicio.getText().toString());
-                    jsonObject.put("nombreServicio", txt_nombreServicio.getText().toString());
-                    //Log.i("nombreServicio", txt_nombreServicio.getText().toString());
-                    jsonObject.put("descripcionServicio", txt_descripcionServicio.getText().toString());
-                    //Log.i("descripcionServicio", txt_descripcionServicio.getText().toString());
-                    jsonObject.put("costoServicio", txt_costoServicio.getText().toString());
-                    //Log.i("costoServicio", txt_costoServicio.getText().toString());
-                    jsonObject.put("fotoServicio", fotoEnBase64);
-                    Log.i("fotoServicio", fotoEnBase64);
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("idServicio", Integer.parseInt(txt_idServicio.getText().toString()));
+                        //Log.i("idServicio", txt_idServicio.getText().toString());
+                        jsonObject.put("nombreServicio", txt_nombreServicio.getText().toString());
+                        //Log.i("nombreServicio", txt_nombreServicio.getText().toString());
+                        jsonObject.put("descripcionServicio", txt_descripcionServicio.getText().toString());
+                        //Log.i("descripcionServicio", txt_descripcionServicio.getText().toString());
+                        jsonObject.put("costoServicio", txt_costoServicio.getText().toString());
+                        //Log.i("costoServicio", txt_costoServicio.getText().toString());
+                        jsonObject.put("fotoServicio", fotoEnBase64);
+                        Log.i("fotoServicio", fotoEnBase64);
 
-                    JSONObject jsonObjectPeluqueria = new JSONObject();
-                    jsonObjectPeluqueria.put("idPeluqueria", "1");
+                        JSONObject jsonObjectPeluqueria = new JSONObject();
+                        jsonObjectPeluqueria.put("idPeluqueria", "1");
 
-                    jsonObject.put("peluqueria", jsonObjectPeluqueria);
-                    //Log.i("peluqueria", jsonObjectPeluqueria.toString());
+                        jsonObject.put("peluqueria", jsonObjectPeluqueria);
+                        //Log.i("peluqueria", jsonObjectPeluqueria.toString());
 
-                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                    httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    httpURLConnection.setRequestMethod("PUT");
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                        httpURLConnection.setDoOutput(true);
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.setRequestMethod("PUT");
 
-                    httpURLConnection.connect();
-                    DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                    dataOutputStream.writeBytes(jsonObject.toString());
-                    dataOutputStream.flush();
-                    dataOutputStream.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+                        httpURLConnection.connect();
+                        DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                        dataOutputStream.writeBytes(jsonObject.toString());
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
 
-                    String response = "";
-                    String line = "";
+                        String response = "";
+                        String line = "";
 
-                    while ((line = br.readLine()) != null) {
-                        response += line;
+                        while ((line = br.readLine()) != null) {
+                            response += line;
+                        }
+
+                        analyseResponse(response);
+                        httpURLConnection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    analyseResponse(response);
-                    httpURLConnection.disconnect();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
     }
 
     void deleteData(){
